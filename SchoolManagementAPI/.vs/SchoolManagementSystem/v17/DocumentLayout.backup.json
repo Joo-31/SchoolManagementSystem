@@ -1,0 +1,1286 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7BAF9E65-DECE-FADB-B234-7641161B304A}|..\\SchoolManagementAPI.Tests\\SchoolManagementAPI.Tests.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi.tests\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7BAF9E65-DECE-FADB-B234-7641161B304A}|..\\SchoolManagementAPI.Tests\\SchoolManagementAPI.Tests.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi.tests\\schoolmanagementapi.tests.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DCDE1606-98BA-1C26-EC05-96835B1DF28C}|..\\SchoolManagementSystem\\SchoolManagementSystem.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementsystem\\schoolmanagementsystem.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\schoolmanagementapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:schoolmanagementapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\controllers\\attendancescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:controllers\\attendancescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\controllers\\gradescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:controllers\\gradescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\controllers\\classescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:controllers\\classescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\controllers\\coursescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:controllers\\coursescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\controllers\\teacherscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:controllers\\teacherscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\controllers\\studentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:controllers\\studentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\services\\studentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:services\\studentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\services\\interfaces\\istudentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:services\\interfaces\\istudentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\repositories\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:repositories\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\repositories\\interfaces\\istudentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:repositories\\interfaces\\istudentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\services\\attendanceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:services\\attendanceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\services\\interfaces\\iattendanceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:services\\interfaces\\iattendanceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\services\\gradeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:services\\gradeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\services\\interfaces\\igradeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:services\\interfaces\\igradeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\services\\classservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:services\\classservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\services\\interfaces\\iclassservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:services\\interfaces\\iclassservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\services\\courseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:services\\courseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\services\\interfaces\\icourseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:services\\interfaces\\icourseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\services\\teacherservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:services\\teacherservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\services\\interfaces\\iteacherservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:services\\interfaces\\iteacherservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\repositories\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:repositories\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\repositories\\interfaces\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:repositories\\interfaces\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\dtos\\requests\\paginationparams.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:dtos\\requests\\paginationparams.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\dtos\\responses\\pagedresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:dtos\\responses\\pagedresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\mappings\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:mappings\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\dtos\\requests\\updateattendancedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:dtos\\requests\\updateattendancedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\dtos\\requests\\createattendancedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:dtos\\requests\\createattendancedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\dtos\\responses\\attendancedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:dtos\\responses\\attendancedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\dtos\\requests\\updategradedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:dtos\\requests\\updategradedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\dtos\\requests\\creategradedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:dtos\\requests\\creategradedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\dtos\\responses\\gradedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:dtos\\responses\\gradedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\dtos\\requests\\updateclassdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:dtos\\requests\\updateclassdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\dtos\\requests\\createclassdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:dtos\\requests\\createclassdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\dtos\\responses\\classdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:dtos\\responses\\classdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\dtos\\requests\\updatecoursedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:dtos\\requests\\updatecoursedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\dtos\\requests\\createcoursedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:dtos\\requests\\createcoursedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\dtos\\responses\\coursedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:dtos\\responses\\coursedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\dtos\\requests\\updateteacherdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:dtos\\requests\\updateteacherdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\dtos\\requests\\createteacherdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:dtos\\requests\\createteacherdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\dtos\\responses\\teacherdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:dtos\\responses\\teacherdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\dtos\\requests\\updatestudentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:dtos\\requests\\updatestudentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\dtos\\requests\\createstudentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:dtos\\requests\\createstudentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\dtos\\responses\\studentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:dtos\\responses\\studentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\middlewares\\exceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:middlewares\\exceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\models\\responses\\errorresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:models\\responses\\errorresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\repositories\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:repositories\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\repositories\\interfaces\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:repositories\\interfaces\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\repositories\\attendancerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:repositories\\attendancerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\repositories\\interfaces\\iattendancerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:repositories\\interfaces\\iattendancerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\repositories\\graderepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:repositories\\graderepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\repositories\\interfaces\\igraderepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:repositories\\interfaces\\igraderepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\repositories\\classrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:repositories\\classrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\repositories\\interfaces\\iclassrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:repositories\\interfaces\\iclassrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\repositories\\courserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:repositories\\courserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\repositories\\interfaces\\icourserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:repositories\\interfaces\\icourserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\repositories\\teacherrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:repositories\\teacherrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\repositories\\interfaces\\iteacherrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:repositories\\interfaces\\iteacherrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\services\\interfaces\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:services\\interfaces\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\migrations\\20260915120819_adduserstable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:migrations\\20260915120819_adduserstable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\database\\schooldbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:database\\schooldbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\models\\attendance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:models\\attendance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\models\\class.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:models\\class.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\models\\course.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:models\\course.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\models\\grade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:models\\grade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|c:\\users\\joo315\\onedrive\\desktop\\schoolmanagementapi\\models\\teacher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32BCDFD5-0D03-6C7D-3EEB-955A9478775A}|SchoolManagementAPI.csproj|solutionrelative:models\\teacher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "docker-compose.yml",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\docker-compose.yml",
+              "RelativeDocumentMoniker": "docker-compose.yml",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\docker-compose.yml",
+              "RelativeToolTip": "docker-compose.yml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
+              "WhenOpened": "2026-09-20T13:15:17.062Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Dockerfile",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Dockerfile",
+              "RelativeDocumentMoniker": "Dockerfile",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Dockerfile",
+              "RelativeToolTip": "Dockerfile",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-09-20T13:09:26.433Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UnitTest1.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI.Tests\\UnitTest1.cs",
+              "RelativeDocumentMoniker": "..\\SchoolManagementAPI.Tests\\UnitTest1.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI.Tests\\UnitTest1.cs",
+              "RelativeToolTip": "..\\SchoolManagementAPI.Tests\\UnitTest1.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAYwEQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-19T12:25:51.065Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SchoolManagementSystem.csproj",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementSystem\\SchoolManagementSystem.csproj",
+              "RelativeDocumentMoniker": "..\\SchoolManagementSystem\\SchoolManagementSystem.csproj",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementSystem\\SchoolManagementSystem.csproj",
+              "RelativeToolTip": "..\\SchoolManagementSystem\\SchoolManagementSystem.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-09-19T12:18:56.677Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ClassesController.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Controllers\\ClassesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ClassesController.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Controllers\\ClassesController.cs",
+              "RelativeToolTip": "Controllers\\ClassesController.cs",
+              "ViewState": "AgIAAJEAAAAAAAAAAAAowKoAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-15T11:40:12.296Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAQwEMAAABaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-15T11:43:19.897Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAswB8AAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-09-15T11:57:08.34Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SchoolManagementAPI.Tests.csproj",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI.Tests\\SchoolManagementAPI.Tests.csproj",
+              "RelativeDocumentMoniker": "..\\SchoolManagementAPI.Tests\\SchoolManagementAPI.Tests.csproj",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI.Tests\\SchoolManagementAPI.Tests.csproj",
+              "RelativeToolTip": "..\\SchoolManagementAPI.Tests\\SchoolManagementAPI.Tests.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-09-19T12:25:02.829Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "GradesController.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Controllers\\GradesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\GradesController.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Controllers\\GradesController.cs",
+              "RelativeToolTip": "Controllers\\GradesController.cs",
+              "ViewState": "AgIAAJcAAAAAAAAAAAAswKgAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-15T11:40:57.649Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AttendancesController.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Controllers\\AttendancesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AttendancesController.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Controllers\\AttendancesController.cs",
+              "RelativeToolTip": "Controllers\\AttendancesController.cs",
+              "ViewState": "AgIAAKkAAAAAAAAAAAAYwL8AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-15T11:41:26.058Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SchoolManagementAPI.csproj",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\SchoolManagementAPI.csproj",
+              "RelativeDocumentMoniker": "SchoolManagementAPI.csproj",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\SchoolManagementAPI.csproj",
+              "RelativeToolTip": "SchoolManagementAPI.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-09-19T09:50:27.22Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CoursesController.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Controllers\\CoursesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CoursesController.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Controllers\\CoursesController.cs",
+              "RelativeToolTip": "Controllers\\CoursesController.cs",
+              "ViewState": "AgIAAIUAAAAAAAAAAAAgwLEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-14T17:24:49.696Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "TeachersController.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Controllers\\TeachersController.cs",
+              "RelativeDocumentMoniker": "Controllers\\TeachersController.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Controllers\\TeachersController.cs",
+              "RelativeToolTip": "Controllers\\TeachersController.cs",
+              "ViewState": "AgIAAKAAAAAAAAAAAAAswLEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-14T11:13:07.932Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "StudentsController.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Controllers\\StudentsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\StudentsController.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Controllers\\StudentsController.cs",
+              "RelativeToolTip": "Controllers\\StudentsController.cs",
+              "ViewState": "AgIAAKkAAAAAAAAAAAAYwNQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-14T10:43:16.559Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "StudentService.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\StudentService.cs",
+              "RelativeDocumentMoniker": "Services\\StudentService.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\StudentService.cs",
+              "RelativeToolTip": "Services\\StudentService.cs",
+              "ViewState": "AgIAAHkAAAAAAAAAAAAuwIYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-14T10:37:00.446Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "IStudentService.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\Interfaces\\IStudentService.cs",
+              "RelativeDocumentMoniker": "Services\\Interfaces\\IStudentService.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\Interfaces\\IStudentService.cs",
+              "RelativeToolTip": "Services\\Interfaces\\IStudentService.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAywB4AAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T10:34:57.154Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "StudentRepository.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\StudentRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\StudentRepository.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\StudentRepository.cs",
+              "RelativeToolTip": "Repositories\\StudentRepository.cs",
+              "ViewState": "AgIAAEQAAAAAAAAAAAAswFIAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T12:05:34.566Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "IStudentRepository.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\Interfaces\\IStudentRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Interfaces\\IStudentRepository.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\Interfaces\\IStudentRepository.cs",
+              "RelativeToolTip": "Repositories\\Interfaces\\IStudentRepository.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAwBAAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T12:04:57.69Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "GradeService.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\GradeService.cs",
+              "RelativeDocumentMoniker": "Services\\GradeService.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\GradeService.cs",
+              "RelativeToolTip": "Services\\GradeService.cs",
+              "ViewState": "AgIAAF4AAAAAAAAAAAAcwGwAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-14T10:37:28.488Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "AttendanceService.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\AttendanceService.cs",
+              "RelativeDocumentMoniker": "Services\\AttendanceService.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\AttendanceService.cs",
+              "RelativeToolTip": "Services\\AttendanceService.cs",
+              "ViewState": "AgIAAGoAAAAAAAAAAAAqwHgAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-14T10:38:20.765Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "IAttendanceService.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\Interfaces\\IAttendanceService.cs",
+              "RelativeDocumentMoniker": "Services\\Interfaces\\IAttendanceService.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\Interfaces\\IAttendanceService.cs",
+              "RelativeToolTip": "Services\\Interfaces\\IAttendanceService.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAcwBsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T11:25:57.38Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "IGradeService.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\Interfaces\\IGradeService.cs",
+              "RelativeDocumentMoniker": "Services\\Interfaces\\IGradeService.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\Interfaces\\IGradeService.cs",
+              "RelativeToolTip": "Services\\Interfaces\\IGradeService.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAA4wBgAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T11:25:32.321Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "ClassService.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\ClassService.cs",
+              "RelativeDocumentMoniker": "Services\\ClassService.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\ClassService.cs",
+              "RelativeToolTip": "Services\\ClassService.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAYwG0AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-14T10:38:12.946Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "IClassService.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\Interfaces\\IClassService.cs",
+              "RelativeDocumentMoniker": "Services\\Interfaces\\IClassService.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\Interfaces\\IClassService.cs",
+              "RelativeToolTip": "Services\\Interfaces\\IClassService.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAADwvxgAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T11:24:59.691Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "CourseService.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\CourseService.cs",
+              "RelativeDocumentMoniker": "Services\\CourseService.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\CourseService.cs",
+              "RelativeToolTip": "Services\\CourseService.cs",
+              "ViewState": "AgIAAGQAAAAAAAAAAAAcwHgAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-14T10:37:38.354Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "ICourseService.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\Interfaces\\ICourseService.cs",
+              "RelativeDocumentMoniker": "Services\\Interfaces\\ICourseService.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\Interfaces\\ICourseService.cs",
+              "RelativeToolTip": "Services\\Interfaces\\ICourseService.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAywBoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T11:24:35.125Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "TeacherService.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\TeacherService.cs",
+              "RelativeDocumentMoniker": "Services\\TeacherService.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\TeacherService.cs",
+              "RelativeToolTip": "Services\\TeacherService.cs",
+              "ViewState": "AgIAAEQAAAAAAAAAAADwv3wAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-14T10:36:49.186Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "ITeacherService.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\Interfaces\\ITeacherService.cs",
+              "RelativeDocumentMoniker": "Services\\Interfaces\\ITeacherService.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\Interfaces\\ITeacherService.cs",
+              "RelativeToolTip": "Services\\Interfaces\\ITeacherService.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAA9wBoAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T11:23:19.746Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "PaginationParams.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\PaginationParams.cs",
+              "RelativeDocumentMoniker": "DTOs\\Requests\\PaginationParams.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\PaginationParams.cs",
+              "RelativeToolTip": "DTOs\\Requests\\PaginationParams.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-19T09:16:03.133Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "PagedResult.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Responses\\PagedResult.cs",
+              "RelativeDocumentMoniker": "DTOs\\Responses\\PagedResult.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Responses\\PagedResult.cs",
+              "RelativeToolTip": "DTOs\\Responses\\PagedResult.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-19T09:15:29.822Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Repository.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\Repository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Repository.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\Repository.cs",
+              "RelativeToolTip": "Repositories\\Repository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T11:59:40.009Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "IRepository.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\Interfaces\\IRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Interfaces\\IRepository.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\Interfaces\\IRepository.cs",
+              "RelativeToolTip": "Repositories\\Interfaces\\IRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T11:59:11.099Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "MappingProfile.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Mappings\\MappingProfile.cs",
+              "RelativeDocumentMoniker": "Mappings\\MappingProfile.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Mappings\\MappingProfile.cs",
+              "RelativeToolTip": "Mappings\\MappingProfile.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAowDMAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T15:44:52.515Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "UpdateAttendanceDto.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\UpdateAttendanceDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\Requests\\UpdateAttendanceDto.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\UpdateAttendanceDto.cs",
+              "RelativeToolTip": "DTOs\\Requests\\UpdateAttendanceDto.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAYwAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T16:18:31.307Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "CreateAttendanceDto.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\CreateAttendanceDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\Requests\\CreateAttendanceDto.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\CreateAttendanceDto.cs",
+              "RelativeToolTip": "DTOs\\Requests\\CreateAttendanceDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T16:18:11.511Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "AttendanceDto.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Responses\\AttendanceDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\Responses\\AttendanceDto.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Responses\\AttendanceDto.cs",
+              "RelativeToolTip": "DTOs\\Responses\\AttendanceDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T16:17:51.573Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "UpdateGradeDto.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\UpdateGradeDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\Requests\\UpdateGradeDto.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\UpdateGradeDto.cs",
+              "RelativeToolTip": "DTOs\\Requests\\UpdateGradeDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T16:15:31.982Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "CreateGradeDto.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\CreateGradeDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\Requests\\CreateGradeDto.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\CreateGradeDto.cs",
+              "RelativeToolTip": "DTOs\\Requests\\CreateGradeDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T16:15:08.164Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "GradeDto.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Responses\\GradeDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\Responses\\GradeDto.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Responses\\GradeDto.cs",
+              "RelativeToolTip": "DTOs\\Responses\\GradeDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T16:14:44.49Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "UpdateClassDto.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\UpdateClassDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\Requests\\UpdateClassDto.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\UpdateClassDto.cs",
+              "RelativeToolTip": "DTOs\\Requests\\UpdateClassDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T16:13:04.667Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "CreateClassDto.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\CreateClassDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\Requests\\CreateClassDto.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\CreateClassDto.cs",
+              "RelativeToolTip": "DTOs\\Requests\\CreateClassDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T16:12:49.312Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "ClassDto.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Responses\\ClassDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\Responses\\ClassDto.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Responses\\ClassDto.cs",
+              "RelativeToolTip": "DTOs\\Responses\\ClassDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T16:12:29.562Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "UpdateCourseDto.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\UpdateCourseDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\Requests\\UpdateCourseDto.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\UpdateCourseDto.cs",
+              "RelativeToolTip": "DTOs\\Requests\\UpdateCourseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T16:11:38.061Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "CreateCourseDto.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\CreateCourseDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\Requests\\CreateCourseDto.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\CreateCourseDto.cs",
+              "RelativeToolTip": "DTOs\\Requests\\CreateCourseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T16:11:24.83Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "CourseDto.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Responses\\CourseDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\Responses\\CourseDto.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Responses\\CourseDto.cs",
+              "RelativeToolTip": "DTOs\\Responses\\CourseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T16:11:10.147Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "UpdateTeacherDto.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\UpdateTeacherDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\Requests\\UpdateTeacherDto.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\UpdateTeacherDto.cs",
+              "RelativeToolTip": "DTOs\\Requests\\UpdateTeacherDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T16:09:38.063Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "CreateTeacherDto.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\CreateTeacherDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\Requests\\CreateTeacherDto.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\CreateTeacherDto.cs",
+              "RelativeToolTip": "DTOs\\Requests\\CreateTeacherDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T16:09:19.534Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "TeacherDto.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Responses\\TeacherDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\Responses\\TeacherDto.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Responses\\TeacherDto.cs",
+              "RelativeToolTip": "DTOs\\Responses\\TeacherDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T16:09:00.58Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "StudentDto.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Responses\\StudentDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\Responses\\StudentDto.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Responses\\StudentDto.cs",
+              "RelativeToolTip": "DTOs\\Responses\\StudentDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T15:39:16.805Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "CreateStudentDto.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\CreateStudentDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\Requests\\CreateStudentDto.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\CreateStudentDto.cs",
+              "RelativeToolTip": "DTOs\\Requests\\CreateStudentDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T15:39:39.368Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "UpdateStudentDto.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\UpdateStudentDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\Requests\\UpdateStudentDto.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\DTOs\\Requests\\UpdateStudentDto.cs",
+              "RelativeToolTip": "DTOs\\Requests\\UpdateStudentDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T15:39:59.654Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 51,
+              "Title": "Student.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Models\\Student.cs",
+              "RelativeDocumentMoniker": "Models\\Student.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Models\\Student.cs",
+              "RelativeToolTip": "Models\\Student.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAApwCQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-14T10:35:38.048Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 53,
+              "Title": "ErrorResponse.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Models\\Responses\\ErrorResponse.cs",
+              "RelativeDocumentMoniker": "Models\\Responses\\ErrorResponse.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Models\\Responses\\ErrorResponse.cs",
+              "RelativeToolTip": "Models\\Responses\\ErrorResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T16:27:12.379Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 52,
+              "Title": "ExceptionMiddleware.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Middlewares\\ExceptionMiddleware.cs",
+              "RelativeDocumentMoniker": "Middlewares\\ExceptionMiddleware.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Middlewares\\ExceptionMiddleware.cs",
+              "RelativeToolTip": "Middlewares\\ExceptionMiddleware.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T16:28:13.467Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 54,
+              "Title": "UnitOfWork.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\UnitOfWork.cs",
+              "RelativeDocumentMoniker": "Repositories\\UnitOfWork.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\UnitOfWork.cs",
+              "RelativeToolTip": "Repositories\\UnitOfWork.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T15:51:55.096Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 55,
+              "Title": "IUnitOfWork.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\Interfaces\\IUnitOfWork.cs",
+              "RelativeDocumentMoniker": "Repositories\\Interfaces\\IUnitOfWork.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\Interfaces\\IUnitOfWork.cs",
+              "RelativeToolTip": "Repositories\\Interfaces\\IUnitOfWork.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T15:49:50Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 59,
+              "Title": "IGradeRepository.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\Interfaces\\IGradeRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Interfaces\\IGradeRepository.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\Interfaces\\IGradeRepository.cs",
+              "RelativeToolTip": "Repositories\\Interfaces\\IGradeRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T15:30:09.471Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 58,
+              "Title": "GradeRepository.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\GradeRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\GradeRepository.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\GradeRepository.cs",
+              "RelativeToolTip": "Repositories\\GradeRepository.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAowAgAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T15:30:34.693Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 57,
+              "Title": "IAttendanceRepository.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\Interfaces\\IAttendanceRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Interfaces\\IAttendanceRepository.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\Interfaces\\IAttendanceRepository.cs",
+              "RelativeToolTip": "Repositories\\Interfaces\\IAttendanceRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T15:33:55.538Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 56,
+              "Title": "AttendanceRepository.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\AttendanceRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\AttendanceRepository.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\AttendanceRepository.cs",
+              "RelativeToolTip": "Repositories\\AttendanceRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T15:34:16.582Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 60,
+              "Title": "ClassRepository.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\ClassRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\ClassRepository.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\ClassRepository.cs",
+              "RelativeToolTip": "Repositories\\ClassRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T15:28:14.012Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 61,
+              "Title": "IClassRepository.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\Interfaces\\IClassRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Interfaces\\IClassRepository.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\Interfaces\\IClassRepository.cs",
+              "RelativeToolTip": "Repositories\\Interfaces\\IClassRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T15:27:45.38Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 62,
+              "Title": "CourseRepository.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\CourseRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\CourseRepository.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\CourseRepository.cs",
+              "RelativeToolTip": "Repositories\\CourseRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T15:24:53.776Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 63,
+              "Title": "ICourseRepository.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\Interfaces\\ICourseRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Interfaces\\ICourseRepository.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\Interfaces\\ICourseRepository.cs",
+              "RelativeToolTip": "Repositories\\Interfaces\\ICourseRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T15:24:26.768Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 65,
+              "Title": "ITeacherRepository.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\Interfaces\\ITeacherRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Interfaces\\ITeacherRepository.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\Interfaces\\ITeacherRepository.cs",
+              "RelativeToolTip": "Repositories\\Interfaces\\ITeacherRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T12:10:25.217Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 64,
+              "Title": "TeacherRepository.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\TeacherRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\TeacherRepository.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Repositories\\TeacherRepository.cs",
+              "RelativeToolTip": "Repositories\\TeacherRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T12:10:47.258Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 66,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-15T12:21:57.238Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 67,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "Services\\AuthService.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\AuthService.cs",
+              "RelativeToolTip": "Services\\AuthService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-15T12:19:09.225Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 68,
+              "Title": "IAuthService.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\Interfaces\\IAuthService.cs",
+              "RelativeDocumentMoniker": "Services\\Interfaces\\IAuthService.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Services\\Interfaces\\IAuthService.cs",
+              "RelativeToolTip": "Services\\Interfaces\\IAuthService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-17T11:26:26.388Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 69,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-09-17T10:43:43.628Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 70,
+              "Title": "WeatherForecastController.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Controllers\\WeatherForecastController.cs",
+              "RelativeDocumentMoniker": "Controllers\\WeatherForecastController.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Controllers\\WeatherForecastController.cs",
+              "RelativeToolTip": "Controllers\\WeatherForecastController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-15T12:33:28.691Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 71,
+              "Title": "20260915120819_AddUsersTable.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Migrations\\20260915120819_AddUsersTable.cs",
+              "RelativeDocumentMoniker": "Migrations\\20260915120819_AddUsersTable.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Migrations\\20260915120819_AddUsersTable.cs",
+              "RelativeToolTip": "Migrations\\20260915120819_AddUsersTable.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-15T12:08:19.518Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 72,
+              "Title": "SchoolDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Database\\SchoolDbContext.cs",
+              "RelativeDocumentMoniker": "Database\\SchoolDbContext.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Database\\SchoolDbContext.cs",
+              "RelativeToolTip": "Database\\SchoolDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-14T10:37:44.872Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 73,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Models\\User.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Models\\User.cs",
+              "RelativeToolTip": "Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-15T11:58:34.804Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 74,
+              "Title": "Attendance.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Models\\Attendance.cs",
+              "RelativeDocumentMoniker": "Models\\Attendance.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Models\\Attendance.cs",
+              "RelativeToolTip": "Models\\Attendance.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-14T10:36:29.96Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 75,
+              "Title": "Class.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Models\\Class.cs",
+              "RelativeDocumentMoniker": "Models\\Class.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Models\\Class.cs",
+              "RelativeToolTip": "Models\\Class.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-14T10:36:25.987Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 76,
+              "Title": "Course.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Models\\Course.cs",
+              "RelativeDocumentMoniker": "Models\\Course.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Models\\Course.cs",
+              "RelativeToolTip": "Models\\Course.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-14T10:36:21.646Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 77,
+              "Title": "Grade.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Models\\Grade.cs",
+              "RelativeDocumentMoniker": "Models\\Grade.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Models\\Grade.cs",
+              "RelativeToolTip": "Models\\Grade.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-14T10:36:16.048Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 78,
+              "Title": "Teacher.cs",
+              "DocumentMoniker": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Models\\Teacher.cs",
+              "RelativeDocumentMoniker": "Models\\Teacher.cs",
+              "ToolTip": "C:\\Users\\joo315\\OneDrive\\Desktop\\SchoolManagementAPI\\Models\\Teacher.cs",
+              "RelativeToolTip": "Models\\Teacher.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-14T10:36:11.216Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
