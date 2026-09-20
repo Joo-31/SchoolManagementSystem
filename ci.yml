@@ -1,0 +1,30 @@
+name: .NET CI/CD
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore SchoolManagementSystemSolution.sln
+
+    - name: Build solution
+      run: dotnet build SchoolManagementSystemSolution.sln --no-restore --configuration Release
+
+    - name: Run tests
+      run: dotnet test SchoolManagementAPI.Tests/SchoolManagementAPI.Tests.csproj --no-build --configuration Release --verbosity normal
