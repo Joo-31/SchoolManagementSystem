@@ -5,7 +5,7 @@ VisualStudioVersion = 17.14.37628.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagementAPI", "SchoolManagementAPI\SchoolManagementAPI.csproj", "{E67D30EE-2526-11F5-EB13-05A8D43C8C0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagementAPI.Tests\SchoolManagementAPI.Tests.csproj", "{7BAF9E65-DECE-FADB-B234-7641161B304A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagementAPI.Tests", "SchoolManagementAPI.Tests\SchoolManagementAPI.Tests.csproj", "{7BAF9E65-DECE-FADB-B234-7641161B304A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagementSystem", "SchoolManagementSystem\SchoolManagementSystem.csproj", "{DCDE1606-98BA-1C26-EC05-96835B1DF28C}"
 EndProject
