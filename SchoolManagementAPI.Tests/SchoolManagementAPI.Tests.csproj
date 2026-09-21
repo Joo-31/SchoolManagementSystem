@@ -22,7 +22,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="C:\Users\joo315\OneDrive\Desktop\SchoolManagementAPI\SchoolManagementAPI.csproj" />
+		<ProjectReference Include="..\SchoolManagementAPI\SchoolManagementAPI.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
