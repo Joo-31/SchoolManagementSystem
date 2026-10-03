@@ -16,7 +16,9 @@ namespace SchoolManagementAPI.Mappings
                 .ForMember(dest => dest.Age,
                     opt => opt.MapFrom(src => src.GetAge()))
                 .ForMember(dest => dest.Gender,
-                    opt => opt.MapFrom(src => src.Gender.ToString()));
+                    opt => opt.MapFrom(src => src.Gender.ToString()))
+                .ForMember(dest => dest.BirthDate,
+        opt => opt.MapFrom(src => src.BirthDate));
 
             CreateMap<CreateStudentDto, Student>();
 

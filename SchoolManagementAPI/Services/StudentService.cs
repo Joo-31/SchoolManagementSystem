@@ -33,7 +33,7 @@ namespace SchoolManagementAPI.Services
 
         public bool Update(Student student)
         {
-            var existing = GetById(student.Id);
+            var existing = _unitOfWork.Students.GetById(student.Id);
             if (existing == null)
                 return false;
 

@@ -1,10 +1,12 @@
-﻿using System.Text;
+﻿using System.Security.Claims;
+using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SchoolManagementAPI.DataBase;
+using SchoolManagementAPI.Mappings;
 using SchoolManagementAPI.Middlewares;
 using SchoolManagementAPI.Models;
 using SchoolManagementAPI.Models.Responses;
@@ -12,7 +14,6 @@ using SchoolManagementAPI.Repositories;
 using SchoolManagementAPI.Repositories.Interfaces;
 using SchoolManagementAPI.Services;
 using SchoolManagementAPI.Services.Interfaces;
-using SchoolManagementAPI.Mappings;
 using Serilog;
 namespace SchoolManagementAPI
 {
@@ -81,7 +82,9 @@ namespace SchoolManagementAPI
                         ValidAudience = builder.Configuration["Jwt:Audience"],
                         IssuerSigningKey = new SymmetricSecurityKey(
                             Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
-                        )
+                        ),
+                        RoleClaimType = ClaimTypes.Role,
+                        NameClaimType = ClaimTypes.Name,
                     };
                 });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -116,12 +119,23 @@ namespace SchoolManagementAPI
 
             builder.Services.AddAutoMapper(cfg => { }, typeof(MappingProfile).Assembly);
 
-
+            // ✅ CORS
+           
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAngular", policy =>
+                {
+                    policy.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowCredentials();
+                });
+            });
 
 
             var app = builder.Build();
 
-
+           
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -129,6 +143,7 @@ namespace SchoolManagementAPI
                 app.UseSwaggerUI();
             }
             app.UseMiddleware<ExceptionMiddleware>();
+            app.UseCors("AllowAngular");
             app.UseHttpsRedirection();
 
             app.UseAuthentication();  // ← قبل UseAuthorization

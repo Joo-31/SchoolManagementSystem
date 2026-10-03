@@ -66,7 +66,6 @@ namespace SchoolManagementAPI.Controllers
 
         // PUT: api/students/5
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
         public IActionResult Update(int id, [FromBody] UpdateStudentDto dto)
         {
             var existing = _studentService.GetById(id);
@@ -77,10 +76,9 @@ namespace SchoolManagementAPI.Controllers
 
             var updated = _studentService.Update(existing);
             if (!updated)
-                return NotFound("No changes were made");
+                return Ok(existing);  // ← بدل NotFound
 
-            var studentDto = _mapper.Map<StudentDto>(existing);
-            return Ok(studentDto);
+            return Ok(_mapper.Map<StudentDto>(existing));
         }
 
         // DELETE: api/students/5

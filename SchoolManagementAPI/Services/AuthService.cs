@@ -87,5 +87,9 @@ namespace SchoolManagementAPI.Services
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+        public User? GetUserByUsername(string username)
+        {
+            return _context.Users.FirstOrDefault(u => u.Username == username);
+        }
     }
 }

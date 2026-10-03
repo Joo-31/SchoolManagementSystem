@@ -43,7 +43,14 @@ namespace SchoolManagementAPI.Controllers
             if (token == null)
                 return Unauthorized("Invalid username or password");
 
-            return Ok(new { Token = token });
+            var user = _authService.GetUserByUsername(request.Username); // ← محتاج Method جديدة
+
+            return Ok(new
+            {
+                Token = token,
+                Role = user?.Role,
+                Username = user?.Username
+            });
         }
     }
 

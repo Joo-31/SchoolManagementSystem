@@ -20,24 +20,24 @@ namespace SchoolManagementAPI.Repositories
         // ✅ Read
         public T? GetById(int id)
         {
-            return _dbSet.Find(id);
+            return _dbSet.AsNoTracking().FirstOrDefault(e => EF.Property<int>(e, "Id") == id);
         }
 
         public IEnumerable<T> GetAll()
         {
-            return _dbSet.ToList();
+            return _dbSet.AsNoTracking().ToList();
         }
 
         public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
         {
-            return _dbSet.Where(predicate).ToList();
+            return _dbSet.AsNoTracking().Where(predicate).ToList();
         }
         // ✅ Pagination
         public PagedResult<T> GetPaged(int pageNumber, int pageSize)
         {
             var totalCount = _dbSet.Count();
 
-            var data = _dbSet
+            var data = _dbSet.AsNoTracking()
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();

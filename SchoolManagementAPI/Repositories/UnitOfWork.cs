@@ -42,7 +42,9 @@ namespace SchoolManagementAPI.Repositories
         // ✅ SaveChanges
         public int SaveChanges()
         {
-            return _context.SaveChanges();
+            var result = _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+            return result;
         }
 
         // ✅ Dispose
