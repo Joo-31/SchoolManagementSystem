@@ -1,0 +1,41 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <a routerLink="/students">School Management System</a>
+    </div>
+
+    <ul class="nav-links">
+      <!-- Admin + Teacher -->
+      <li *ngIf="isAdmin() || isTeacher()">
+        <a routerLink="/students" routerLinkActive="active">Students</a>
+      </li>
+
+      <!-- Admin بس -->
+      <li *ngIf="isAdmin()">
+        <a routerLink="/teachers" routerLinkActive="active">Teachers</a>
+      </li>
+
+      <li *ngIf="isAdmin()">
+        <a routerLink="/courses" routerLinkActive="active">Courses</a>
+      </li>
+
+      <li *ngIf="isAdmin()">
+        <a routerLink="/classes" routerLinkActive="active">Classes</a>
+      </li>
+
+      <li *ngIf="isAdmin()">
+        <a routerLink="/grades" routerLinkActive="active">Grades</a>
+      </li>
+
+      <!-- Admin + Teacher -->
+      <li *ngIf="isAdmin() || isTeacher()">
+        <a routerLink="/attendances" routerLinkActive="active">Attendance</a>
+      </li>
+    </ul>
+
+    <div class="nav-user">
+      <span class="username">{{ username }}</span>
+      <button (click)="onLogout()" class="btn-logout">Logout</button>
+    </div>
+  </div>
+</nav>

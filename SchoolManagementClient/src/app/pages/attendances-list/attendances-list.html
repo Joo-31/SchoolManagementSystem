@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="header">
+    <h1>Attendances List (Total: {{ attendances.length }})</h1>
+    <a routerLink="/attendances/add" class="btn-add">+ Add Attendance</a>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <table *ngIf="!loading && !errorMessage">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>ID</th>
+        <th>Student ID</th>
+        <th>Class ID</th>
+        <th>Date</th>
+        <th>Is Present</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let attendance of attendances; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ attendance.id }}</td>
+        <td>{{ attendance.studentId }}</td>
+        <td>{{ attendance.classId }}</td>
+        <td>{{ attendance.date | date:'yyyy-MM-dd' }}</td>
+        <td>{{ attendance.isPresent ? 'Present' : 'Absent' }}</td>
+        <td>
+          <a [routerLink]="['/attendances/edit', attendance.id]" class="btn-edit">Edit</a>
+          <button (click)="deleteAttendance(attendance.id)" class="btn-delete">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && attendances.length === 0" class="no-data">No attendances found.</div>
+</div>

@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="form-card">
+    <h1>Add New Class</h1>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Class Name *</label>
+          <input type="text" id="name" [(ngModel)]="name" name="name" placeholder="e.g., 3A, 5B" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="gradeId">Grade ID *</label>
+          <input type="number" id="gradeId" [(ngModel)]="gradeId" name="gradeId" placeholder="Enter grade ID" required />
+        </div>
+
+        <div class="form-group">
+          <label for="classTeacherId">Class Teacher ID *</label>
+          <input type="number" id="classTeacherId" [(ngModel)]="classTeacherId" name="classTeacherId" placeholder="Enter teacher ID" required />
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" (click)="onCancel()">Cancel</button>
+        <button type="submit" class="btn-save">Save Class</button>
+      </div>
+    </form>
+  </div>
+</div>

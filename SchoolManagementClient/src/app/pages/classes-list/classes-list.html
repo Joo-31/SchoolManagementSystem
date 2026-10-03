@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="header">
+    <h1>Classes List (Total: {{ classes.length }})</h1>
+    <a routerLink="/classes/add" class="btn-add">+ Add Class</a>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <table *ngIf="!loading && !errorMessage">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Grade ID</th>
+        <th>Class Teacher ID</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let classObj of classes; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ classObj.id }}</td>
+        <td>{{ classObj.name }}</td>
+        <td>{{ classObj.gradeId }}</td>
+        <td>{{ classObj.classTeacherId }}</td>
+        <td>
+          <a [routerLink]="['/classes/edit', classObj.id]" class="btn-edit">Edit</a>
+          <button (click)="deleteClass(classObj.id)" class="btn-delete">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && classes.length === 0" class="no-data">No classes found.</div>
+</div>

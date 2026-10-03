@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="form-card">
+    <h1>Edit Course</h1>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Course Name *</label>
+          <input type="text" id="name" [(ngModel)]="name" name="name" placeholder="Enter course name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="code">Course Code *</label>
+          <input type="text" id="code" [(ngModel)]="code" name="code" placeholder="e.g., MATH101" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="credits">Credits *</label>
+          <input type="number" id="credits" [(ngModel)]="credits" name="credits" placeholder="Enter credits" required />
+        </div>
+
+        <div class="form-group">
+          <label for="gradeId">Grade ID *</label>
+          <input type="number" id="gradeId" [(ngModel)]="gradeId" name="gradeId" placeholder="Enter grade ID" required />
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" (click)="onCancel()">Cancel</button>
+        <button type="submit" class="btn-save">Save Course</button>
+      </div>
+    </form>
+  </div>
+</div>

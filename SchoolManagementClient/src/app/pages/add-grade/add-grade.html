@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="form-card">
+    <h1>Add New Grade</h1>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Grade Name *</label>
+          <input type="text" id="name" [(ngModel)]="name" name="name" placeholder="e.g., Primary, Secondary" required />
+        </div>
+
+        <div class="form-group">
+          <label for="level">Level *</label>
+          <input type="number" id="level" [(ngModel)]="level" name="level" placeholder="e.g., 1, 2, 3" required />
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" (click)="onCancel()">Cancel</button>
+        <button type="submit" class="btn-save">Save Grade</button>
+      </div>
+    </form>
+  </div>
+</div>

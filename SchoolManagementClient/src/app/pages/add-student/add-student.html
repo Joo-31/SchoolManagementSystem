@@ -1,0 +1,100 @@
+<div class="container">
+  <div class="form-card">
+    <h1>Add New Student</h1>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">First Name *</label>
+          <input
+            type="text"
+            id="firstName"
+            [(ngModel)]="firstName"
+            name="firstName"
+            placeholder="Enter first name"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Last Name *</label>
+          <input
+            type="text"
+            id="lastName"
+            [(ngModel)]="lastName"
+            name="lastName"
+            placeholder="Enter last name"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Birth Date *</label>
+          <div class="date-group">
+            <input
+              type="number"
+              [(ngModel)]="birthYear"
+              name="birthYear"
+              placeholder="Year"
+              min="1900"
+              max="2025"
+            />
+            <input
+              type="number"
+              [(ngModel)]="birthMonth"
+              name="birthMonth"
+              placeholder="Month"
+              min="1"
+              max="12"
+            />
+            <input
+              type="number"
+              [(ngModel)]="birthDay"
+              name="birthDay"
+              placeholder="Day"
+              min="1"
+              max="31"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="gender">Gender *</label>
+          <select id="gender" [(ngModel)]="gender" name="gender">
+            <option [value]="0">Male</option>
+            <option [value]="1">Female</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="classId">Class ID *</label>
+          <input
+            type="number"
+            id="classId"
+            [(ngModel)]="classId"
+            name="classId"
+            placeholder="Enter class ID"
+            required
+          />
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+
+      <div *ngIf="successMessage" class="success-message">
+        {{ successMessage }}
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" (click)="onCancel()">Cancel</button>
+        <button type="submit" class="btn-save">Save Student</button>
+      </div>
+    </form>
+  </div>
+</div>

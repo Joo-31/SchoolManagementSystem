@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="form-card">
+    <h1>Add New Attendance</h1>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="studentId">Student ID *</label>
+          <input type="number" id="studentId" [(ngModel)]="studentId" name="studentId" placeholder="Enter student ID" required />
+        </div>
+
+        <div class="form-group">
+          <label for="classId">Class ID *</label>
+          <input type="number" id="classId" [(ngModel)]="classId" name="classId" placeholder="Enter class ID" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Date *</label>
+          <div class="date-group">
+            <input type="number" [(ngModel)]="dateYear" name="dateYear" placeholder="Year" />
+            <input type="number" [(ngModel)]="dateMonth" name="dateMonth" placeholder="Month" />
+            <input type="number" [(ngModel)]="dateDay" name="dateDay" placeholder="Day" />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="isPresent">Status *</label>
+          <select id="isPresent" [(ngModel)]="isPresent" name="isPresent">
+            <option [ngValue]="true">Present</option>
+            <option [ngValue]="false">Absent</option>
+          </select>
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" (click)="onCancel()">Cancel</button>
+        <button type="submit" class="btn-save">Save Attendance</button>
+      </div>
+    </form>
+  </div>
+</div>

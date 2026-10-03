@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="form-card">
+    <h1>Edit Teacher</h1>
+
+    <div *ngIf="loading" class="loading">Loading...</div>
+
+    <form *ngIf="!loading" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Name *</label>
+          <input type="text" id="name" [(ngModel)]="name" name="name" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" [(ngModel)]="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone *</label>
+          <input type="text" id="phone" [(ngModel)]="phone" name="phone" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="specialization">Specialization *</label>
+          <input type="text" id="specialization" [(ngModel)]="specialization" name="specialization" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Hire Date *</label>
+          <div class="date-group">
+            <input type="number" [(ngModel)]="hireYear" name="hireYear" placeholder="Year" />
+            <input type="number" [(ngModel)]="hireMonth" name="hireMonth" placeholder="Month" />
+            <input type="number" [(ngModel)]="hireDay" name="hireDay" placeholder="Day" />
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" (click)="onCancel()">Cancel</button>
+        <button type="submit" class="btn-save">Update Teacher</button>
+      </div>
+    </form>
+  </div>
+</div>
