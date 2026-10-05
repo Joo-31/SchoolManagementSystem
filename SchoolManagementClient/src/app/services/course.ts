@@ -33,4 +33,7 @@ export class CourseService {
   search(keyword: string): Observable<Course[]> {
     return this.http.get<Course[]>(`${this.apiUrl}/search?keyword=${keyword}`);
   }
+  getCount(): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/count`);
+}
 }

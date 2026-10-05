@@ -6,6 +6,10 @@
 
     <ul class="nav-links">
       <!-- Admin Only -->
+<li *ngIf="isAdmin()">
+  <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+</li>
+
       <li *ngIf="isAdmin()">
         <a routerLink="/students" routerLinkActive="active">Students</a>
       </li>

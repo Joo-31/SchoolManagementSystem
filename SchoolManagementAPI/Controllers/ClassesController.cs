@@ -169,5 +169,12 @@ namespace SchoolManagementAPI.Controllers
             if (classObj == null) return NotFound();
             return Ok(_mapper.Map<ClassDto>(classObj));
         }
+
+        [HttpGet("count")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult GetCount()
+        {
+            return Ok(new { Count = _classService.GetAll().Count });
+        }
     }
 }

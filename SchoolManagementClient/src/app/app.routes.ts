@@ -23,11 +23,13 @@ import { ClassStudents } from './pages/class-students/class-students';
 import { MyProfile } from './pages/my-profile/my-profile';
 import { MyProfileStudent } from './pages/my-profile-student/my-profile-student';
 import { MyAttendance } from './pages/my-attendance/my-attendance';
-
+import { Dashboard } from './pages/dashboard/dashboard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+
+
   
   // Students
   { path: 'students', component: StudentsList },
@@ -62,5 +64,7 @@ export const routes: Routes = [
    // Attendances
   { path: 'attendances', component: AttendancesList },
   { path: 'attendances/add', component: AddAttendance },
-  { path: 'attendances/edit/:id', component: EditAttendance }
+  { path: 'attendances/edit/:id', component: EditAttendance },
+
+  { path: 'dashboard', component: Dashboard }
 ];

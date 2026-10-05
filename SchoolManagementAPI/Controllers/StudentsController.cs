@@ -96,6 +96,14 @@ namespace SchoolManagementAPI.Controllers
             return Ok();
         }
 
+        // GET: api/students/count
+        [HttpGet("count")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult GetCount()
+        {
+            return Ok(new { Count = _studentService.GetAll().Count });
+        }
+
         // GET: api/students/paged?pageNumber=1&pageSize=10
         [HttpGet("paged")]
         [AllowAnonymous]

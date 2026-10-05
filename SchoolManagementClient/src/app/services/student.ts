@@ -53,4 +53,7 @@ export class StudentService {
 getMyAttendances(): Observable<any[]> {
   return this.http.get<any[]>(`${this.apiUrl}/me/attendances`);
 }
+getCount(): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/count`);
+}
 }

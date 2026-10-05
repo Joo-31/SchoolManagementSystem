@@ -236,5 +236,12 @@ namespace SchoolManagementAPI.Controllers
             var students = _studentService.GetStudentsByClassId(classId);
             return Ok(_mapper.Map<List<StudentDto>>(students));
         }
+
+        [HttpGet("count")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult GetCount()
+        {
+            return Ok(new { Count = _teacherService.GetAll().Count });
+        }
     }
 }

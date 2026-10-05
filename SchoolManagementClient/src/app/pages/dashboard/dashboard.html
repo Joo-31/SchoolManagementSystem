@@ -1,0 +1,47 @@
+<div class="container">
+  <h1>Dashboard</h1>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+
+  <div class="stats-grid" *ngIf="!loading">
+    <div class="stat-card students">
+      <div class="stat-icon">👨‍🎓</div>
+      <div class="stat-info">
+        <div class="stat-value">{{ studentCount }}</div>
+        <div class="stat-label">Students</div>
+      </div>
+    </div>
+
+    <div class="stat-card teachers">
+      <div class="stat-icon">👨‍🏫</div>
+      <div class="stat-info">
+        <div class="stat-value">{{ teacherCount }}</div>
+        <div class="stat-label">Teachers</div>
+      </div>
+    </div>
+
+    <div class="stat-card courses">
+      <div class="stat-icon">📚</div>
+      <div class="stat-info">
+        <div class="stat-value">{{ courseCount }}</div>
+        <div class="stat-label">Courses</div>
+      </div>
+    </div>
+
+    <div class="stat-card classes">
+      <div class="stat-icon">🏫</div>
+      <div class="stat-info">
+        <div class="stat-value">{{ classCount }}</div>
+        <div class="stat-label">Classes</div>
+      </div>
+    </div>
+
+    <div class="stat-card grades">
+      <div class="stat-icon">📊</div>
+      <div class="stat-info">
+        <div class="stat-value">{{ gradeCount }}</div>
+        <div class="stat-label">Grades</div>
+      </div>
+    </div>
+  </div>
+</div>

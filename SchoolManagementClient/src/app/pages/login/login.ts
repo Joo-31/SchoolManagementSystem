@@ -24,22 +24,23 @@ export class LoginComponent {
 
  onLogin(): void {
   if (!this.username || !this.password) {
-    this.errorMessage = 'Please enter username and password';
-    return;
-  }
+  this.errorMessage = 'Please enter username and password';
+  this.toastService.warning('Please fill in all fields', 'Warning');  
+  return;
+}
 
  this.authService.login(this.username, this.password).subscribe({
   next: (response: { token: string, role: string, username: string, teacherId: number | null, studentId: number | null }) => {
     this.authService.saveUser(response.token, response.role, response.username, response.teacherId, response.studentId);
     
     // ✅ وجه حسب الـ Role
-     if (response.role === 'Teacher') {
-    this.router.navigate(['/my-classes']);
-  } else if (response.role === 'Student') {
-    this.router.navigate(['/my-profile-student']);
-  } else {
-    this.router.navigate(['/students']);
-  }
+   if (response.role === 'Admin') {
+  this.router.navigate(['/dashboard']);
+} else if (response.role === 'Teacher') {
+  this.router.navigate(['/my-classes']);
+} else if (response.role === 'Student') {
+  this.router.navigate(['/my-profile-student']);
+}
   },
   error: (error: any) => {
   this.errorMessage = 'Invalid username or password';

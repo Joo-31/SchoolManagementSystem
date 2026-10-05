@@ -43,4 +43,7 @@ export class TeacherService {
 getMyProfile(): Observable<any> {
   return this.http.get<any>(`${this.apiUrl}/me`);
 }
+getCount(): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/count`);
+}
 }

@@ -167,5 +167,12 @@ namespace SchoolManagementAPI.Controllers
         {
             return Ok(_gradeService.GetStudentCountByGradeName());
         }
+
+        [HttpGet("count")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult GetCount()
+        {
+            return Ok(new { Count = _gradeService.GetAll().Count });
+        }
     }
 }
