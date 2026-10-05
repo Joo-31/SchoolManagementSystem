@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="header">
+    <h1>Class Students (Total: {{ students.length }})</h1>
+    <a routerLink="/my-classes" class="btn-back">← Back to My Classes</a>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
+
+  <div *ngIf="!loading && !errorMessage" class="date-picker">
+    <label for="attendanceDate">Attendance Date: </label>
+    <input type="date" id="attendanceDate" [(ngModel)]="attendanceDate" name="attendanceDate"
+      (ngModelChange)="loadAttendanceForDate()" />
+  </div>
+
+  <table *ngIf="!loading && !errorMessage">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>ID</th>
+        <th>Full Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Attendance</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of students; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ student.id }}</td>
+        <td>{{ student.fullName }}</td>
+        <td>{{ student.age }}</td>
+        <td>{{ student.gender }}</td>
+        <td>
+          <input 
+            type="checkbox" 
+            [(ngModel)]="attendanceRecords[i].isPresent" 
+            name="attendance{{i}}"
+          />
+          {{ attendanceRecords[i].isPresent ? 'Present' : 'Absent' }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && students.length === 0" class="no-data">No students in this class.</div>
+
+  <div *ngIf="!loading && students.length > 0" class="form-actions">
+    <button type="button" class="btn-cancel" (click)="onCancel()">Cancel</button>
+    <button type="button" class="btn-save" (click)="saveAttendance()" [disabled]="saving">
+      {{ saving ? 'Saving...' : 'Save Attendance' }}
+    </button>
+  </div>
+</div>

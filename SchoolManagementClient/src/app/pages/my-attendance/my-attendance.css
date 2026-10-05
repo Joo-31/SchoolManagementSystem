@@ -1,0 +1,9 @@
+.present {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.absent {
+  color: #e74c3c;
+  font-weight: 600;
+}

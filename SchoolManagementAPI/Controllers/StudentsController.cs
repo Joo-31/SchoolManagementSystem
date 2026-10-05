@@ -5,6 +5,7 @@ using SchoolManagementAPI.DTOs.Requests;
 using SchoolManagementAPI.DTOs.Responses;
 using SchoolManagementAPI.Models;
 using SchoolManagementAPI.Services.Interfaces;
+using System.Security.Claims;
 
 namespace SchoolManagementAPI.Controllers
 {
@@ -15,11 +16,13 @@ namespace SchoolManagementAPI.Controllers
     {
         private readonly IStudentService _studentService;
         private readonly IMapper _mapper;
+        private readonly IAttendanceService _attendanceService;
 
-        public StudentsController(IStudentService studentService, IMapper mapper)
+        public StudentsController(IStudentService studentService, IAttendanceService attendanceService, IMapper mapper)
         {
             _studentService = studentService;
             _mapper = mapper;
+            _attendanceService = attendanceService;
         }
 
         // GET: api/students
@@ -210,6 +213,38 @@ namespace SchoolManagementAPI.Controllers
             return Ok(_mapper.Map<StudentDto>(student));
         }
 
+        // GET: api/students/me
+        [HttpGet("me")]
+        [Authorize(Roles = "Student")]
+        public IActionResult GetMe()
+        {
+            var studentIdStr = User.FindFirst("StudentId")?.Value;
+            if (string.IsNullOrEmpty(studentIdStr))
+                return Unauthorized("Student ID not found");
+
+            var studentId = int.Parse(studentIdStr);
+            var student = _studentService.GetById(studentId);
+
+            if (student == null)
+                return NotFound();
+
+            return Ok(_mapper.Map<StudentDto>(student));
+        }
+
+        // GET: api/students/me/attendances
+        [HttpGet("me/attendances")]
+        [Authorize(Roles = "Student")]
+        public IActionResult GetMyAttendances()
+        {
+            var studentIdStr = User.FindFirst("StudentId")?.Value;
+            if (string.IsNullOrEmpty(studentIdStr))
+                return Unauthorized("Student ID not found");
+
+            var studentId = int.Parse(studentIdStr);
+            var attendances = _attendanceService.SearchByStudentId(studentId);
+
+            return Ok(_mapper.Map<List<AttendanceDto>>(attendances));
+        }
 
     }
 }

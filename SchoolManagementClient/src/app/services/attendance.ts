@@ -18,6 +18,10 @@ export class AttendanceService {
     return this.http.get<Attendance>(`${this.apiUrl}/${id}`);
   }
 
+  getByDate(date: string): Observable<Attendance[]> {
+    return this.http.get<Attendance[]>(`${this.apiUrl}/date/${date}`);
+  }
+
   add(attendance: any): Observable<Attendance> {
     return this.http.post<Attendance>(this.apiUrl, attendance);
   }
@@ -29,4 +33,7 @@ export class AttendanceService {
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+  takeAttendance(data: { classId: number, date: string, records: { studentId: number, isPresent: boolean }[] }): Observable<any> {
+  return this.http.post(`${this.apiUrl}/take`, data);
+}
 }

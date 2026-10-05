@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="header">
+    <h1>My Attendance (Total: {{ attendances.length }})</h1>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <table *ngIf="!loading && !errorMessage">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let attendance of attendances; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ attendance.id }}</td>
+        <td>{{ attendance.date | date:'yyyy-MM-dd' }}</td>
+        <td>
+          <span [class.present]="attendance.isPresent" [class.absent]="!attendance.isPresent">
+            {{ attendance.isPresent ? 'Present' : 'Absent' }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && attendances.length === 0" class="no-data">No attendance records found.</div>
+</div>

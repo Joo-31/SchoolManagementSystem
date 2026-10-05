@@ -23,11 +23,11 @@ namespace SchoolManagementAPI.Controllers
         {
             try
             {
-                var result = _authService.Register(request.Username, request.Password, request.Role);
+                var result = _authService.Register(request.Username, request.Password, request.Role, request.TeacherId , request.StudentId);
                 if (!result)
                     return BadRequest("Username already exists");
 
-                return Ok("User registered successfully");
+                return Ok(new { message = "User registered successfully" });
             }
             catch (Exception ex)
             {
@@ -49,7 +49,9 @@ namespace SchoolManagementAPI.Controllers
             {
                 Token = token,
                 Role = user?.Role,
-                Username = user?.Username
+                Username = user?.Username,  
+                TeaacherId = user?.TeacherId,
+                StudentId = user?.StudentId
             });
         }
     }
@@ -60,6 +62,11 @@ namespace SchoolManagementAPI.Controllers
         public string Username { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string Role { get; set; } = "Student";
+
+        public int? TeacherId { get; set; }
+        public int? StudentId { get; set; }
+
+
     }
 
     public class LoginRequest

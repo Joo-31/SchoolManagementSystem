@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="header">
+    <h1>My Classes (Total: {{ classes.length }})</h1>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <table *ngIf="!loading && !errorMessage">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>ID</th>
+        <th>Class Name</th>
+        <th>Grade ID</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let classObj of classes; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ classObj.id }}</td>
+        <td>{{ classObj.name }}</td>
+        <td>{{ classObj.gradeId }}</td>
+        <td>
+          <a [routerLink]="['/my-classes', classObj.id, 'students']" class="btn-view">View Students</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && classes.length === 0" class="no-data">You don't have any classes.</div>
+</div>

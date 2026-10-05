@@ -46,4 +46,11 @@ export class StudentService {
   getPaged(pageNumber: number, pageSize: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/paged?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
+  getMyProfile(): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/me`);
+}
+
+getMyAttendances(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/me/attendances`);
+}
 }

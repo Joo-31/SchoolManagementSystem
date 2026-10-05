@@ -33,4 +33,14 @@ export class TeacherService {
   search(keyword: string): Observable<Teacher[]> {
     return this.http.get<Teacher[]>(`${this.apiUrl}/search?keyword=${keyword}`);
   }
+
+  getMyClasses(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/me/classes`);
+  }
+  getStudentsByClass(classId: number): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/me/classes/${classId}/students`);
+}
+getMyProfile(): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/me`);
+}
 }

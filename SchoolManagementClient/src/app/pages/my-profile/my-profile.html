@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="profile-card">
+    <h1>My Profile</h1>
+
+    <div *ngIf="loading" class="loading">Loading...</div>
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+    <div *ngIf="!loading && teacher" class="profile-info">
+      <div class="info-row">
+        <span class="label">ID:</span>
+        <span class="value">{{ teacher.id }}</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">Name:</span>
+        <span class="value">{{ teacher.name }}</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">Email:</span>
+        <span class="value">{{ teacher.email }}</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">Phone:</span>
+        <span class="value">{{ teacher.phone }}</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">Specialization:</span>
+        <span class="value">{{ teacher.specialization }}</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">Years of Experience:</span>
+        <span class="value">{{ teacher.yearsOfExperience }} years</span>
+      </div>
+    </div>
+  </div>
+</div>

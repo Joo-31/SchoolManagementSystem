@@ -5,6 +5,7 @@ using SchoolManagementAPI.DTOs.Requests;
 using SchoolManagementAPI.DTOs.Responses;
 using SchoolManagementAPI.Models;
 using SchoolManagementAPI.Services.Interfaces;
+using System.Security.Claims;
 
 namespace SchoolManagementAPI.Controllers
 {
@@ -15,11 +16,15 @@ namespace SchoolManagementAPI.Controllers
     {
         private readonly ITeacherService _teacherService;
         private readonly IMapper _mapper;
+        private readonly IClassService _classService;
+        private readonly IStudentService _studentService;
 
-        public TeachersController(ITeacherService teacherService, IMapper mapper)
+        public TeachersController(ITeacherService teacherService, IMapper mapper, IClassService classService, IStudentService studentService)
         {
             _teacherService = teacherService;
             _mapper = mapper;
+            _classService = classService;
+            _studentService = studentService;
         }
 
         [HttpGet]
@@ -175,6 +180,61 @@ namespace SchoolManagementAPI.Controllers
             var teacher = _teacherService.GetOldestTeacher();
             if (teacher == null) return NotFound();
             return Ok(_mapper.Map<TeacherDto>(teacher));
+        }
+
+        // GET: api/teachers/me
+        [HttpGet("me")]
+        [Authorize(Roles = "Teacher")]
+        public IActionResult GetMe()
+        {
+            var teacherIdStr = User.FindFirst("TeacherId")?.Value;
+            if (string.IsNullOrEmpty(teacherIdStr))
+                return Unauthorized("Teacher ID not found");
+
+            var teacherId = int.Parse(teacherIdStr);
+            var teacher = _teacherService.GetById(teacherId);
+
+            if (teacher == null)
+                return NotFound();
+
+            return Ok(_mapper.Map<TeacherDto>(teacher));
+        }
+
+        // GET: api/teachers/me/classes
+        [HttpGet("me/classes")]
+        [Authorize(Roles = "Teacher")]
+        public IActionResult GetMyClasses()
+        {
+            var teacherIdStr = User.FindFirst("TeacherId")?.Value;
+            if (string.IsNullOrEmpty(teacherIdStr))
+                return Unauthorized("Teacher ID not found");
+
+            var teacherId = int.Parse(teacherIdStr);
+            var classes = _classService.GetClassesByTeacherId(teacherId);
+            return Ok(_mapper.Map<List<ClassDto>>(classes));
+        }
+
+        // GET: api/teachers/me/classes/{classId}/students
+        [HttpGet("me/classes/{classId}/students")]
+        [Authorize(Roles = "Teacher")]
+        public IActionResult GetStudentsByClass(int classId)
+        {
+            var teacherIdStr = User.FindFirst("TeacherId")?.Value;
+            if (string.IsNullOrEmpty(teacherIdStr))
+                return Unauthorized("Teacher ID not found");
+
+            var teacherId = int.Parse(teacherIdStr);
+
+
+            var classObj = _classService.GetById(classId);
+            if (classObj == null)
+                return NotFound("Class not found");
+
+            if (classObj.ClassTeacherId != teacherId)
+                return Forbid("You are not the teacher of this class");
+
+            var students = _studentService.GetStudentsByClassId(classId);
+            return Ok(_mapper.Map<List<StudentDto>>(students));
         }
     }
 }

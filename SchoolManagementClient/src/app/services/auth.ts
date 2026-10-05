@@ -17,10 +17,23 @@ export class AuthService {
   }
 
   // ✅ Login
-  login(username: string, password: string): Observable<{ token: string, role: string, username: string }> {
-  return this.http.post<{ token: string, role: string, username: string }>(
+ login(username: string, password: string): Observable<{ token: string, role: string, username: string, teacherId: number | null, studentId: number | null }> {
+  return this.http.post<{ token: string, role: string, username: string, teacherId: number | null, studentId: number | null }>(
     `${this.apiUrl}/login`, { username, password }
   );
+}
+
+saveUser(token: string, role: string, username: string, teacherId: number| null, studentId: number | null): void {
+  localStorage.setItem('token', token);
+  localStorage.setItem('role', role);
+  localStorage.setItem('username', username);
+  if (teacherId) localStorage.setItem('teacherId', teacherId.toString());
+  if (studentId) localStorage.setItem('studentId', studentId.toString());
+}
+
+getTeacherId(): number | null {
+  const id = localStorage.getItem('teacherId');
+  return id ? Number(id) : null;
 }
 
   // ✅ Save Token
@@ -55,10 +68,17 @@ isStudent(): boolean {
   localStorage.removeItem('token');
   localStorage.removeItem('role');
   localStorage.removeItem('username');
+  localStorage.removeItem('teacherId');
+  localStorage.removeItem('studentId');
 }
 
   // ✅ Check if Logged In
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
+
+  getStudentId(): number | null {
+  const id = localStorage.getItem('studentId');
+  return id ? Number(id) : null;
+}
 }

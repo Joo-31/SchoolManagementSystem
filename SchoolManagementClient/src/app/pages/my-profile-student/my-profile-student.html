@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="profile-card">
+    <h1>My Profile</h1>
+
+    <div *ngIf="loading" class="loading">Loading...</div>
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+    <div *ngIf="!loading && student" class="profile-info">
+      <div class="info-row">
+        <span class="label">ID:</span>
+        <span class="value">{{ student.id }}</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">Full Name:</span>
+        <span class="value">{{ student.fullName }}</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">Age:</span>
+        <span class="value">{{ student.age }} years</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">Gender:</span>
+        <span class="value">{{ student.gender }}</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">Class ID:</span>
+        <span class="value">{{ student.classId }}</span>
+      </div>
+    </div>
+  </div>
+</div>

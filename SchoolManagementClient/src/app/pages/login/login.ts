@@ -27,15 +27,22 @@ export class LoginComponent {
     return;
   }
 
-  this.authService.login(this.username, this.password).subscribe({
-    next: (response: { token: string, role: string, username: string }) => {
-      this.authService.saveToken(response.token, response.role);
-      localStorage.setItem('username', response.username);
-      this.router.navigate(['/students']);
-    },
-    error: (error: any) => {
-      this.errorMessage = 'Invalid username or password';
-    }
-  });
+ this.authService.login(this.username, this.password).subscribe({
+  next: (response: { token: string, role: string, username: string, teacherId: number | null, studentId: number | null }) => {
+    this.authService.saveUser(response.token, response.role, response.username, response.teacherId, response.studentId);
+    
+    // ✅ وجه حسب الـ Role
+     if (response.role === 'Teacher') {
+    this.router.navigate(['/my-classes']);
+  } else if (response.role === 'Student') {
+    this.router.navigate(['/my-profile-student']);
+  } else {
+    this.router.navigate(['/students']);
+  }
+  },
+  error: (error: any) => {
+    this.errorMessage = 'Invalid username or password';
+  }
+});
 }
 }

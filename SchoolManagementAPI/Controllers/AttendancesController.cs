@@ -15,11 +15,13 @@ namespace SchoolManagementAPI.Controllers
     {
         private readonly IAttendanceService _attendanceService;
         private readonly IMapper _mapper;
+        private readonly IClassService _classService;
 
-        public AttendancesController(IAttendanceService attendanceService, IMapper mapper)
+        public AttendancesController(IAttendanceService attendanceService, IMapper mapper, IClassService classService)
         {
             _attendanceService = attendanceService;
             _mapper = mapper;
+            _classService = classService;
         }
 
         [HttpGet]
@@ -189,6 +191,71 @@ namespace SchoolManagementAPI.Controllers
         public IActionResult GetCountByClass()
         {
             return Ok(_attendanceService.GetAttendanceCountByClass());
+        }
+
+        // POST: api/attendances/take
+        [HttpPost("take")]
+        [Authorize(Roles = "Teacher")]
+        public IActionResult TakeAttendance([FromBody] TakeAttendanceDto dto)
+        {
+            var teacherIdStr = User.FindFirst("TeacherId")?.Value;
+            if (string.IsNullOrEmpty(teacherIdStr))
+                return Unauthorized("Teacher ID not found");
+
+            var teacherId = int.Parse(teacherIdStr);
+
+            var classObj = _classService.GetById(dto.ClassId);
+            if (classObj == null)
+                return NotFound("Class not found");
+
+            if (classObj.ClassTeacherId != teacherId)
+                return Forbid("You are not the teacher of this class");
+
+            // ✅ سجل حضور كل طالب
+            foreach (var record in dto.Records)
+            {
+                // شوف لو الطالب عنده Attendance في اليوم ده
+                var existing = _attendanceService
+                    .GetAttendanceByStudentIdAndDate(record.StudentId, dto.Date.Date)
+                    .FirstOrDefault(attendance => attendance.ClassId == dto.ClassId);
+
+                if (existing != null)
+                {
+                    // ✅ Update
+                    existing.IsPresent = record.IsPresent;
+                    _attendanceService.Update(existing);
+                    Console.WriteLine($"✅ Updated: Student={record.StudentId}, Present={record.IsPresent}");
+                }
+                else
+                {
+                    // ✅ Add
+                    var attendance = new Attendance
+                    {
+                        StudentId = record.StudentId,
+                        ClassId = dto.ClassId,
+                        Date = dto.Date.Date,
+                        IsPresent = record.IsPresent
+                    };
+                    _attendanceService.Add(attendance);
+                    Console.WriteLine($"✅ Added: Student={record.StudentId}, Present={record.IsPresent}");
+                }
+            }
+
+            return Ok(new { message = "Attendance recorded successfully" });
+        }
+
+        // DTO
+        public class TakeAttendanceDto
+        {
+            public int ClassId { get; set; }
+            public DateTime Date { get; set; }
+            public List<AttendanceRecordDto> Records { get; set; } = new();
+        }
+
+        public class AttendanceRecordDto
+        {
+            public int StudentId { get; set; }
+            public bool IsPresent { get; set; }
         }
     }
 }

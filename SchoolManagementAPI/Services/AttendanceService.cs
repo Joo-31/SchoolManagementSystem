@@ -31,25 +31,20 @@ namespace SchoolManagementAPI.Services
 
         public bool Update(Attendance attendance)
         {
-            var existing = GetById(attendance.Id);
-            if (existing == null)
+            var persistedAttendance = GetById(attendance.Id);
+            if (persistedAttendance == null)
                 return false;
 
             bool hasChanges =
-                existing.StudentId != attendance.StudentId ||
-                existing.ClassId != attendance.ClassId ||
-                existing.Date != attendance.Date ||
-                existing.IsPresent != attendance.IsPresent;
+                persistedAttendance.StudentId != attendance.StudentId ||
+                persistedAttendance.ClassId != attendance.ClassId ||
+                persistedAttendance.Date != attendance.Date ||
+                persistedAttendance.IsPresent != attendance.IsPresent;
 
             if (!hasChanges)
                 return false;
 
-            existing.StudentId = attendance.StudentId;
-            existing.ClassId = attendance.ClassId;
-            existing.Date = attendance.Date;
-            existing.IsPresent = attendance.IsPresent;
-
-            _unitOfWork.Attendances.Update(existing);
+            _unitOfWork.Attendances.Update(attendance);
             _unitOfWork.SaveChanges();
             return true;
         }

@@ -22,7 +22,7 @@ namespace SchoolManagementAPI.Services
         }
 
         // ✅ تسجيل مستخدم جديد
-        public bool Register(string username, string password, string role = "Student")
+        public bool Register(string username, string password, string role = "Student", int? teacherId = null, int? studentId = null)
         {
             // نتأكد إن الـ Username مش موجود
             if (_context.Users.Any(u => u.Username == username))
@@ -35,7 +35,9 @@ namespace SchoolManagementAPI.Services
             {
                 Username = username,
                 PasswordHash = passwordHash,
-                Role = role
+                Role = role,
+                TeacherId = teacherId,
+                 StudentId = studentId
             };
 
             _context.Users.Add(user);
@@ -68,13 +70,20 @@ namespace SchoolManagementAPI.Services
 
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var claims = new[]
+            var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.Role, user.Role)
             };
-
+            if (user.TeacherId.HasValue)
+            {
+                claims.Add(new Claim("TeacherId", user.TeacherId.Value.ToString()));
+            }
+            if (user.StudentId.HasValue)
+            {
+                claims.Add(new Claim("StudentId", user.StudentId.Value.ToString()));
+            }
             var token = new JwtSecurityToken(
                 issuer: _configuration["Jwt:Issuer"],
                 audience: _configuration["Jwt:Audience"],

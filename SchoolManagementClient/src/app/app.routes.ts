@@ -18,6 +18,11 @@ import { EditGrade } from './pages/edit-grade/edit-grade';
 import { AttendancesList } from './pages/attendances-list/attendances-list';
 import { AddAttendance } from './pages/add-attendance/add-attendance';
 import { EditAttendance } from './pages/edit-attendance/edit-attendance';
+import { MyClasses } from './pages/my-classes/my-classes';
+import { ClassStudents } from './pages/class-students/class-students';
+import { MyProfile } from './pages/my-profile/my-profile';
+import { MyProfileStudent } from './pages/my-profile-student/my-profile-student';
+import { MyAttendance } from './pages/my-attendance/my-attendance';
 
 
 export const routes: Routes = [
@@ -28,11 +33,16 @@ export const routes: Routes = [
   { path: 'students', component: StudentsList },
   { path: 'students/add', component: AddStudent },
   { path: 'students/edit/:id', component: EditStudent },
+  { path: 'my-profile-student', component: MyProfileStudent },
+  { path: 'my-attendance', component: MyAttendance },
   
   // Teachers
   { path: 'teachers', component: TeachersList },
   { path: 'teachers/add', component: AddTeacher },
   { path: 'teachers/edit/:id', component: EditTeacher },
+  { path: 'my-classes', component: MyClasses },
+   { path: 'my-classes/:id/students', component: ClassStudents },
+    { path: 'my-profile', component: MyProfile },
   
   // Courses
   { path: 'courses', component: CoursesList },
