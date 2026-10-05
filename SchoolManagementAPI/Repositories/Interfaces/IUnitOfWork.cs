@@ -10,6 +10,8 @@
         IGradeRepository Grades { get; }
         IAttendanceRepository Attendances { get; }
 
+        IMarkRepository Marks { get; }
+
         // ✅ SaveChanges واحدة للكل
         int SaveChanges();
     }

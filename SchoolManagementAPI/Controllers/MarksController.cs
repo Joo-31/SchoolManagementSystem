@@ -1,0 +1,135 @@
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using SchoolManagementAPI.DTOs.Requests;
+using SchoolManagementAPI.DTOs.Responses;
+using SchoolManagementAPI.Models;
+using SchoolManagementAPI.Services.Interfaces;
+
+namespace SchoolManagementAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    [Authorize]
+    public class MarksController : ControllerBase
+    {
+        private readonly IMarkService _markService;
+        private readonly IMapper _mapper;
+
+        public MarksController(IMarkService markService, IMapper mapper)
+        {
+            _markService = markService;
+            _mapper = mapper;
+        }
+
+        // Admin + Teacher
+        [HttpGet]
+        [Authorize(Roles = "Admin,Teacher")]
+        public IActionResult GetAll()
+        {
+            var marks = _markService.GetAll();
+            return Ok(_mapper.Map<List<MarkDto>>(marks));
+        }
+
+        [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,Teacher")]
+        public IActionResult GetById(int id)
+        {
+            var mark = _markService.GetById(id);
+            if (mark == null) return NotFound();
+            return Ok(_mapper.Map<MarkDto>(mark));
+        }
+
+        // Teacher + Admin
+        [HttpPost]
+        [Authorize(Roles = "Admin,Teacher")]
+        public IActionResult Add([FromBody] CreateMarkDto dto)
+        {
+            try
+            {
+                var mark = _mapper.Map<Mark>(dto);
+                _markService.Add(mark);
+
+                // ✅ هات الـ Mark تاني بعد الحفظ (مع Navigation Properties)
+                var savedMark = _markService.GetById(mark.Id);
+                return Ok(_mapper.Map<MarkDto>(savedMark));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Teacher")]
+        public IActionResult Update(int id, [FromBody] UpdateMarkDto dto)
+        {
+            var existing = _markService.GetById(id);
+            if (existing == null) return NotFound();
+
+            _mapper.Map(dto, existing);
+            var updated = _markService.Update(existing);
+            if (!updated) return NotFound("No changes made");
+
+            // ✅ هات الـ Mark تاني بعد الحفظ
+            var savedMark = _markService.GetById(id);
+            return Ok(_mapper.Map<MarkDto>(savedMark));
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult Delete(int id)
+        {
+            var deleted = _markService.Delete(id);
+            if (!deleted) return NotFound();
+            return Ok();
+        }
+
+        // Student — يشوف درجاته
+        [HttpGet("me")]
+        [Authorize(Roles = "Student")]
+        public IActionResult GetMyMarks()
+        {
+            var studentIdStr = User.FindFirst("StudentId")?.Value;
+            if (string.IsNullOrEmpty(studentIdStr))
+                return Unauthorized("Student ID not found");
+
+            var studentId = int.Parse(studentIdStr);
+            var marks = _markService.GetByStudentId(studentId);
+            return Ok(_mapper.Map<List<MarkDto>>(marks));
+        }
+
+        // Teacher — يشوف درجات اللي هو حطها
+        [HttpGet("my-marks")]
+        [Authorize(Roles = "Teacher")]
+        public IActionResult GetMarksByTeacher()
+        {
+            var teacherIdStr = User.FindFirst("TeacherId")?.Value;
+            if (string.IsNullOrEmpty(teacherIdStr))
+                return Unauthorized("Teacher ID not found");
+
+            var teacherId = int.Parse(teacherIdStr);
+            var marks = _markService.GetByTeacherId(teacherId);
+            return Ok(_mapper.Map<List<MarkDto>>(marks));
+        }
+
+        // Course marks
+        [HttpGet("course/{courseId}")]
+        [Authorize(Roles = "Admin,Teacher")]
+        public IActionResult GetByCourse(int courseId)
+        {
+            var marks = _markService.GetByCourseId(courseId);
+            return Ok(_mapper.Map<List<MarkDto>>(marks));
+        }
+
+        // Student marks by id (Admin/Teacher)
+        [HttpGet("student/{studentId}")]
+        [Authorize(Roles = "Admin,Teacher")]
+        public IActionResult GetByStudent(int studentId)
+        {
+            var marks = _markService.GetByStudentId(studentId);
+            return Ok(_mapper.Map<List<MarkDto>>(marks));
+        }
+    }
+}

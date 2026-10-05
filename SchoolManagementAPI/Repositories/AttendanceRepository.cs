@@ -7,9 +7,18 @@ namespace SchoolManagementAPI.Repositories
 {
     public class AttendanceRepository : Repository<Attendance>, IAttendanceRepository
     {
-        public AttendanceRepository(SchoolDbContext context) : base(context)
+        public AttendanceRepository(SchoolDbContext context) : base(context) { }
+
+        // ✅ Override GetById
+        public new Attendance? GetById(int id)
         {
+            return _dbSet
+                .Include(a => a.Student)
+                .Include(a => a.Class)
+                .FirstOrDefault(a => a.Id == id);
         }
+
+        // ✅ Override GetAll
         public new IEnumerable<Attendance> GetAll()
         {
             return _dbSet
@@ -17,25 +26,39 @@ namespace SchoolManagementAPI.Repositories
                 .Include(a => a.Class)
                 .ToList();
         }
-        // ✅ Methods خاصة بالـ Attendance
+
         public IEnumerable<Attendance> SearchByStudentId(int studentId)
         {
-            return _dbSet.Where(a => a.StudentId == studentId).ToList();
+            return _dbSet
+                .Include(a => a.Student)
+                .Include(a => a.Class)
+                .Where(a => a.StudentId == studentId)
+                .ToList();
         }
 
         public IEnumerable<Attendance> SearchByClassId(int classId)
         {
-            return _dbSet.Where(a => a.ClassId == classId).ToList();
+            return _dbSet
+                .Include(a => a.Student)
+                .Include(a => a.Class)
+                .Where(a => a.ClassId == classId)
+                .ToList();
         }
 
         public IEnumerable<Attendance> SearchByDate(DateTime date)
         {
-            return _dbSet.Where(a => a.Date.Date == date.Date).ToList();
+            return _dbSet
+                .Include(a => a.Student)
+                .Include(a => a.Class)
+                .Where(a => a.Date.Date == date.Date)
+                .ToList();
         }
 
         public IEnumerable<Attendance> GetAttendanceByStudentIdAndDate(int studentId, DateTime date)
         {
             return _dbSet
+                .Include(a => a.Student)
+                .Include(a => a.Class)
                 .Where(a => a.StudentId == studentId && a.Date.Date == date.Date)
                 .ToList();
         }

@@ -65,6 +65,7 @@ namespace SchoolManagementAPI
                 builder.Services.AddScoped<IGradeService, GradeService>();
                 builder.Services.AddScoped<IAttendanceService, AttendanceService>();
                 builder.Services.AddScoped<IAuthService, AuthService>();
+                builder.Services.AddScoped<IMarkService, MarkService>();
 
                 // ✅ Unit of Work
                 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();

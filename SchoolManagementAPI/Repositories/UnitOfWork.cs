@@ -14,7 +14,7 @@ namespace SchoolManagementAPI.Repositories
         private IClassRepository? _classes;
         private IGradeRepository? _grades;
         private IAttendanceRepository? _attendances;
-
+        private IMarkRepository? _marks;
         public UnitOfWork(SchoolDbContext context)
         {
             _context = context;
@@ -38,6 +38,9 @@ namespace SchoolManagementAPI.Repositories
 
         public IAttendanceRepository Attendances =>
             _attendances ??= new AttendanceRepository(_context);
+
+        public IMarkRepository Marks =>
+    _marks ??= new MarkRepository(_context);
 
         // ✅ SaveChanges
         public int SaveChanges()

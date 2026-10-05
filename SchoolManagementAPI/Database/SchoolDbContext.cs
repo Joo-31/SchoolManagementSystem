@@ -24,6 +24,8 @@ namespace SchoolManagementAPI.DataBase
         public DbSet<Attendance> Attendances { get; set; }
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Mark> Marks { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -69,6 +71,27 @@ namespace SchoolManagementAPI.DataBase
                 .HasOne(a => a.Class)
                 .WithMany()
                 .HasForeignKey(a => a.ClassId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // ✅ Marks → Students
+            modelBuilder.Entity<Mark>()
+                .HasOne(m => m.Student)
+                .WithMany()
+                .HasForeignKey(m => m.StudentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // ✅ Marks → Courses
+            modelBuilder.Entity<Mark>()
+                .HasOne(m => m.Course)
+                .WithMany()
+                .HasForeignKey(m => m.CourseId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // ✅ Marks → Teachers
+            modelBuilder.Entity<Mark>()
+                .HasOne(m => m.Teacher)
+                .WithMany()
+                .HasForeignKey(m => m.TeacherId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
 

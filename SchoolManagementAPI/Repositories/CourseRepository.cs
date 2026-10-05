@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SchoolManagementAPI.DataBase;
 using SchoolManagementAPI.Models;
 using SchoolManagementAPI.Repositories.Interfaces;
@@ -8,9 +7,17 @@ namespace SchoolManagementAPI.Repositories
 {
     public class CourseRepository : Repository<Course>, ICourseRepository
     {
-        public CourseRepository(SchoolDbContext context) : base(context)
+        public CourseRepository(SchoolDbContext context) : base(context) { }
+
+        // ✅ Override GetById
+        public new Course? GetById(int id)
         {
+            return _dbSet
+                .Include(c => c.Grade)
+                .FirstOrDefault(c => c.Id == id);
         }
+
+        // ✅ Override GetAll
         public new IEnumerable<Course> GetAll()
         {
             return _dbSet
@@ -18,15 +25,18 @@ namespace SchoolManagementAPI.Repositories
                 .ToList();
         }
 
-        // ✅ Methods خاصة بالـ Course
         public IEnumerable<Course> GetCoursesByGradeId(int gradeId)
         {
-            return _dbSet.Where(c => c.GradeId == gradeId).ToList();
+            return _dbSet
+                .Include(c => c.Grade)
+                .Where(c => c.GradeId == gradeId)
+                .ToList();
         }
 
         public IEnumerable<Course> GetCoursesOrderedByCredits()
         {
             return _dbSet
+                .Include(c => c.Grade)
                 .OrderByDescending(c => c.Credits)
                 .ToList();
         }
@@ -34,6 +44,7 @@ namespace SchoolManagementAPI.Repositories
         public IEnumerable<Course> GetCoursesWithCreditsMoreThan(int credits)
         {
             return _dbSet
+                .Include(c => c.Grade)
                 .Where(c => c.Credits > credits)
                 .ToList();
         }

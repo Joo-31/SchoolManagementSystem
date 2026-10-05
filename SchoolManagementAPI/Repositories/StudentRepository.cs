@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SchoolManagementAPI.DataBase;
 using SchoolManagementAPI.Models;
 using SchoolManagementAPI.Repositories.Interfaces;
@@ -8,9 +7,17 @@ namespace SchoolManagementAPI.Repositories
 {
     public class StudentRepository : Repository<Student>, IStudentRepository
     {
-        public StudentRepository(SchoolDbContext context) : base(context)
+        public StudentRepository(SchoolDbContext context) : base(context) { }
+
+        // ✅ Override GetById
+        public new Student? GetById(int id)
         {
+            return _dbSet
+                .Include(s => s.Class)
+                .FirstOrDefault(s => s.Id == id);
         }
+
+        // ✅ Override GetAll
         public new IEnumerable<Student> GetAll()
         {
             return _dbSet
@@ -18,15 +25,18 @@ namespace SchoolManagementAPI.Repositories
                 .ToList();
         }
 
-        // ✅ Methods خاصة بالـ Student
         public IEnumerable<Student> GetStudentsByClassId(int classId)
         {
-            return _dbSet.Where(s => s.ClassId == classId).ToList();
+            return _dbSet
+                .Include(s => s.Class)
+                .Where(s => s.ClassId == classId)
+                .ToList();
         }
 
         public IEnumerable<Student> GetStudentsOrderedByName()
         {
             return _dbSet
+                .Include(s => s.Class)
                 .OrderBy(s => s.LastName)
                 .ThenBy(s => s.FirstName)
                 .ToList();
@@ -35,6 +45,7 @@ namespace SchoolManagementAPI.Repositories
         public IEnumerable<Student> GetStudentsOlderThan(int age)
         {
             return _dbSet
+                .Include(s => s.Class)
                 .AsEnumerable()
                 .Where(s => s.GetAge() > age)
                 .ToList();
@@ -70,7 +81,7 @@ namespace SchoolManagementAPI.Repositories
                 .OrderBy(s => s.GetAge())
                 .FirstOrDefault();
         }
-        // ✅ Methods جديدة
+
         public Student? GetOldestStudentByClass(int classId)
         {
             return _dbSet

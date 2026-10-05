@@ -64,6 +64,18 @@ namespace SchoolManagementAPI.Mappings
 
             CreateMap<CreateAttendanceDto, Attendance>();
             CreateMap<UpdateAttendanceDto, Attendance>();
+
+            // ✅ Mark
+            CreateMap<Mark, MarkDto>()
+                .ForMember(dest => dest.StudentName,
+                    opt => opt.MapFrom(src => src.Student != null ? src.Student.FullName : ""))
+                .ForMember(dest => dest.CourseName,
+                    opt => opt.MapFrom(src => src.Course != null ? src.Course.Name : ""))
+                .ForMember(dest => dest.TeacherName,
+                    opt => opt.MapFrom(src => src.Teacher != null ? src.Teacher.Name : ""));
+
+            CreateMap<CreateMarkDto, Mark>();
+            CreateMap<UpdateMarkDto, Mark>();
         }
     }
 }

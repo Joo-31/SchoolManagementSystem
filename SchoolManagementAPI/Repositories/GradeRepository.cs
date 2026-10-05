@@ -6,11 +6,8 @@ namespace SchoolManagementAPI.Repositories
 {
     public class GradeRepository : Repository<Grade>, IGradeRepository
     {
-        public GradeRepository( SchoolDbContext context) : base(context)
-        {
-        }
+        public GradeRepository(SchoolDbContext context) : base(context) { }
 
-        // ✅ Methods خاصة بالـ Grade
         public IEnumerable<Grade> GetGradesOrderedByLevel()
         {
             return _dbSet

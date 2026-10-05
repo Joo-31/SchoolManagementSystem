@@ -7,9 +7,18 @@ namespace SchoolManagementAPI.Repositories
 {
     public class ClassRepository : Repository<Class>, IClassRepository
     {
-        public ClassRepository(SchoolDbContext context) : base(context)
+        public ClassRepository(SchoolDbContext context) : base(context) { }
+
+        // ✅ Override GetById
+        public new Class? GetById(int id)
         {
+            return _dbSet
+                .Include(c => c.Grade)
+                .Include(c => c.ClassTeacher)
+                .FirstOrDefault(c => c.Id == id);
         }
+
+        // ✅ Override GetAll
         public new IEnumerable<Class> GetAll()
         {
             return _dbSet
@@ -17,10 +26,12 @@ namespace SchoolManagementAPI.Repositories
                 .Include(c => c.ClassTeacher)
                 .ToList();
         }
-        // ✅ Methods خاصة بالـ Class
+
         public IEnumerable<Class> GetClassesOrderedByName()
         {
             return _dbSet
+                .Include(c => c.Grade)
+                .Include(c => c.ClassTeacher)
                 .OrderBy(c => c.Name)
                 .ToList();
         }
@@ -28,6 +39,8 @@ namespace SchoolManagementAPI.Repositories
         public IEnumerable<Class> GetClassesByTeacherId(int teacherId)
         {
             return _dbSet
+                .Include(c => c.Grade)
+                .Include(c => c.ClassTeacher)
                 .Where(c => c.ClassTeacherId == teacherId)
                 .ToList();
         }
