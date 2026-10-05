@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { GradeService } from '../../services/grade';
-
+import { ToastService } from '../../services/toast';
 @Component({
   selector: 'app-edit-grade',
   standalone: true,
@@ -23,7 +23,8 @@ export class EditGrade implements OnInit {
     private gradeService: GradeService,
     private router: Router,
     private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -37,7 +38,7 @@ export class EditGrade implements OnInit {
         this.cdr.detectChanges();
       },
       error: () => {
-        this.errorMessage = 'Failed to load grade';
+       this.toastService.error('Failed to load grade', 'Error');
         this.loading = false;
         this.cdr.detectChanges();
       }
@@ -57,13 +58,13 @@ export class EditGrade implements OnInit {
     };
 
     this.gradeService.update(this.id, updatedGrade).subscribe({
-      next: () => {
-        this.successMessage = 'Grade updated successfully!';
-        setTimeout(() => this.router.navigate(['/grades']), 1000);
-      },
-      error: () => {
-        this.errorMessage = 'Failed to update grade';
-      }
+     next: () => {
+  this.toastService.success('Grade updated successfully!', 'Success');
+  setTimeout(() => this.router.navigate(['/grades']), 1000);
+},
+error: (error: any) => {
+  this.toastService.error('Failed to update grade', 'Error');
+}
     });
   }
 

@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { GradeService } from '../../services/grade';
-
+import { ToastService } from '../../services/toast';
 @Component({
   selector: 'app-grades-list',
   standalone: true,
@@ -17,7 +17,8 @@ export class GradesList implements OnInit {
 
   constructor(
     private gradeService: GradeService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+      private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -39,14 +40,17 @@ export class GradesList implements OnInit {
     });
   }
 
-  deleteGrade(id: number): void {
-    if (confirm('Are you sure you want to delete this grade?')) {
-      this.gradeService.delete(id).subscribe({
-        next: () => this.loadGrades(),
-        error: () => {
-          this.errorMessage = 'Failed to delete grade';
-        }
-      });
+ deleteGrade(id: number): void {
+  if (confirm('Are you sure you want to delete this grade?')) {
+    this.gradeService.delete(id).subscribe({
+      next: () => {
+        this.toastService.success('Grade deleted successfully!', 'Success');
+        this.loadGrades();
+      },
+      error: (error: any) => {
+        this.toastService.error('Failed to delete grade', 'Error');
+      }
+    });
     }
   }
 }

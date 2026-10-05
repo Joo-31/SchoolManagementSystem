@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { CourseService } from '../../services/course';
-
+import { ToastService } from '../../services/toast';
 @Component({
   selector: 'app-add-course',
   standalone: true,
@@ -21,7 +21,8 @@ export class AddCourse {
 
   constructor(
     private courseService: CourseService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) { }
 
   onSubmit(): void {
@@ -38,14 +39,13 @@ export class AddCourse {
     };
 
     this.courseService.add(newCourse).subscribe({
-      next: () => {
-        this.successMessage = 'Course added successfully!';
-        setTimeout(() => this.router.navigate(['/courses']), 1000);
-      },
-      error: (error: any) => {
-        this.errorMessage = 'Failed to add course';
-        console.error(error);
-      }
+     next: () => {
+  this.toastService.success('Course added successfully!', 'Success');
+  setTimeout(() => this.router.navigate(['/courses']), 1000);
+},
+error: (error: any) => {
+  this.toastService.error('Failed to add course', 'Error');
+}
     });
   }
 

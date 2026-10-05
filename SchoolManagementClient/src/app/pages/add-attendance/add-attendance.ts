@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AttendanceService } from '../../services/attendance';
-
+import { ToastService } from '../../services/toast';
 @Component({
   selector: 'app-add-attendance',
   standalone: true,
@@ -23,7 +23,8 @@ export class AddAttendance {
 
   constructor(
     private attendanceService: AttendanceService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) { }
 
   onSubmit(): void {
@@ -42,13 +43,13 @@ export class AddAttendance {
     };
 
     this.attendanceService.add(newAttendance).subscribe({
-      next: () => {
-        this.successMessage = 'Attendance added successfully!';
-        setTimeout(() => this.router.navigate(['/attendances']), 1000);
-      },
-      error: () => {
-        this.errorMessage = 'Failed to add attendance';
-      }
+     next: () => {
+  this.toastService.success('Attendance added successfully!', 'Success');
+  setTimeout(() => this.router.navigate(['/attendances']), 1000);
+},
+error: (error: any) => {
+  this.toastService.error('Failed to add attendance', 'Error');
+}
     });
   }
 

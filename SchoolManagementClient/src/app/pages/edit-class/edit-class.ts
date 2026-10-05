@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { ClassService } from '../../services/class';
-
+import { ToastService } from '../../services/toast';
 @Component({
   selector: 'app-edit-class',
   standalone: true,
@@ -24,7 +24,8 @@ export class EditClass implements OnInit {
     private classService: ClassService,
     private router: Router,
     private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+      private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -39,7 +40,7 @@ export class EditClass implements OnInit {
         this.cdr.detectChanges();
       },
       error: () => {
-        this.errorMessage = 'Failed to load class';
+        this.toastService.error('Failed to load class', 'Error');
         this.loading = false;
         this.cdr.detectChanges();
       }
@@ -61,12 +62,12 @@ export class EditClass implements OnInit {
 
     this.classService.update(this.id, updatedClass).subscribe({
       next: () => {
-        this.successMessage = 'Class updated successfully!';
-        setTimeout(() => this.router.navigate(['/classes']), 1000);
-      },
-      error: () => {
-        this.errorMessage = 'Failed to update class';
-      }
+  this.toastService.success('Class updated successfully!', 'Success');
+  setTimeout(() => this.router.navigate(['/classes']), 1000);
+},
+error: (error: any) => {
+  this.toastService.error('Failed to update class', 'Error');
+}
     });
   }
 

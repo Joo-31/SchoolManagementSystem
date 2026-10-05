@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { StudentService } from '../../services/student';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'app-edit-student',
@@ -28,7 +29,8 @@ export class EditStudent implements OnInit {
     private studentService: StudentService,
     private router: Router,
     private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+     private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -53,11 +55,10 @@ export class EditStudent implements OnInit {
         this.cdr.detectChanges();
       },
       error: (error: any) => {
-        this.errorMessage = 'Failed to load student';
-        this.loading = false;
-        this.cdr.detectChanges();
-        console.error(error);
-      }
+  this.toastService.error('Failed to load student', 'Error');
+  this.loading = false;
+  this.cdr.detectChanges();
+}
     });
   }
 
@@ -89,14 +90,14 @@ export class EditStudent implements OnInit {
     };
 
     this.studentService.update(this.id, updatedStudent).subscribe({
-      next: () => {
-        this.successMessage = 'Student updated successfully!';
-        setTimeout(() => this.router.navigate(['/students']), 1000);
-      },
-      error: (error: any) => {
-        this.errorMessage = 'Failed to update student';
-        console.error(error);
-      }
+     next: () => {
+  this.toastService.success('Student updated successfully!', 'Success');
+  setTimeout(() => this.router.navigate(['/students']), 1000);
+},
+error: (error: any) => {
+  this.toastService.error('Failed to update student', 'Error');
+  console.error(error);
+}
     });
   }
 

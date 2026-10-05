@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { AttendanceService } from '../../services/attendance';
-
+import { ToastService } from '../../services/toast';
 @Component({
   selector: 'app-edit-attendance',
   standalone: true,
@@ -27,7 +27,8 @@ export class EditAttendance implements OnInit {
     private attendanceService: AttendanceService,
     private router: Router,
     private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -50,7 +51,7 @@ export class EditAttendance implements OnInit {
         this.cdr.detectChanges();
       },
       error: () => {
-        this.errorMessage = 'Failed to load attendance';
+        this.toastService.error('Failed to load attendance', 'Error');
         this.loading = false;
         this.cdr.detectChanges();
       }
@@ -75,12 +76,12 @@ export class EditAttendance implements OnInit {
 
     this.attendanceService.update(this.id, updatedAttendance).subscribe({
       next: () => {
-        this.successMessage = 'Attendance updated successfully!';
-        setTimeout(() => this.router.navigate(['/attendances']), 1000);
-      },
-      error: () => {
-        this.errorMessage = 'Failed to update attendance';
-      }
+  this.toastService.success('Attendance updated successfully!', 'Success');
+  setTimeout(() => this.router.navigate(['/attendances']), 1000);
+},
+error: (error: any) => {
+  this.toastService.error('Failed to update attendance', 'Error');
+}
     });
   }
 

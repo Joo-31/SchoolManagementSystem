@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth';
-
+import { ToastService } from '../../services/toast';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -18,7 +18,8 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) { }
 
  onLogin(): void {
@@ -41,8 +42,9 @@ export class LoginComponent {
   }
   },
   error: (error: any) => {
-    this.errorMessage = 'Invalid username or password';
-  }
+  this.errorMessage = 'Invalid username or password';
+  this.toastService.error('Invalid username or password', 'Login Failed');
+}
 });
 }
 }

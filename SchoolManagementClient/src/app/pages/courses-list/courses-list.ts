@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CourseService } from '../../services/course';
 import { Course } from '../../models/course';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'app-courses-list',
@@ -18,7 +19,9 @@ export class CoursesList implements OnInit {
 
   constructor(
     private courseService: CourseService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+      private toastService: ToastService
+
   ) { }
 
   ngOnInit(): void {
@@ -41,15 +44,18 @@ export class CoursesList implements OnInit {
     });
   }
 
-  deleteCourse(id: number): void {
-    if (confirm('Are you sure you want to delete this course?')) {
-      this.courseService.delete(id).subscribe({
-        next: () => this.loadCourses(),
-        error: (error: any) => {
-          this.errorMessage = 'Failed to delete course';
-          console.error(error);
-        }
-      });
+ deleteCourse(id: number): void {
+  if (confirm('Are you sure you want to delete this course?')) {
+    this.courseService.delete(id).subscribe({
+      next: () => {
+        this.toastService.success('Course deleted successfully!', 'Success');
+        this.loadCourses();
+      },
+      error: (error: any) => {
+        this.toastService.error('Failed to delete course', 'Error');
+        console.error(error);
+      }
+    });
     }
   }
 }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TeacherService } from '../../services/teacher';
 import { Teacher } from '../../models/teacher';
-
+import { ToastService } from '../../services/toast';
 @Component({
   selector: 'app-teachers-list',
   standalone: true,
@@ -18,7 +18,8 @@ export class TeachersList implements OnInit {
 
   constructor(
     private teacherService: TeacherService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+     private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -42,16 +43,17 @@ export class TeachersList implements OnInit {
   }
 
   deleteTeacher(id: number): void {
-    if (confirm('Are you sure you want to delete this teacher?')) {
-      this.teacherService.delete(id).subscribe({
-        next: () => {
-          this.loadTeachers();
-        },
-        error: (error: any) => {
-          this.errorMessage = 'Failed to delete teacher';
-          console.error(error);
-        }
-      });
-    }
+  if (confirm('Are you sure you want to delete this teacher?')) {
+    this.teacherService.delete(id).subscribe({
+      next: () => {
+        this.toastService.success('Teacher deleted successfully!', 'Success');
+        this.loadTeachers();
+      },
+      error: (error: any) => {
+        this.toastService.error('Failed to delete teacher', 'Error');
+        console.error(error);
+      }
+    });
   }
+}
 }

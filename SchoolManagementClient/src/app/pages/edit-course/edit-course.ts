@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { CourseService } from '../../services/course';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'app-edit-course',
@@ -25,7 +26,8 @@ export class EditCourse implements OnInit {
     private courseService: CourseService,
     private router: Router,
     private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+      private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -41,7 +43,7 @@ export class EditCourse implements OnInit {
         this.cdr.detectChanges();
       },
       error: (error: any) => {
-        this.errorMessage = 'Failed to load course';
+       this.toastService.error('Failed to load course', 'Error');
         this.loading = false;
         this.cdr.detectChanges();
       }
@@ -64,12 +66,12 @@ export class EditCourse implements OnInit {
 
     this.courseService.update(this.id, updatedCourse).subscribe({
       next: () => {
-        this.successMessage = 'Course updated successfully!';
-        setTimeout(() => this.router.navigate(['/courses']), 1000);
-      },
-      error: (error: any) => {
-        this.errorMessage = 'Failed to update course';
-      }
+  this.toastService.success('Course updated successfully!', 'Success');
+  setTimeout(() => this.router.navigate(['/courses']), 1000);
+},
+error: (error: any) => {
+  this.toastService.error('Failed to update course', 'Error');
+}
     });
   }
 

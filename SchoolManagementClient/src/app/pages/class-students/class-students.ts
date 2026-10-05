@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { TeacherService } from '../../services/teacher';
 import { AttendanceService } from '../../services/attendance';
-
+import { ToastService } from '../../services/toast';
 @Component({
   selector: 'app-class-students',
   standalone: true,
@@ -30,7 +30,8 @@ export class ClassStudents implements OnInit {
     private attendanceService: AttendanceService,
     private route: ActivatedRoute,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -95,15 +96,12 @@ export class ClassStudents implements OnInit {
     records: this.attendanceRecords
   }).subscribe({
     next: () => {
-      this.saving = false;
-      // ✅ Navigate فوراً
-      this.router.navigate(['/my-classes']);
-    },
-    error: (error: any) => {
-      this.errorMessage = 'Failed to save attendance';
-      this.saving = false;
-      console.error(error);
-    }
+  this.toastService.success('Attendance saved successfully!', 'Success');
+  setTimeout(() => this.router.navigate(['/my-classes']), 1000);
+},
+error: (error: any) => {
+  this.toastService.error('Failed to save attendance', 'Error');
+}
   });
 }
 

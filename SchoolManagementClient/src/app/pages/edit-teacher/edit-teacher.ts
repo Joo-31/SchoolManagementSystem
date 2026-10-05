@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { TeacherService } from '../../services/teacher';
-
+import { ToastService } from '../../services/toast';
 @Component({
   selector: 'app-edit-teacher',
   standalone: true,
@@ -28,7 +28,8 @@ export class EditTeacher implements OnInit {
     private teacherService: TeacherService,
     private router: Router,
     private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+     private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -52,11 +53,10 @@ export class EditTeacher implements OnInit {
         this.cdr.detectChanges();
       },
       error: (error: any) => {
-        this.errorMessage = 'Failed to load teacher';
-        this.loading = false;
-        this.cdr.detectChanges();
-        console.error(error);
-      }
+  this.toastService.error('Failed to load teacher', 'Error');
+  this.loading = false;
+  this.cdr.detectChanges();
+}
     });
   }
 
@@ -84,13 +84,13 @@ export class EditTeacher implements OnInit {
 
     this.teacherService.update(this.id, updatedTeacher).subscribe({
       next: () => {
-        this.successMessage = 'Teacher updated successfully!';
-        setTimeout(() => this.router.navigate(['/teachers']), 1000);
-      },
-      error: (error: any) => {
-        this.errorMessage = 'Failed to update teacher';
-        console.error(error);
-      }
+  this.toastService.success('Teacher updated successfully!', 'Success');
+  setTimeout(() => this.router.navigate(['/teachers']), 1000);
+},
+error: (error: any) => {
+  this.toastService.error('Failed to update teacher', 'Error');
+  console.error(error);
+}
     });
   }
 

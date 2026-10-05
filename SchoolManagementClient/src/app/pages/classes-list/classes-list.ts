@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ClassService } from '../../services/class';
-
+import { ToastService } from '../../services/toast';
 @Component({
   selector: 'app-classes-list',
   standalone: true,
@@ -17,7 +17,9 @@ export class ClassesList implements OnInit {
 
   constructor(
     private classService: ClassService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+      private toastService: ToastService
+
   ) { }
 
   ngOnInit(): void {
@@ -39,14 +41,17 @@ export class ClassesList implements OnInit {
     });
   }
 
-  deleteClass(id: number): void {
-    if (confirm('Are you sure you want to delete this class?')) {
-      this.classService.delete(id).subscribe({
-        next: () => this.loadClasses(),
-        error: () => {
-          this.errorMessage = 'Failed to delete class';
-        }
-      });
+ deleteClass(id: number): void {
+  if (confirm('Are you sure you want to delete this class?')) {
+    this.classService.delete(id).subscribe({
+      next: () => {
+        this.toastService.success('Class deleted successfully!', 'Success');
+        this.loadClasses();
+      },
+      error: (error: any) => {
+        this.toastService.error('Failed to delete class', 'Error');
+      }
+    });
     }
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AttendanceService } from '../../services/attendance';
-
+import { ToastService } from '../../services/toast';
 @Component({
   selector: 'app-attendances-list',
   standalone: true,
@@ -17,7 +17,8 @@ export class AttendancesList implements OnInit {
 
   constructor(
     private attendanceService: AttendanceService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -40,13 +41,16 @@ export class AttendancesList implements OnInit {
   }
 
   deleteAttendance(id: number): void {
-    if (confirm('Are you sure you want to delete this attendance?')) {
-      this.attendanceService.delete(id).subscribe({
-        next: () => this.loadAttendances(),
-        error: () => {
-          this.errorMessage = 'Failed to delete attendance';
-        }
-      });
+  if (confirm('Are you sure you want to delete this attendance?')) {
+    this.attendanceService.delete(id).subscribe({
+      next: () => {
+        this.toastService.success('Attendance deleted successfully!', 'Success');
+        this.loadAttendances();
+      },
+      error: (error: any) => {
+        this.toastService.error('Failed to delete attendance', 'Error');
+      }
+    });
     }
   }
 }

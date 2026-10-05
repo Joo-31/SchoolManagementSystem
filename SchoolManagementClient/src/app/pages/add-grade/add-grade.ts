@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { GradeService } from '../../services/grade';
-
+import { ToastService } from '../../services/toast';
 @Component({
   selector: 'app-add-grade',
   standalone: true,
@@ -19,7 +19,8 @@ export class AddGrade {
 
   constructor(
     private gradeService: GradeService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) { }
 
   onSubmit(): void {
@@ -34,13 +35,13 @@ export class AddGrade {
     };
 
     this.gradeService.add(newGrade).subscribe({
-      next: () => {
-        this.successMessage = 'Grade added successfully!';
-        setTimeout(() => this.router.navigate(['/grades']), 1000);
-      },
-      error: () => {
-        this.errorMessage = 'Failed to add grade';
-      }
+     next: () => {
+  this.toastService.success('Grade added successfully!', 'Success');
+  setTimeout(() => this.router.navigate(['/grades']), 1000);
+},
+error: (error: any) => {
+  this.toastService.error('Failed to add grade', 'Error');
+}
     });
   }
 
