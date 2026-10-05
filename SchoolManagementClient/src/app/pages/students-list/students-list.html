@@ -15,7 +15,7 @@
         <th>Full Name</th>
         <th>Age</th>
         <th>Gender</th>
-        <th>Class ID</th>
+        <th>Class Name</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -26,7 +26,7 @@
         <td>{{ student.fullName }}</td>
         <td>{{ student.age }}</td>
         <td>{{ student.gender }}</td>
-        <td>{{ student.classId }}</td>
+        <td>{{ student.className }}</td>
         <td>
           <a [routerLink]="['/students/edit', student.id]" class="btn-edit">Edit</a>
           <button (click)="deleteStudent(student.id)" class="btn-delete">Delete</button>

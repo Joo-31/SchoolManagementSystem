@@ -4,4 +4,5 @@ export interface Course {
   code: string;
   credits: number;
   gradeId: number;
+  gradeName: string; 
 }

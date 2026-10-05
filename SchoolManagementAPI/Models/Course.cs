@@ -14,6 +14,7 @@ namespace SchoolManagementAPI.Models
         private int _credits;
         public int Id { get; set; }
         public int GradeId { get; set; }
+        public Grade? Grade { get; set; }   // ← Navigation Property
 
         public string Name
         {
@@ -60,6 +61,7 @@ namespace SchoolManagementAPI.Models
             Credits = credits;
             GradeId = gradeId;
         }
+        
         #endregion
 
         #region Public Methods

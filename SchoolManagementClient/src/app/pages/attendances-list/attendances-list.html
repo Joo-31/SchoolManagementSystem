@@ -12,8 +12,8 @@
       <tr>
         <th>#</th>
         <th>ID</th>
-        <th>Student ID</th>
-        <th>Class ID</th>
+        <th>Student Name</th>
+        <th>Class Name</th>
         <th>Date</th>
         <th>Is Present</th>
         <th>Actions</th>
@@ -23,8 +23,8 @@
       <tr *ngFor="let attendance of attendances; let i = index">
         <td>{{ i + 1 }}</td>
         <td>{{ attendance.id }}</td>
-        <td>{{ attendance.studentId }}</td>
-        <td>{{ attendance.classId }}</td>
+        <td>{{ attendance.studentName }}</td>
+<td>{{ attendance.className }}</td>
         <td>{{ attendance.date | date:'yyyy-MM-dd' }}</td>
         <td>{{ attendance.isPresent ? 'Present' : 'Absent' }}</td>
         <td>

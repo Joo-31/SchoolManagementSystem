@@ -1,4 +1,5 @@
-﻿using SchoolManagementAPI.DataBase;
+﻿using Microsoft.EntityFrameworkCore;
+using SchoolManagementAPI.DataBase;
 using SchoolManagementAPI.Models;
 using SchoolManagementAPI.Repositories.Interfaces;
 
@@ -9,7 +10,13 @@ namespace SchoolManagementAPI.Repositories
         public AttendanceRepository(SchoolDbContext context) : base(context)
         {
         }
-
+        public new IEnumerable<Attendance> GetAll()
+        {
+            return _dbSet
+                .Include(a => a.Student)
+                .Include(a => a.Class)
+                .ToList();
+        }
         // ✅ Methods خاصة بالـ Attendance
         public IEnumerable<Attendance> SearchByStudentId(int studentId)
         {

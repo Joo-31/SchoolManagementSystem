@@ -15,7 +15,7 @@
         <th>Name</th>
         <th>Code</th>
         <th>Credits</th>
-        <th>Grade ID</th>
+        <th>Grade Name</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -26,7 +26,7 @@
         <td>{{ course.name }}</td>
         <td>{{ course.code }}</td>
         <td>{{ course.credits }}</td>
-        <td>{{ course.gradeId }}</td>
+        <td>{{ course.gradeName }}</td>
         <td>
           <a [routerLink]="['/courses/edit', course.id]" class="btn-edit">Edit</a>
           <button (click)="deleteCourse(course.id)" class="btn-delete">Delete</button>

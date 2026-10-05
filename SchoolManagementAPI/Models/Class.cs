@@ -13,6 +13,8 @@ namespace SchoolManagementAPI.Models
         private string _name = string.Empty;
         private int _gradeId;
         private int _classteacherId;
+        public Grade? Grade { get; set; }              // ← موجود
+        public Teacher? ClassTeacher { get; set; }     // ← موجود
 
         public string Name
         {

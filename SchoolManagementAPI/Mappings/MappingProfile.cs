@@ -18,10 +18,11 @@ namespace SchoolManagementAPI.Mappings
                 .ForMember(dest => dest.Gender,
                     opt => opt.MapFrom(src => src.Gender.ToString()))
                 .ForMember(dest => dest.BirthDate,
-        opt => opt.MapFrom(src => src.BirthDate));
+        opt => opt.MapFrom(src => src.BirthDate))
+                .ForMember(dest => dest.ClassName,
+        opt => opt.MapFrom(src => src.Class != null ? src.Class.Name : ""));
 
             CreateMap<CreateStudentDto, Student>();
-
             CreateMap<UpdateStudentDto, Student>();
 
             // ✅ Teacher
@@ -34,12 +35,18 @@ namespace SchoolManagementAPI.Mappings
             CreateMap<UpdateTeacherDto, Teacher>();
 
             // ✅ Course
-            CreateMap<Course, CourseDto>();
+            CreateMap<Course, CourseDto>()
+    .ForMember(dest => dest.GradeName,
+        opt => opt.MapFrom(src => src.Grade != null ? src.Grade.Name : ""));    
             CreateMap<CreateCourseDto, Course>();
             CreateMap<UpdateCourseDto, Course>();
 
             // ✅ Class
-            CreateMap<Class, ClassDto>();
+            CreateMap<Class, ClassDto>()
+     .ForMember(dest => dest.GradeName,
+         opt => opt.MapFrom(src => src.Grade != null ? src.Grade.Name : ""))
+     .ForMember(dest => dest.ClassTeacherName,
+         opt => opt.MapFrom(src => src.ClassTeacher != null ? src.ClassTeacher.Name : ""));
             CreateMap<CreateClassDto, Class>();
             CreateMap<UpdateClassDto, Class>();
 
@@ -49,7 +56,12 @@ namespace SchoolManagementAPI.Mappings
             CreateMap<UpdateGradeDto, Grade>();
 
             // ✅ Attendance
-            CreateMap<Attendance, AttendanceDto>();
+            CreateMap<Attendance, AttendanceDto>()
+    .ForMember(dest => dest.StudentName,
+        opt => opt.MapFrom(src => src.Student != null ? src.Student.FullName : ""))
+    .ForMember(dest => dest.ClassName,
+        opt => opt.MapFrom(src => src.Class != null ? src.Class.Name : ""));
+
             CreateMap<CreateAttendanceDto, Attendance>();
             CreateMap<UpdateAttendanceDto, Attendance>();
         }

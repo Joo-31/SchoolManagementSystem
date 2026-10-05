@@ -1,4 +1,5 @@
-﻿using SchoolManagementAPI.DataBase;
+﻿using Microsoft.EntityFrameworkCore;
+using SchoolManagementAPI.DataBase;
 using SchoolManagementAPI.Models;
 using SchoolManagementAPI.Repositories.Interfaces;
 
@@ -9,7 +10,13 @@ namespace SchoolManagementAPI.Repositories
         public ClassRepository(SchoolDbContext context) : base(context)
         {
         }
-
+        public new IEnumerable<Class> GetAll()
+        {
+            return _dbSet
+                .Include(c => c.Grade)
+                .Include(c => c.ClassTeacher)
+                .ToList();
+        }
         // ✅ Methods خاصة بالـ Class
         public IEnumerable<Class> GetClassesOrderedByName()
         {

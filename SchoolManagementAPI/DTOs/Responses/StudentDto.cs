@@ -8,4 +8,5 @@
     public int Age { get; set; }
     public string Gender { get; set; } = string.Empty;
     public int ClassId { get; set; }
+    public string ClassName { get; set; } = string.Empty;
 }

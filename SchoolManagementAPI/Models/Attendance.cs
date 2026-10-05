@@ -15,6 +15,8 @@ namespace SchoolManagementAPI.Models
         private DateTime _date;
         private bool _isPresent;
         private int _classId;
+        public Student? Student { get; set; }   // ← Navigation Property
+        public Class? Class { get; set; }       // ← Navigation Property
 
         public DateTime Date
         {

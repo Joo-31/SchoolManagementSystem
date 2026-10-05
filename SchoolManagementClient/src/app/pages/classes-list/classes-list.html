@@ -13,8 +13,8 @@
         <th>#</th>
         <th>ID</th>
         <th>Name</th>
-        <th>Grade ID</th>
-        <th>Class Teacher ID</th>
+        <th>Grade Name</th>
+        <th>Class Teacher Name</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -23,8 +23,8 @@
         <td>{{ i + 1 }}</td>
         <td>{{ classObj.id }}</td>
         <td>{{ classObj.name }}</td>
-        <td>{{ classObj.gradeId }}</td>
-        <td>{{ classObj.classTeacherId }}</td>
+        <td>{{ classObj.gradeName }}</td>
+<td>{{ classObj.classTeacherName }}</td>
         <td>
           <a [routerLink]="['/classes/edit', classObj.id]" class="btn-edit">Edit</a>
           <button (click)="deleteClass(classObj.id)" class="btn-delete">Delete</button>

@@ -7,5 +7,6 @@
         public string Code { get; set; } = string.Empty;
         public int Credits { get; set; }
         public int GradeId { get; set; }
+        public string GradeName { get; set; } = string.Empty;
     }
 }

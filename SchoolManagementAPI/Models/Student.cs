@@ -21,7 +21,8 @@ namespace SchoolManagementAPI.Models
         private string _lastname = string.Empty;
         private DateTime _birthDate;
         private GenderEnum _gender;
-       
+        public Class? Class { get; set; }   // ← Navigation Property
+
 
         public string FirstName
         {
