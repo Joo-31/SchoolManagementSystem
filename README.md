@@ -192,4 +192,29 @@ PUT/DELETE — Update/Delete (with permissions)
 
 ... (other entities: similar pattern)
 
+🧪 Testing
+
+cd SchoolManagementAPI.Tests
+dotnet test
+
+
+👤 Author
+Youssef Adel
+
+GitHub: @Joo-31
+
+📝 License
+This project is for educational purposes.
+
+.
+
+🌟 Star this repo if you find it useful!
+
+
+
+
+
+
+
+
 
