@@ -44,7 +44,13 @@ namespace SchoolManagementAPI.Services
             if (!hasChanges)
                 return false;
 
-            _unitOfWork.Attendances.Update(attendance);
+            // ✅ عدل persistedAttendance نفسه
+            persistedAttendance.StudentId = attendance.StudentId;
+            persistedAttendance.ClassId = attendance.ClassId;
+            persistedAttendance.Date = attendance.Date;
+            persistedAttendance.IsPresent = attendance.IsPresent;
+
+            _unitOfWork.Attendances.Update(persistedAttendance);
             _unitOfWork.SaveChanges();
             return true;
         }
