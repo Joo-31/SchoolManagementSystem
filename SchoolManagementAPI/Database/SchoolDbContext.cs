@@ -45,11 +45,11 @@ namespace SchoolManagementAPI.DataBase
                 .HasForeignKey(c => c.GradeId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // ✅ Classes → Teachers
-            modelBuilder.Entity<Class>()
-                .HasOne(c => c.ClassTeacher)
+            // ✅ Course → Teacher
+            modelBuilder.Entity<Course>()
+                .HasOne(c => c.Teacher)
                 .WithMany()
-                .HasForeignKey(c => c.ClassTeacherId)
+                .HasForeignKey(c => c.TeacherId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // ✅ Courses → Grades
@@ -93,6 +93,11 @@ namespace SchoolManagementAPI.DataBase
                 .WithMany()
                 .HasForeignKey(m => m.TeacherId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // ✅ Mark Unique Constraint — (StudentId + CourseId)
+            modelBuilder.Entity<Mark>()
+                .HasIndex(m => new { m.StudentId, m.CourseId })
+                .IsUnique();
         }
 
 

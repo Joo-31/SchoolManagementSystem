@@ -36,8 +36,11 @@ namespace SchoolManagementAPI.Mappings
 
             // ✅ Course
             CreateMap<Course, CourseDto>()
-    .ForMember(dest => dest.GradeName,
-        opt => opt.MapFrom(src => src.Grade != null ? src.Grade.Name : ""));    
+                .ForMember(dest => dest.GradeName,
+                    opt => opt.MapFrom(src => src.Grade != null ? src.Grade.Name : ""))
+                .ForMember(dest => dest.TeacherName,
+                    opt => opt.MapFrom(src => src.Teacher != null ? src.Teacher.Name : ""));
+
             CreateMap<CreateCourseDto, Course>();
             CreateMap<UpdateCourseDto, Course>();
 

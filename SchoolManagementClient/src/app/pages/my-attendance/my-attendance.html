@@ -4,9 +4,8 @@
   </div>
 
   <div *ngIf="loading" class="loading">Loading...</div>
-  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
 
-  <table *ngIf="!loading && !errorMessage">
+  <table *ngIf="!loading && attendances.length > 0">
     <thead>
       <tr>
         <th>#</th>

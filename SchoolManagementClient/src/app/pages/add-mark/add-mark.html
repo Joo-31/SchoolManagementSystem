@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="form-card">
+    <h1>Add New Mark</h1>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="studentId">Student *</label>
+          <select id="studentId" [(ngModel)]="studentId" name="studentId" required>
+            <option [ngValue]="null">-- Select Student --</option>
+            <option *ngFor="let s of students" [ngValue]="s.id">{{ s.fullName }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="courseId">Course *</label>
+          <select id="courseId" [(ngModel)]="courseId" name="courseId" required>
+            <option [ngValue]="null">-- Select Course --</option>
+            <option *ngFor="let c of courses" [ngValue]="c.id">{{ c.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row" *ngIf="!isTeacher">
+        <div class="form-group">
+          <label for="teacherId">Teacher *</label>
+          <select id="teacherId" [(ngModel)]="teacherId" name="teacherId" required>
+            <option [ngValue]="null">-- Select Teacher --</option>
+            <option *ngFor="let t of teachers" [ngValue]="t.id">{{ t.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="score">Score (0-100) *</label>
+          <input type="number" id="score" [(ngModel)]="score" name="score" min="0" max="100" required />
+        </div>
+
+        <div class="form-group">
+          <label for="date">Date *</label>
+          <input type="date" id="date" [(ngModel)]="date" name="date" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="notes">Notes</label>
+          <input type="text" id="notes" [(ngModel)]="notes" name="notes" placeholder="Optional notes" />
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" (click)="onCancel()">Cancel</button>
+        <button type="submit" class="btn-save">Save Mark</button>
+      </div>
+    </form>
+  </div>
+</div>

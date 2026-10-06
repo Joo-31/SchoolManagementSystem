@@ -213,11 +213,11 @@ namespace SchoolManagementAPI
 
             // 5. Courses
             var courses = new List<Course>
-            {
-                new Course { Name = "Mathematics", Code = "MATH101", Credits = 3, GradeId = grade1.Id },
-                new Course { Name = "English", Code = "ENG101", Credits = 2, GradeId = grade1.Id },
-                new Course { Name = "Science", Code = "SCI101", Credits = 3, GradeId = grade2.Id },
-            };
+{
+    new Course { Name = "Mathematics", Code = "MATH101", Credits = 3, GradeId = grade1.Id, TeacherId = teacher1.Id },
+    new Course { Name = "English", Code = "ENG101", Credits = 2, GradeId = grade1.Id, TeacherId = teacher2.Id },
+    new Course { Name = "Science", Code = "SCI101", Credits = 3, GradeId = grade2.Id, TeacherId = teacher3.Id },
+};
             context.Courses.AddRange(courses);
             context.SaveChanges();
 

@@ -6,5 +6,7 @@
         public string Code { get; set; } = string.Empty;
         public int Credits { get; set; }
         public int GradeId { get; set; }
+        public int TeacherId { get; set; }   // ← الجديد
+
     }
 }

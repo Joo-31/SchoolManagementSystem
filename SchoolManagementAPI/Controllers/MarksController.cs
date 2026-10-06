@@ -15,11 +15,22 @@ namespace SchoolManagementAPI.Controllers
     public class MarksController : ControllerBase
     {
         private readonly IMarkService _markService;
+        private readonly ICourseService _courseService;
+        private readonly IClassService _classService;
+        private readonly IStudentService _studentService;
         private readonly IMapper _mapper;
 
-        public MarksController(IMarkService markService, IMapper mapper)
+        public MarksController(
+            IMarkService markService,
+            ICourseService courseService,
+            IClassService classService,
+            IStudentService studentService,
+            IMapper mapper)
         {
             _markService = markService;
+            _courseService = courseService;
+            _classService = classService;
+            _studentService = studentService;
             _mapper = mapper;
         }
 
@@ -48,10 +59,51 @@ namespace SchoolManagementAPI.Controllers
         {
             try
             {
-                var mark = _mapper.Map<Mark>(dto);
+                // ✅ لو Teacher — نستخدم TeacherId من التوكن
+                int teacherId;
+                if (User.IsInRole("Teacher"))
+                {
+                    var teacherIdStr = User.FindFirst("TeacherId")?.Value;
+                    if (string.IsNullOrEmpty(teacherIdStr))
+                        return Unauthorized("Teacher ID not found");
+
+                    teacherId = int.Parse(teacherIdStr);
+                }
+                else
+                {
+                    // Admin — لازم يبعت TeacherId
+                    if (dto.TeacherId <= 0)
+                        return BadRequest("TeacherId is required");
+                    teacherId = dto.TeacherId;
+                }
+
+                // ✅ تأكد إن المدرس ده بيدرس المادة دي
+                var course = _courseService.GetById(dto.CourseId);
+                if (course == null)
+                    return NotFound("Course not found");
+
+                if (course.TeacherId != teacherId)
+                    return StatusCode(403, new { message = "You are not the teacher of this course" });
+                // ✅ تأكد إن الطالب معندوش Mark في نفس المادة
+                var existingMarks = _markService.GetByStudentId(dto.StudentId);
+                var duplicate = existingMarks.FirstOrDefault(m => m.CourseId == dto.CourseId);
+
+                if (duplicate != null)
+                    return BadRequest("Student already has a mark for this course. Please update it instead.");
+
+                // ✅ اعمل Mark
+                var mark = new Mark
+                {
+                    StudentId = dto.StudentId,
+                    CourseId = dto.CourseId,
+                    TeacherId = teacherId,
+                    Score = dto.Score,
+                    Date = dto.Date,
+                    Notes = dto.Notes
+                };
+
                 _markService.Add(mark);
 
-                // ✅ هات الـ Mark تاني بعد الحفظ (مع Navigation Properties)
                 var savedMark = _markService.GetById(mark.Id);
                 return Ok(_mapper.Map<MarkDto>(savedMark));
             }
@@ -78,12 +130,28 @@ namespace SchoolManagementAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Teacher")]
         public IActionResult Delete(int id)
         {
+            var mark = _markService.GetById(id);
+            if (mark == null) return NotFound();
+
+            // ✅ لو Teacher — لازم يكون هو اللي حط الـ Mark
+            if (User.IsInRole("Teacher"))
+            {
+                var teacherIdStr = User.FindFirst("TeacherId")?.Value;
+                if (string.IsNullOrEmpty(teacherIdStr))
+                    return Unauthorized();
+
+                var teacherId = int.Parse(teacherIdStr);
+                if (mark.TeacherId != teacherId)
+                    return Forbid("You can only delete your own marks");
+            }
+
             var deleted = _markService.Delete(id);
             if (!deleted) return NotFound();
-            return Ok();
+
+            return Ok(new { message = "Mark deleted successfully" });
         }
 
         // Student — يشوف درجاته
@@ -130,6 +198,46 @@ namespace SchoolManagementAPI.Controllers
         {
             var marks = _markService.GetByStudentId(studentId);
             return Ok(_mapper.Map<List<MarkDto>>(marks));
+        }
+
+        // GET: api/marks/my-courses
+        [HttpGet("my-courses")]
+        [Authorize(Roles = "Teacher")]
+        public IActionResult GetMyCourses()
+        {
+            var teacherIdStr = User.FindFirst("TeacherId")?.Value;
+            if (string.IsNullOrEmpty(teacherIdStr))
+                return Unauthorized();
+
+            var teacherId = int.Parse(teacherIdStr);
+            var courses = _courseService.GetAll().Where(c => c.TeacherId == teacherId).ToList();
+            return Ok(_mapper.Map<List<CourseDto>>(courses));
+        }
+
+        // GET: api/marks/my-students
+        [HttpGet("my-students")]
+        [Authorize(Roles = "Teacher")]
+        public IActionResult GetMyStudents()
+        {
+            var teacherIdStr = User.FindFirst("TeacherId")?.Value;
+            if (string.IsNullOrEmpty(teacherIdStr))
+                return Unauthorized();
+
+            var teacherId = int.Parse(teacherIdStr);
+
+            // جيب فصول المدرس
+            var classService = HttpContext.RequestServices.GetService<IClassService>();
+            var studentService = HttpContext.RequestServices.GetService<IStudentService>();
+
+            var classes = classService!.GetClassesByTeacherId(teacherId);
+
+            var students = new List<Student>();
+            foreach (var c in classes)
+            {
+                students.AddRange(studentService!.GetStudentsByClassId(c.Id));
+            }
+
+            return Ok(_mapper.Map<List<StudentDto>>(students));
         }
     }
 }

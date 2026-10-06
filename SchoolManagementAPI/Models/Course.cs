@@ -12,9 +12,11 @@ namespace SchoolManagementAPI.Models
         private string _name = string.Empty;
         private string _code = string.Empty;
         private int _credits;
+        public int TeacherId { get; set; }
         public int Id { get; set; }
         public int GradeId { get; set; }
         public Grade? Grade { get; set; }   // ← Navigation Property
+        public Teacher? Teacher { get; set; }
 
         public string Name
         {

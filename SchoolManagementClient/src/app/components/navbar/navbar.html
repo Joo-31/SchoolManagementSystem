@@ -28,6 +28,9 @@
       <li *ngIf="isAdmin()">
         <a routerLink="/attendances" routerLinkActive="active">Attendances</a>
       </li>
+      <li *ngIf="isAdmin()">
+  <a routerLink="/marks" routerLinkActive="active">Marks</a>
+</li>
 
       <!-- Teacher Only -->
       <li *ngIf="isTeacher()">
@@ -36,6 +39,9 @@
       <li *ngIf="isTeacher()">
         <a routerLink="/my-profile" routerLinkActive="active">My Profile</a>
       </li>
+      <li *ngIf="isTeacher()">
+  <a routerLink="/my-marks" routerLinkActive="active">My Marks</a>
+</li>
 
       <!-- Student Only -->
       <li *ngIf="isStudent()">
@@ -44,6 +50,9 @@
       <li *ngIf="isStudent()">
         <a routerLink="/my-attendance" routerLinkActive="active">My Attendance</a>
       </li>
+      <li *ngIf="isStudent()">
+  <a routerLink="/my-marks" routerLinkActive="active">My Marks</a>
+</li>
     </ul>
 
     <div class="nav-user">

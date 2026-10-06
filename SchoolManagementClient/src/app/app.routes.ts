@@ -24,6 +24,10 @@ import { MyProfile } from './pages/my-profile/my-profile';
 import { MyProfileStudent } from './pages/my-profile-student/my-profile-student';
 import { MyAttendance } from './pages/my-attendance/my-attendance';
 import { Dashboard } from './pages/dashboard/dashboard';
+import { MarksList } from './pages/marks-list/marks-list';
+import { AddMark } from './pages/add-mark/add-mark';
+import { EditMark } from './pages/edit-mark/edit-mark';
+import { MyMarks } from './pages/my-marks/my-marks';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -66,5 +70,11 @@ export const routes: Routes = [
   { path: 'attendances/add', component: AddAttendance },
   { path: 'attendances/edit/:id', component: EditAttendance },
 
-  { path: 'dashboard', component: Dashboard }
+  { path: 'dashboard', component: Dashboard },
+
+  // Marks
+  { path: 'marks', component: MarksList },
+  { path: 'marks/add', component: AddMark },
+  { path: 'marks/edit/:id', component: EditMark },
+  { path: 'my-marks', component: MyMarks }
 ];

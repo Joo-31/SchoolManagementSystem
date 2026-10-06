@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="header">
+    <h1>My Marks (Total: {{ marks.length }})</h1>
+    <a *ngIf="isTeacher" routerLink="/marks/add" class="btn-add">+ Add Mark</a>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+
+  <table *ngIf="!loading && marks.length > 0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th *ngIf="isTeacher">Student</th>
+        <th>Course</th>
+        <th *ngIf="!isTeacher">Teacher</th>
+        <th>Score</th>
+        <th>Date</th>
+        <th>Notes</th>
+        <th *ngIf="isTeacher">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mark of marks; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td *ngIf="isTeacher">{{ mark.studentName }}</td>
+        <td>{{ mark.courseName }}</td>
+        <td *ngIf="!isTeacher">{{ mark.teacherName }}</td>
+        <td>
+          <span [class.excellent]="mark.score >= 90"
+                [class.good]="mark.score >= 75 && mark.score < 90"
+                [class.pass]="mark.score >= 50 && mark.score < 75"
+                [class.fail]="mark.score < 50">
+            {{ mark.score }}
+          </span>
+        </td>
+        <td>{{ mark.date | date:'yyyy-MM-dd' }}</td>
+        <td>{{ mark.notes || '-' }}</td>
+        <td *ngIf="isTeacher">
+          <a [routerLink]="['/marks/edit', mark.id]" class="btn-edit">Edit</a>
+          <button (click)="deleteMark(mark.id)" class="btn-delete">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && marks.length === 0" class="no-data">No marks found.</div>
+</div>

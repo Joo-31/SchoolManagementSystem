@@ -8,5 +8,8 @@
         public int Credits { get; set; }
         public int GradeId { get; set; }
         public string GradeName { get; set; } = string.Empty;
+
+        public int TeacherId { get; set; }              // ← الجديد
+        public string TeacherName { get; set; } = string.Empty;   // ← الجديد
     }
 }
