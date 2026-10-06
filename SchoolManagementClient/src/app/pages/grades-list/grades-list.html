@@ -1,6 +1,6 @@
 <div class="container">
   <div class="header">
-    <h1>Grades List (Total: {{ grades.length }})</h1>
+    <h1>Grades List (Total: {{ totalCount }})</h1>
     <a routerLink="/grades/add" class="btn-add">+ Add Grade</a>
   </div>
 
@@ -19,7 +19,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let grade of grades; let i = index">
-        <td>{{ i + 1 }}</td>
+        <td>{{ (pageNumber - 1) * pageSize + i + 1 }}</td>
         <td>{{ grade.id }}</td>
         <td>{{ grade.name }}</td>
         <td>{{ grade.level }}</td>
@@ -32,4 +32,10 @@
   </table>
 
   <div *ngIf="!loading && grades.length === 0" class="no-data">No grades found.</div>
+
+  <div class="pagination" *ngIf="!loading && totalPages > 1">
+    <button class="page-btn" [disabled]="!hasPrevious" (click)="previousPage()">← Previous</button>
+    <button *ngFor="let page of getPages()" class="page-btn" [class.active]="page === pageNumber" (click)="goToPage(page)">{{ page }}</button>
+    <button class="page-btn" [disabled]="!hasNext" (click)="nextPage()">Next →</button>
+  </div>
 </div>

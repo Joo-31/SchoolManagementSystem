@@ -97,3 +97,28 @@ tbody tr:hover {
 .btn-delete:hover {
   background: #c82333;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 25px;
+  flex-wrap: wrap;
+}
+
+.page-btn {
+  background: white;
+  color: #667eea;
+  border: 1px solid #667eea;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+  min-width: 40px;
+}
+
+.page-btn:hover:not(:disabled) { background: #667eea; color: white; }
+.page-btn.active { background: #667eea; color: white; font-weight: 700; }
+.page-btn:disabled { opacity: 0.5; cursor: not-allowed; }

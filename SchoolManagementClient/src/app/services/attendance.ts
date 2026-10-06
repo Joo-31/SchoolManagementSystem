@@ -36,4 +36,7 @@ export class AttendanceService {
   takeAttendance(data: { classId: number, date: string, records: { studentId: number, isPresent: boolean }[] }): Observable<any> {
   return this.http.post(`${this.apiUrl}/take`, data);
 }
+getPaged(pageNumber: number, pageSize: number): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/paged?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+}
 }

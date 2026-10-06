@@ -1,6 +1,6 @@
 <div class="container">
   <div class="header">
-    <h1>Attendances List (Total: {{ attendances.length }})</h1>
+    <h1>Attendances List (Total: {{ totalCount }})</h1>
     <a routerLink="/attendances/add" class="btn-add">+ Add Attendance</a>
   </div>
 
@@ -12,21 +12,25 @@
       <tr>
         <th>#</th>
         <th>ID</th>
-        <th>Student Name</th>
-        <th>Class Name</th>
+        <th>Student</th>
+        <th>Class</th>
         <th>Date</th>
-        <th>Is Present</th>
+        <th>Status</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let attendance of attendances; let i = index">
-        <td>{{ i + 1 }}</td>
+        <td>{{ (pageNumber - 1) * pageSize + i + 1 }}</td>
         <td>{{ attendance.id }}</td>
         <td>{{ attendance.studentName }}</td>
-<td>{{ attendance.className }}</td>
+        <td>{{ attendance.className }}</td>
         <td>{{ attendance.date | date:'yyyy-MM-dd' }}</td>
-        <td>{{ attendance.isPresent ? 'Present' : 'Absent' }}</td>
+        <td>
+          <span [class.present]="attendance.isPresent" [class.absent]="!attendance.isPresent">
+            {{ attendance.isPresent ? 'Present' : 'Absent' }}
+          </span>
+        </td>
         <td>
           <a [routerLink]="['/attendances/edit', attendance.id]" class="btn-edit">Edit</a>
           <button (click)="deleteAttendance(attendance.id)" class="btn-delete">Delete</button>
@@ -36,4 +40,10 @@
   </table>
 
   <div *ngIf="!loading && attendances.length === 0" class="no-data">No attendances found.</div>
+
+  <div class="pagination" *ngIf="!loading && totalPages > 1">
+    <button class="page-btn" [disabled]="!hasPrevious" (click)="previousPage()">← Previous</button>
+    <button *ngFor="let page of getPages()" class="page-btn" [class.active]="page === pageNumber" (click)="goToPage(page)">{{ page }}</button>
+    <button class="page-btn" [disabled]="!hasNext" (click)="nextPage()">Next →</button>
+  </div>
 </div>

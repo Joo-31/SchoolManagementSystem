@@ -32,4 +32,7 @@ export class ClassService {
   getCount(): Observable<any> {
   return this.http.get<any>(`${this.apiUrl}/count`);
 }
+getPaged(pageNumber: number, pageSize: number): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/paged?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+}
 }
