@@ -75,28 +75,38 @@ export class AddMark implements OnInit {
   }
 
   onSubmit(): void {
-    if (!this.studentId || !this.courseId || this.score === null) {
-      this.errorMessage = 'All fields are required';
+    // ✅ Validation واضحة
+    if (!this.studentId || this.studentId <= 0) {
+      this.errorMessage = 'Please select a student';
+      this.toastService.warning('Please select a student', 'Warning');
       return;
     }
 
-    if (!this.isTeacher && !this.teacherId) {
-      this.errorMessage = 'Teacher is required';
+    if (!this.courseId || this.courseId <= 0) {
+      this.errorMessage = 'Please select a course';
+      this.toastService.warning('Please select a course', 'Warning');
       return;
     }
 
-    if (this.score < 0 || this.score > 100) {
+    if (this.score === null || this.score < 0 || this.score > 100) {
       this.errorMessage = 'Score must be between 0 and 100';
+      this.toastService.warning('Score must be between 0 and 100', 'Warning');
+      return;
+    }
+
+    if (!this.isTeacher && (!this.teacherId || this.teacherId <= 0)) {
+      this.errorMessage = 'Please select a teacher';
+      this.toastService.warning('Please select a teacher', 'Warning');
       return;
     }
 
     const newMark = {
       studentId: Number(this.studentId),
       courseId: Number(this.courseId),
-      teacherId: this.isTeacher ? null : Number(this.teacherId),
+      teacherId: this.isTeacher ? 0 : Number(this.teacherId),   // ← 0 بدل null
       score: Number(this.score),
       date: this.date,
-      notes: this.notes
+      notes: this.notes || ''
     };
 
     this.markService.add(newMark).subscribe({
