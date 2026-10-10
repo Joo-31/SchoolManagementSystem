@@ -35,21 +35,13 @@ namespace SchoolManagementAPI.Services
             if (persistedAttendance == null)
                 return false;
 
-            bool hasChanges =
-                persistedAttendance.StudentId != attendance.StudentId ||
-                persistedAttendance.ClassId != attendance.ClassId ||
-                persistedAttendance.Date != attendance.Date ||
-                persistedAttendance.IsPresent != attendance.IsPresent;
-
-            if (!hasChanges)
-                return false;
-
-            // ✅ عدل persistedAttendance نفسه
+            // ✅ غير القيم
             persistedAttendance.StudentId = attendance.StudentId;
             persistedAttendance.ClassId = attendance.ClassId;
             persistedAttendance.Date = attendance.Date;
             persistedAttendance.IsPresent = attendance.IsPresent;
 
+            // ✅ احفظ دايماً (هو مش هيعمل حاجة لو مفيش تغيير فعلي)
             _unitOfWork.Attendances.Update(persistedAttendance);
             _unitOfWork.SaveChanges();
             return true;
