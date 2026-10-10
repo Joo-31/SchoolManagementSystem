@@ -1,4 +1,5 @@
-﻿using SchoolManagementAPI.Models;
+﻿using SchoolManagementAPI.DTOs.Responses;
+using SchoolManagementAPI.Models;
 
 namespace SchoolManagementAPI.Repositories.Interfaces
 {
@@ -14,6 +15,9 @@ namespace SchoolManagementAPI.Repositories.Interfaces
         Student? GetYoungestStudent();
         // ✅ Methods جديدة
         Student? GetOldestStudentByClass(int classId);
-        Student? GetYoungestStudentByClass(int classId);    
+        Student? GetYoungestStudentByClass(int classId);
+
+
+        new PagedResult<Student> GetPaged(int pageNumber, int pageSize);
     }
 }

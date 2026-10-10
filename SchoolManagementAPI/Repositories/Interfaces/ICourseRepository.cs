@@ -1,4 +1,5 @@
-﻿using SchoolManagementAPI.Models;
+﻿using SchoolManagementAPI.DTOs.Responses;
+using SchoolManagementAPI.Models;
 
 namespace SchoolManagementAPI.Repositories.Interfaces
 {
@@ -12,5 +13,7 @@ namespace SchoolManagementAPI.Repositories.Interfaces
         double GetAverageCredits();
         Course? GetCourseWithMaxCredits();
         Course? GetCourseWithMinCredits();
+
+        new PagedResult<Course> GetPaged(int pageNumber, int pageSize);
     }
 }

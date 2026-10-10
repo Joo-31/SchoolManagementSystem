@@ -1,4 +1,5 @@
-﻿using SchoolManagementAPI.Models;
+﻿using SchoolManagementAPI.DTOs.Responses;
+using SchoolManagementAPI.Models;
 
 namespace SchoolManagementAPI.Repositories.Interfaces
 {
@@ -11,5 +12,7 @@ namespace SchoolManagementAPI.Repositories.Interfaces
         Dictionary<string, int> GetStudentCountByClass();
         Class? GetClassWithMostStudents();
         Class? GetClassWithLeastStudents();
+
+        new PagedResult<Class> GetPaged(int pageNumber, int pageSize);
     }
 }
