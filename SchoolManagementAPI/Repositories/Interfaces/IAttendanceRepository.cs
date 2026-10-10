@@ -1,4 +1,5 @@
-﻿using SchoolManagementAPI.Models;
+﻿using SchoolManagementAPI.DTOs.Responses;
+using SchoolManagementAPI.Models;
 
 namespace SchoolManagementAPI.Repositories.Interfaces
 {
@@ -15,5 +16,7 @@ namespace SchoolManagementAPI.Repositories.Interfaces
         int GetAbsentCountByStudent(int studentId);
         int? GetStudentWithMostAbsences();
         Dictionary<string, int> GetAttendanceCountByClass();
+
+      new PagedResult<Attendance> GetPaged(int pageNumber, int pageSize);
     }
 }

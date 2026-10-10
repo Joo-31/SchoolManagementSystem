@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SchoolManagementAPI.DataBase;
+using SchoolManagementAPI.DTOs.Responses;
 using SchoolManagementAPI.Models;
 using SchoolManagementAPI.Repositories.Interfaces;
 
@@ -107,6 +108,34 @@ namespace SchoolManagementAPI.Repositories
                     c => c.Name,
                     c => _context.Attendances.Count(a => a.ClassId == c.Id && a.IsPresent)
                 );
+        }
+
+        // ✅ Override GetPaged عشان نعمل Include
+        public new PagedResult<Attendance> GetPaged(int pageNumber, int pageSize)
+        {
+            var query = _dbSet
+                .Include(a => a.Student)
+                .Include(a => a.Class)
+                .AsNoTracking()
+                .AsQueryable();
+
+            var totalCount = query.Count();
+
+            var data = query
+                .OrderByDescending(a => a.Date)
+                .ThenBy(a => a.StudentId)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            return new PagedResult<Attendance>
+            {
+                Data = data,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalCount = totalCount,
+                TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize)
+            };
         }
     }
 }
