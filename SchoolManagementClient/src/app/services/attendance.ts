@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { Attendance } from '../models/attendance';
@@ -33,10 +33,41 @@ export class AttendanceService {
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
-  takeAttendance(data: { classId: number, date: string, records: { studentId: number, isPresent: boolean }[] }): Observable<any> {
-  return this.http.post(`${this.apiUrl}/take`, data);
-}
-getPaged(pageNumber: number, pageSize: number): Observable<any> {
-  return this.http.get<any>(`${this.apiUrl}/paged?pageNumber=${pageNumber}&pageSize=${pageSize}`);
-}
+
+  takeAttendance(data: {
+    classId: number,
+    date: string,
+    records: { studentId: number, isPresent: boolean }[]
+  }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/take`, data);
+  }
+
+  getPaged(pageNumber: number, pageSize: number): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}/paged?pageNumber=${pageNumber}&pageSize=${pageSize}`
+    );
+  }
+
+  // ✅ جديد — Filtered pagination
+  getFiltered(
+    pageNumber: number,
+    pageSize: number,
+    filters: { date?: string; classId?: number; status?: string }
+  ): Observable<any> {
+    let params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
+
+    if (filters.date) {
+      params = params.set('date', filters.date);
+    }
+    if (filters.classId) {
+      params = params.set('classId', filters.classId.toString());
+    }
+    if (filters.status) {
+      params = params.set('status', filters.status);
+    }
+
+    return this.http.get<any>(`${this.apiUrl}/filter`, { params });
+  }
 }

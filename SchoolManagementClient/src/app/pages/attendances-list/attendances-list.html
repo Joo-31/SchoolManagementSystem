@@ -4,10 +4,72 @@
     <a routerLink="/attendances/add" class="btn-add">+ Add Attendance</a>
   </div>
 
+  <!-- ✅ Filters -->
+  <div class="filters-card">
+    <div class="filter-row">
+      <div class="filter-group">
+        <label>📅 Date</label>
+        <input type="date" [(ngModel)]="filterDate" />
+      </div>
+
+      <div class="filter-group">
+        <label>🏫 Class</label>
+        <select [(ngModel)]="filterClassId">
+          <option [ngValue]="null">All Classes</option>
+          <option *ngFor="let c of classes" [ngValue]="c.id">
+            {{ c.name }} — {{ c.gradeName }}
+          </option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>📊 Status</label>
+        <select [(ngModel)]="filterStatus">
+          <option value="">All Statuses</option>
+          <option value="present">Present</option>
+          <option value="absent">Absent</option>
+        </select>
+      </div>
+
+      <div class="filter-actions">
+        <button class="btn-apply" (click)="applyFilters()">🔍 Apply</button>
+        <button class="btn-clear" (click)="clearFilters()">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Statistics Cards -->
+  <div class="stats-row" *ngIf="!loading && totalCount > 0">
+    <div class="stat-card stat-present">
+      <span class="stat-icon">✅</span>
+      <div>
+        <div class="stat-value">{{ statsPresent }}</div>
+        <div class="stat-label">Present</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-absent">
+      <span class="stat-icon">❌</span>
+      <div>
+        <div class="stat-value">{{ statsAbsent }}</div>
+        <div class="stat-label">Absent</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-rate">
+      <span class="stat-icon">📊</span>
+      <div>
+        <div class="stat-value">{{ attendanceRate }}%</div>
+        <div class="stat-label">Attendance Rate</div>
+      </div>
+    </div>
+  </div>
+
   <div *ngIf="loading" class="loading">Loading...</div>
   <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
 
-  <table *ngIf="!loading && !errorMessage">
+  <!-- ✅ Table -->
+  <table *ngIf="!loading && !errorMessage && attendances.length > 0">
     <thead>
       <tr>
         <th>#</th>
@@ -39,8 +101,11 @@
     </tbody>
   </table>
 
-  <div *ngIf="!loading && attendances.length === 0" class="no-data">No attendances found.</div>
+  <div *ngIf="!loading && attendances.length === 0" class="no-data">
+    No attendances found matching your filters.
+  </div>
 
+  <!-- ✅ Pagination -->
   <div class="pagination" *ngIf="!loading && totalPages > 1">
     <button class="page-btn" [disabled]="!hasPrevious" (click)="previousPage()">← Previous</button>
     <button *ngFor="let page of getPages()" class="page-btn" [class.active]="page === pageNumber" (click)="goToPage(page)">{{ page }}</button>

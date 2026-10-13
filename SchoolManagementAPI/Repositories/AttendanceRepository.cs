@@ -66,14 +66,12 @@ namespace SchoolManagementAPI.Repositories
 
         public int GetPresentCountByDate(DateTime date)
         {
-            return _dbSet
-                .Count(a => a.Date.Date == date.Date && a.IsPresent);
+            return _dbSet.Count(a => a.Date.Date == date.Date && a.IsPresent);
         }
 
         public int GetAbsentCountByDate(DateTime date)
         {
-            return _dbSet
-                .Count(a => a.Date.Date == date.Date && !a.IsPresent);
+            return _dbSet.Count(a => a.Date.Date == date.Date && !a.IsPresent);
         }
 
         public double GetAttendancePercentageByDate(DateTime date)
@@ -87,8 +85,7 @@ namespace SchoolManagementAPI.Repositories
 
         public int GetAbsentCountByStudent(int studentId)
         {
-            return _dbSet
-                .Count(a => a.StudentId == studentId && !a.IsPresent);
+            return _dbSet.Count(a => a.StudentId == studentId && !a.IsPresent);
         }
 
         public int? GetStudentWithMostAbsences()
@@ -110,7 +107,7 @@ namespace SchoolManagementAPI.Repositories
                 );
         }
 
-        // ✅ Override GetPaged عشان نعمل Include
+        // ✅ GetPaged العادي
         public new PagedResult<Attendance> GetPaged(int pageNumber, int pageSize)
         {
             var query = _dbSet
@@ -118,6 +115,56 @@ namespace SchoolManagementAPI.Repositories
                 .Include(a => a.Class)
                 .AsNoTracking()
                 .AsQueryable();
+
+            var totalCount = query.Count();
+
+            var data = query
+                .OrderByDescending(a => a.Date)
+                .ThenBy(a => a.StudentId)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            return new PagedResult<Attendance>
+            {
+                Data = data,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalCount = totalCount,
+                TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize)
+            };
+        }
+
+        // ✅ GetPagedWithFilters (جديد)
+        public PagedResult<Attendance> GetPagedWithFilters(
+            int pageNumber,
+            int pageSize,
+            DateTime? date = null,
+            int? classId = null,
+            bool? isPresent = null)
+        {
+            var query = _dbSet
+                .Include(a => a.Student)
+                .Include(a => a.Class)
+                .AsNoTracking()
+                .AsQueryable();
+
+            // ✅ Apply filters
+            if (date.HasValue)
+            {
+                var targetDate = date.Value.Date;
+                query = query.Where(a => a.Date.Date == targetDate);
+            }
+
+            if (classId.HasValue && classId.Value > 0)
+            {
+                query = query.Where(a => a.ClassId == classId.Value);
+            }
+
+            if (isPresent.HasValue)
+            {
+                query = query.Where(a => a.IsPresent == isPresent.Value);
+            }
 
             var totalCount = query.Count();
 

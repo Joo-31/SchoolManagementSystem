@@ -18,5 +18,13 @@ namespace SchoolManagementAPI.Repositories.Interfaces
         Dictionary<string, int> GetAttendanceCountByClass();
 
       new PagedResult<Attendance> GetPaged(int pageNumber, int pageSize);
+
+        // ✅ Pagination + Filters (جديد)
+        PagedResult<Attendance> GetPagedWithFilters(
+            int pageNumber,
+            int pageSize,
+            DateTime? date = null,
+            int? classId = null,
+            bool? isPresent = null);
     }
 }

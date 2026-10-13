@@ -2,6 +2,7 @@
 using SchoolManagementAPI.Repositories.Interfaces;
 using SchoolManagementAPI.Services.Interfaces;
 using SchoolManagementAPI.DTOs.Responses;
+
 namespace SchoolManagementAPI.Services
 {
     public class AttendanceService : IAttendanceService
@@ -35,13 +36,11 @@ namespace SchoolManagementAPI.Services
             if (persistedAttendance == null)
                 return false;
 
-            // ✅ غير القيم
             persistedAttendance.StudentId = attendance.StudentId;
             persistedAttendance.ClassId = attendance.ClassId;
             persistedAttendance.Date = attendance.Date;
             persistedAttendance.IsPresent = attendance.IsPresent;
 
-            // ✅ احفظ دايماً (هو مش هيعمل حاجة لو مفيش تغيير فعلي)
             _unitOfWork.Attendances.Update(persistedAttendance);
             _unitOfWork.SaveChanges();
             return true;
@@ -108,9 +107,22 @@ namespace SchoolManagementAPI.Services
         {
             return _unitOfWork.Attendances.GetAttendanceCountByClass();
         }
+
         public PagedResult<Attendance> GetPaged(int pageNumber, int pageSize)
         {
             return _unitOfWork.Attendances.GetPaged(pageNumber, pageSize);
+        }
+
+        // ✅ جديد
+        public PagedResult<Attendance> GetPagedWithFilters(
+            int pageNumber,
+            int pageSize,
+            DateTime? date = null,
+            int? classId = null,
+            bool? isPresent = null)
+        {
+            return _unitOfWork.Attendances.GetPagedWithFilters(
+                pageNumber, pageSize, date, classId, isPresent);
         }
     }
 }

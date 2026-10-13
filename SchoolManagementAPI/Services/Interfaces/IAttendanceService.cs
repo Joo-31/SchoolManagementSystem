@@ -1,5 +1,6 @@
 ﻿using SchoolManagementAPI.Models;
 using SchoolManagementAPI.DTOs.Responses;
+
 namespace SchoolManagementAPI.Services.Interfaces
 {
     public interface IAttendanceService
@@ -24,7 +25,16 @@ namespace SchoolManagementAPI.Services.Interfaces
         int GetAbsentCountByStudent(int studentId);
         int? GetStudentWithMostAbsences();
         Dictionary<string, int> GetAttendanceCountByClass();
+
+        // Pagination
         PagedResult<Attendance> GetPaged(int pageNumber, int pageSize);
 
+        // Pagination + Filters (جديد)
+        PagedResult<Attendance> GetPagedWithFilters(
+            int pageNumber,
+            int pageSize,
+            DateTime? date = null,
+            int? classId = null,
+            bool? isPresent = null);
     }
 }

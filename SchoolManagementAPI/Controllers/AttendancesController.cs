@@ -244,6 +244,43 @@ namespace SchoolManagementAPI.Controllers
             return Ok(new { message = "Attendance recorded successfully" });
         }
 
+        // GET: api/attendances/filter?pageNumber=1&pageSize=10&date=2026-10-13&classId=1&status=present
+        [HttpGet("filter")]
+        [Authorize(Roles = "Admin,Teacher")]
+        public IActionResult GetPagedWithFilters(
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10,
+            [FromQuery] DateTime? date = null,
+            [FromQuery] int? classId = null,
+            [FromQuery] string? status = null)
+        {
+            // ✅ حوّل status string لـ bool?
+            bool? isPresent = null;
+            if (!string.IsNullOrWhiteSpace(status))
+            {
+                if (status.Equals("present", StringComparison.OrdinalIgnoreCase))
+                    isPresent = true;
+                else if (status.Equals("absent", StringComparison.OrdinalIgnoreCase))
+                    isPresent = false;
+            }
+
+            var pagedResult = _attendanceService.GetPagedWithFilters(
+                pageNumber, pageSize, date, classId, isPresent);
+
+            var attendancesDto = _mapper.Map<List<AttendanceDto>>(pagedResult.Data);
+
+            var result = new PagedResult<AttendanceDto>
+            {
+                Data = attendancesDto,
+                PageNumber = pagedResult.PageNumber,
+                PageSize = pagedResult.PageSize,
+                TotalCount = pagedResult.TotalCount,
+                TotalPages = pagedResult.TotalPages
+            };
+
+            return Ok(result);
+        }
+
         // DTO
         public class TakeAttendanceDto
         {
