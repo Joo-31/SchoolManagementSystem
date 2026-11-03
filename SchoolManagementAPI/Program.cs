@@ -173,55 +173,154 @@ namespace SchoolManagementAPI
         }
 
         // ✅ Seed Method
+        // ✅ Seed Method (Stress Testing)
         static void SeedData(SchoolDbContext context)
         {
-            // شوف لو فيه بيانات
+            // لو الداتابيز فيها داتا، اطلع بره عشان منعملش تكرار
             if (context.Grades.Any()) return;
 
-            // 1. Grades
-            var grade1 = new Grade { Name = "Primary", Level = 1 };
-            var grade2 = new Grade { Name = "Intermediate", Level = 2 };
-            context.Grades.AddRange(grade1, grade2);
-            context.SaveChanges();
+            Console.WriteLine("⏳ Starting Seeding huge data... Please wait.");
 
-            // 2. Teachers
-            var teacher1 = new Teacher { Name = "Ahmed Mohamed", Email = "ahmed@school.com", Phone = "01001234567", Specialization = "Math", HireDate = new DateTime(2015, 9, 1) };
-            var teacher2 = new Teacher { Name = "Sara Ali", Email = "sara@school.com", Phone = "01007654321", Specialization = "English", HireDate = new DateTime(2018, 9, 1) };
-            var teacher3 = new Teacher { Name = "Khaled Hassan", Email = "khaled@school.com", Phone = "01009876543", Specialization = "Science", HireDate = new DateTime(2020, 9, 1) };
-            context.Teachers.AddRange(teacher1, teacher2, teacher3);
-            context.SaveChanges();
+            var faker = new Bogus.Faker();
 
-            // 3. Classes
-            var class1 = new Class { Name = "3A", GradeId = grade1.Id, ClassTeacherId = teacher1.Id };
-            var class2 = new Class { Name = "3B", GradeId = grade1.Id, ClassTeacherId = teacher1.Id };
-            var class3 = new Class { Name = "5A", GradeId = grade2.Id, ClassTeacherId = teacher2.Id };
-            context.Classes.AddRange(class1, class2, class3);
-            context.SaveChanges();
-
-            // 4. Students
-            var students = new List<Student>
+            // 1. Grades (10 مراحل)
+            var grades = new List<Grade>();
+            for (int i = 1; i <= 10; i++)
             {
-                new Student { FirstName = "Omar", LastName = "Hassan", BirthDate = new DateTime(2010, 5, 15), Gender = GenderEnum.Male, ClassId = class1.Id },
-                new Student { FirstName = "Laila", LastName = "Ahmed", BirthDate = new DateTime(2011, 8, 20), Gender = GenderEnum.Female, ClassId = class1.Id },
-                new Student { FirstName = "Youssef", LastName = "Ali", BirthDate = new DateTime(2010, 11, 10), Gender = GenderEnum.Male, ClassId = class2.Id },
-                new Student { FirstName = "Mariam", LastName = "Khaled", BirthDate = new DateTime(2009, 3, 25), Gender = GenderEnum.Female, ClassId = class2.Id },
-                new Student { FirstName = "Ali", LastName = "Mahmoud", BirthDate = new DateTime(2009, 7, 12), Gender = GenderEnum.Male, ClassId = class3.Id },
-                new Student { FirstName = "Nour", LastName = "Ibrahim", BirthDate = new DateTime(2008, 12, 5), Gender = GenderEnum.Female, ClassId = class3.Id },
-            };
+                grades.Add(new Grade { Name = $"Grade {i}", Level = i });
+            }
+            context.Grades.AddRange(grades);
+            context.SaveChanges();
+
+            // 2. Teachers (50 مدرس)
+            var teachers = new List<Teacher>();
+            for (int i = 0; i < 50; i++)
+            {
+                var teacher = new Teacher
+                {
+                    Name = faker.Name.FullName(),
+                    Email = faker.Internet.Email(),
+                    Phone = faker.Phone.PhoneNumber("010########"),
+                    Specialization = faker.PickRandom(new[] { "Math", "Science", "English", "Arabic", "History" }),
+                    HireDate = faker.Date.Past(10) // تاريخ تعيين في آخر 10 سنين
+                };
+                teachers.Add(teacher);
+            }
+            context.Teachers.AddRange(teachers);
+            context.SaveChanges();
+
+            // 3. Classes (30 فصل)
+            var classes = new List<Class>();
+            for (int i = 0; i < 30; i++)
+            {
+                var randomGrade = faker.PickRandom(grades);
+                var randomTeacher = faker.PickRandom(teachers);
+
+                classes.Add(new Class
+                {
+                    Name = $"Class {faker.Random.Number(1, 10)}{faker.Random.AlphaNumeric(1)}",
+                    GradeId = randomGrade.Id,
+                    ClassTeacherId = randomTeacher.Id
+                });
+            }
+            context.Classes.AddRange(classes);
+            context.SaveChanges();
+
+            // 4. Students (1000 طالب)
+            var students = new List<Student>();
+            for (int i = 0; i < 1000; i++)
+            {
+                var randomClass = faker.PickRandom(classes);
+                var gender = faker.PickRandom<GenderEnum>();
+
+                students.Add(new Student
+                {
+                    FirstName = faker.Name.FirstName(gender == GenderEnum.Male ? Bogus.DataSets.Name.Gender.Male : Bogus.DataSets.Name.Gender.Female),
+                    LastName = faker.Name.LastName(),
+                    BirthDate = faker.Date.Past(18), // مواليد آخر 18 سنة
+                    Gender = gender,
+                    ClassId = randomClass.Id
+                });
+            }
             context.Students.AddRange(students);
             context.SaveChanges();
 
-            // 5. Courses
-            var courses = new List<Course>
-{
-    new Course { Name = "Mathematics", Code = "MATH101", Credits = 3, GradeId = grade1.Id, TeacherId = teacher1.Id },
-    new Course { Name = "English", Code = "ENG101", Credits = 2, GradeId = grade1.Id, TeacherId = teacher2.Id },
-    new Course { Name = "Science", Code = "SCI101", Credits = 3, GradeId = grade2.Id, TeacherId = teacher3.Id },
-};
+            // 5. Courses (50 كورس)
+            var courses = new List<Course>();
+            for (int i = 0; i < 50; i++)
+            {
+                var randomGrade = faker.PickRandom(grades);
+                var randomTeacher = faker.PickRandom(teachers);
+
+                courses.Add(new Course
+                {
+                    Name = faker.Commerce.ProductName(),
+                    Code = faker.Random.AlphaNumeric(6).ToUpper(),
+                    Credits = faker.Random.Number(1, 4),
+                    GradeId = randomGrade.Id,
+                    TeacherId = randomTeacher.Id
+                });
+            }
             context.Courses.AddRange(courses);
             context.SaveChanges();
 
-            // 6. Users (Admin + Teacher + Student)
+            // 6. Attendances (50,000 سجل غياب)
+            Console.WriteLine("⏳ Generating 50,000 attendances...");
+            var attendances = new List<Attendance>();
+
+            // عشان نمنع تكرار نفس الطالب في نفس اليوم، ممكن نعمل لوب ذكي
+            // بس للتبسيط هنا، هنعمل 50,000 سجل عشوائي
+            for (int i = 0; i < 50000; i++)
+            {
+                var randomStudent = faker.PickRandom(students);
+                var randomClass = classes.FirstOrDefault(c => c.Id == randomStudent.ClassId) ?? faker.PickRandom(classes);
+
+                // تواريخ عشوائية في آخر 30 يوم
+                var randomDate = faker.Date.Between(DateTime.Now.AddDays(-30), DateTime.Now.AddDays(-1));
+
+                attendances.Add(new Attendance
+                {
+                    StudentId = randomStudent.Id,
+                    ClassId = randomClass.Id,
+                    Date = randomDate,
+                    IsPresent = faker.Random.Bool(0.8f) // 80% نسبة حضور
+                });
+            }
+            context.Attendances.AddRange(attendances);
+            context.SaveChanges();
+
+            // 7. Marks (5000 علامة)
+            // 7. Marks (5000 علامة فريدة)
+            Console.WriteLine("⏳ Generating 5,000 unique marks...");
+            var marks = new List<Mark>();
+            var uniqueMarks = new HashSet<string>(); // عشان نمنع التكرار
+
+            while (marks.Count < 5000)
+            {
+                var randomStudent = faker.PickRandom(students);
+                var randomCourse = faker.PickRandom(courses);
+
+                // مفتاح فريد لكل طالب وكورس
+                string key = $"{randomStudent.Id}-{randomCourse.Id}";
+
+                // لو المفتاح مش موجود، نضيف العلامة
+                if (uniqueMarks.Add(key))
+                {
+                    marks.Add(new Mark
+                    {
+                        StudentId = randomStudent.Id,
+                        CourseId = randomCourse.Id,
+                        TeacherId = randomCourse.TeacherId,
+                        Score = faker.Random.Double(0, 100),
+                        Date = faker.Date.Recent(30),
+                        Notes = faker.Random.Bool() ? "Good" : "Needs improvement"
+                    });
+                }
+            }
+            context.Marks.AddRange(marks);
+            context.SaveChanges();
+
+            // 8. Users (Admin + Teacher + Student)
             var adminUser = new User
             {
                 Username = "admin",
@@ -235,7 +334,7 @@ namespace SchoolManagementAPI
                 Username = "teacher_ahmed",
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("Teacher@123"),
                 Role = "Teacher",
-                TeacherId = teacher1.Id,   
+                TeacherId = teachers.First().Id,
                 CreatedAt = DateTime.Now
             };
 
@@ -244,13 +343,14 @@ namespace SchoolManagementAPI
                 Username = "student_omar",
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("Student@123"),
                 Role = "Student",
-                StudentId = students[0].Id,
+                StudentId = students.First().Id,
                 CreatedAt = DateTime.Now
             };
 
             context.Users.AddRange(adminUser, teacherUser, studentUser);
             context.SaveChanges();
-            Console.WriteLine("✅ Seed Data loaded successfully!");
+
+            Console.WriteLine("✅ Huge Seed Data loaded successfully! 🎉");
         }
     }
 }

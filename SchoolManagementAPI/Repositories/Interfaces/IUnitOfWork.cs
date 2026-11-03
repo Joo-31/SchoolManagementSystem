@@ -12,6 +12,8 @@
 
         IMarkRepository Marks { get; }
 
+        IUserRepository Users { get; }
+
         // ✅ SaveChanges واحدة للكل
         int SaveChanges();
     }

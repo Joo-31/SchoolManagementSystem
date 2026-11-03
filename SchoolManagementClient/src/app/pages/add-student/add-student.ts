@@ -20,6 +20,11 @@ export class AddStudent {
   birthDay: number | null = null;
   gender: number = 0;
   classId: number | null = null;
+  
+  // ✅ الحقول الجديدة
+  username: string = '';
+  password: string = '';
+  
   errorMessage: string = '';
   successMessage: string = '';
 
@@ -45,6 +50,12 @@ export class AddStudent {
       return;
     }
 
+    // ✅ Validation للـ Username والـ Password
+    if (!this.username || !this.password) {
+      this.errorMessage = 'Username and Password are required for the account';
+      return;
+    }
+
     const birthDate = `${this.birthYear}-${String(this.birthMonth).padStart(2, '0')}-${String(this.birthDay).padStart(2, '0')}`;
 
     const newStudent = {
@@ -52,18 +63,20 @@ export class AddStudent {
       lastName: this.lastName,
       birthDate: birthDate,
       gender: Number(this.gender),
-      classId: Number(this.classId)
+      classId: Number(this.classId),
+      username: this.username,
+      password: this.password
     };
 
     this.studentService.add(newStudent).subscribe({
-     next: () => {
-  this.toastService.success('Student added successfully!', 'Success');
-  setTimeout(() => this.router.navigate(['/students']), 1000);
-},
-error: (error: any) => {
-  this.toastService.error('Failed to add student', 'Error');
-  console.error(error);
-}
+      next: () => {
+        this.toastService.success('Student and account created successfully!', 'Success');
+        setTimeout(() => this.router.navigate(['/students']), 1000);
+      },
+      error: (error: any) => {
+        this.toastService.error('Failed to add student', 'Error');
+        console.error(error);
+      }
     });
   }
 

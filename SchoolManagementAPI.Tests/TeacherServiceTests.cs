@@ -61,12 +61,19 @@ namespace SchoolManagementAPI.Tests
         [Fact]
         public void Add_ShouldAddTeacherAndSaveChanges()
         {
+            // Arrange
             var teacher = new Teacher { Id = 1, Name = "Ahmed", Email = "a@t.com", Phone = "0100", Specialization = "Math", HireDate = DateTime.Now };
+            var username = "teacher_test";
+            var password = "Password@123";
 
-            _teacherService.Add(teacher);
+            // Act
+            _teacherService.Add(teacher, username, password);
 
+            // Assert
             _teacherRepoMock.Verify(r => r.Add(teacher), Times.Once);
-            _unitOfWorkMock.Verify(u => u.SaveChanges(), Times.Once);
+
+            // ✅ بنتأكد إنه عمل SaveChanges مرتين (مرة للطالب ومرة للـ User)
+            _unitOfWorkMock.Verify(u => u.SaveChanges(), Times.Exactly(2));
         }
 
         [Fact]

@@ -7,5 +7,7 @@
         public string Phone { get; set; } = string.Empty;
         public string Specialization { get; set; } = string.Empty;
         public DateTime HireDate { get; set; }
+        public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
     }
 }

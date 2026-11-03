@@ -18,13 +18,16 @@ namespace SchoolManagementAPI.Controllers
         private readonly IMapper _mapper;
         private readonly IClassService _classService;
         private readonly IStudentService _studentService;
+        private readonly ICourseService _courseService; // ضيف دي
 
-        public TeachersController(ITeacherService teacherService, IMapper mapper, IClassService classService, IStudentService studentService)
+
+        public TeachersController(ITeacherService teacherService, IMapper mapper, IClassService classService, IStudentService studentService, ICourseService courseService)
         {
             _teacherService = teacherService;
             _mapper = mapper;
             _classService = classService;
             _studentService = studentService;
+            _courseService = courseService;
         }
 
         [HttpGet]
@@ -52,7 +55,7 @@ namespace SchoolManagementAPI.Controllers
             try
             {
                 var teacher = _mapper.Map<Teacher>(dto);
-                _teacherService.Add(teacher);
+                _teacherService.Add(teacher, dto.Username, dto.Password);
                 return Ok(_mapper.Map<TeacherDto>(teacher));
             }
             catch (Exception ex)
@@ -230,8 +233,11 @@ namespace SchoolManagementAPI.Controllers
             if (classObj == null)
                 return NotFound("Class not found");
 
-            if (classObj.ClassTeacherId != teacherId)
-                return Forbid("You are not the teacher of this class");
+            var teachesInClass = _courseService.GetAll().Any(c => c.TeacherId == teacherId && c.GradeId == classObj.GradeId);
+
+            if (!teachesInClass)
+                return Forbid("You do not teach any course in this class");
+
 
             var students = _studentService.GetStudentsByClassId(classId);
             return Ok(_mapper.Map<List<StudentDto>>(students));

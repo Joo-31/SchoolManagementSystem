@@ -13,9 +13,22 @@ namespace SchoolManagementAPI.Services
             _unitOfWork = unitOfWork;
         }
 
-        public void Add(Teacher teacher)
+        public void Add(Teacher teacher, string username, string password)
         {
+            // 1. نحفظ المدرس
             _unitOfWork.Teachers.Add(teacher);
+            _unitOfWork.SaveChanges();
+
+            // 2. نعمل الـ User
+            var user = new User
+            {
+                Username = username,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(password),
+                Role = "Teacher",
+                TeacherId = teacher.Id,
+                CreatedAt = DateTime.Now
+            };
+            _unitOfWork.Users.Add(user);
             _unitOfWork.SaveChanges();
         }
 

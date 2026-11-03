@@ -56,7 +56,7 @@ namespace SchoolManagementAPI.Controllers
             try
             {
                 var student = _mapper.Map<Student>(dto);
-                _studentService.Add(student);
+                _studentService.Add(student, dto.Username, dto.Password);
 
                 var studentDto = _mapper.Map<StudentDto>(student);
                 return Ok(studentDto);

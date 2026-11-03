@@ -6,7 +6,7 @@ namespace SchoolManagementAPI.Services.Interfaces
     public interface IStudentService
     {
         // CRUD
-        void Add(Student student);
+        void Add(Student student, string username, string password);
         List<Student> GetAll();
         Student? GetById(int id);
         bool Update(Student student);

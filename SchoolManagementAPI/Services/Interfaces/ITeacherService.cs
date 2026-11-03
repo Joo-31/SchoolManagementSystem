@@ -5,7 +5,7 @@ namespace SchoolManagementAPI.Services.Interfaces
     public interface ITeacherService
     {
         // CRUD
-        void Add(Teacher teacher);
+        void Add(Teacher teacher, string username, string password);
         List<Teacher> GetAll();
         Teacher? GetById(int id);
         bool Update(Teacher teacher);

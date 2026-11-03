@@ -15,9 +15,22 @@ namespace SchoolManagementAPI.Services
         }
 
         // ✅ CRUD
-        public void Add(Student student)
+        public void Add(Student student, string username, string password)
         {
+            // 1. نحفظ الطالب الأول عشان ناخد الـ ID بتاعه
             _unitOfWork.Students.Add(student);
+            _unitOfWork.SaveChanges();
+
+            // 2. نعمل الـ User ونربطه بالطالب
+            var user = new User
+            {
+                Username = username,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(password),
+                Role = "Student",
+                StudentId = student.Id,
+                CreatedAt = DateTime.Now
+            };
+            _unitOfWork.Users.Add(user);
             _unitOfWork.SaveChanges();
         }
 
