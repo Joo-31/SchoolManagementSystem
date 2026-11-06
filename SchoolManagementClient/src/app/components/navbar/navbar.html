@@ -1,15 +1,15 @@
 <nav class="navbar">
   <div class="nav-container">
     <div class="nav-brand">
-      <a routerLink="/">School Management System</a>
+      <!-- ✅ غيرنا routerLink لـ (click) عشان نوجه كل Role للصفحة بتاعته -->
+      <a style="cursor: pointer;" (click)="navigateToHome()">School Management System</a>
     </div>
 
     <ul class="nav-links">
       <!-- Admin Only -->
-<li *ngIf="isAdmin()">
-  <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-</li>
-
+      <li *ngIf="isAdmin()">
+        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      </li>
       <li *ngIf="isAdmin()">
         <a routerLink="/students" routerLinkActive="active">Students</a>
       </li>
@@ -29,8 +29,11 @@
         <a routerLink="/attendances" routerLinkActive="active">Attendances</a>
       </li>
       <li *ngIf="isAdmin()">
-  <a routerLink="/marks" routerLinkActive="active">Marks</a>
-</li>
+        <a routerLink="/marks" routerLinkActive="active">Marks</a>
+      </li>
+      <li *ngIf="isAdmin()">
+        <a routerLink="/users" routerLinkActive="active">Users</a>
+      </li>
 
       <!-- Teacher Only -->
       <li *ngIf="isTeacher()">
@@ -40,8 +43,8 @@
         <a routerLink="/my-profile" routerLinkActive="active">My Profile</a>
       </li>
       <li *ngIf="isTeacher()">
-  <a routerLink="/my-marks" routerLinkActive="active">My Marks</a>
-</li>
+        <a routerLink="/my-marks" routerLinkActive="active">My Marks</a>
+      </li>
 
       <!-- Student Only -->
       <li *ngIf="isStudent()">
@@ -51,11 +54,16 @@
         <a routerLink="/my-attendance" routerLinkActive="active">My Attendance</a>
       </li>
       <li *ngIf="isStudent()">
-  <a routerLink="/my-marks" routerLinkActive="active">My Marks</a>
-</li>
+        <a routerLink="/my-marks" routerLinkActive="active">My Marks</a>
+      </li>
     </ul>
 
     <div class="nav-user">
+      <!-- ✅ زرار الـ Dark Mode -->
+      <button class="btn-theme" (click)="toggleTheme()">
+        {{ isDarkMode ? '☀️' : '🌙' }}
+      </button>
+      
       <span class="username">{{ username }}</span>
       <button (click)="onLogout()" class="btn-logout">Logout</button>
     </div>

@@ -17,46 +17,46 @@ export class AuthService {
   }
 
   // ✅ Login
- login(username: string, password: string): Observable<{ token: string, role: string, username: string, teacherId: number | null, studentId: number | null }> {
-  return this.http.post<{ token: string, role: string, username: string, teacherId: number | null, studentId: number | null }>(
-    `${this.apiUrl}/login`, { username, password }
-  );
-}
+  login(username: string, password: string): Observable<{ token: string, role: string, username: string, teacherId: number | null, studentId: number | null }> {
+    return this.http.post<{ token: string, role: string, username: string, teacherId: number | null, studentId: number | null }>(
+      `${this.apiUrl}/login`, { username, password }
+    );
+  }
 
-saveUser(token: string, role: string, username: string, teacherId: number| null, studentId: number | null): void {
-  localStorage.setItem('token', token);
-  localStorage.setItem('role', role);
-  localStorage.setItem('username', username);
-  if (teacherId) localStorage.setItem('teacherId', teacherId.toString());
-  if (studentId) localStorage.setItem('studentId', studentId.toString());
-}
+  saveUser(token: string, role: string, username: string, teacherId: number | null, studentId: number | null): void {
+    localStorage.setItem('token', token);
+    localStorage.setItem('role', role);
+    localStorage.setItem('username', username);
+    if (teacherId) localStorage.setItem('teacherId', teacherId.toString());
+    if (studentId) localStorage.setItem('studentId', studentId.toString());
+  }
 
-getTeacherId(): number | null {
-  const id = localStorage.getItem('teacherId');
-  return id ? Number(id) : null;
-}
+  getTeacherId(): number | null {
+    const id = localStorage.getItem('teacherId');
+    return id ? Number(id) : null;
+  }
 
   // ✅ Save Token
   saveToken(token: string, role: string): void {
-  localStorage.setItem('token', token);
-  localStorage.setItem('role', role);
-}
+    localStorage.setItem('token', token);
+    localStorage.setItem('role', role);
+  }
 
-getRole(): string | null {
-  return localStorage.getItem('role');
-}
+  getRole(): string | null {
+    return localStorage.getItem('role');
+  }
 
-isAdmin(): boolean {
-  return this.getRole() === 'Admin';
-}
+  isAdmin(): boolean {
+    return this.getRole() === 'Admin';
+  }
 
-isTeacher(): boolean {
-  return this.getRole() === 'Teacher';
-}
+  isTeacher(): boolean {
+    return this.getRole() === 'Teacher';
+  }
 
-isStudent(): boolean {
-  return this.getRole() === 'Student';
-}
+  isStudent(): boolean {
+    return this.getRole() === 'Student';
+  }
 
   // ✅ Get Token
   getToken(): string | null {
@@ -65,12 +65,12 @@ isStudent(): boolean {
 
   // ✅ Logout
   logout(): void {
-  localStorage.removeItem('token');
-  localStorage.removeItem('role');
-  localStorage.removeItem('username');
-  localStorage.removeItem('teacherId');
-  localStorage.removeItem('studentId');
-}
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    localStorage.removeItem('username');
+    localStorage.removeItem('teacherId');
+    localStorage.removeItem('studentId');
+  }
 
   // ✅ Check if Logged In
   isLoggedIn(): boolean {
@@ -78,7 +78,16 @@ isStudent(): boolean {
   }
 
   getStudentId(): number | null {
-  const id = localStorage.getItem('studentId');
-  return id ? Number(id) : null;
-}
+    const id = localStorage.getItem('studentId');
+    return id ? Number(id) : null;
+  }
+
+  // ✅ Users Management (Admin Only)
+  getAllUsers(): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.apiUrl}/users`);
+  }
+
+  resetPassword(userId: number, newPassword: string): Observable<any> {
+    return this.http.put(`${environment.apiUrl}/users/${userId}/reset-password`, { newPassword });
+  }
 }

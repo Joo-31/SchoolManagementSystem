@@ -4,6 +4,17 @@
     <a routerLink="/teachers/add" class="btn-add">+ Add Teacher</a>
   </div>
 
+  <!-- ✅ Search Bar -->
+  <div class="search-bar">
+    <input 
+      type="text" 
+      [(ngModel)]="searchKeyword" 
+      (input)="onSearch()" 
+      placeholder="🔍 Search by name..." 
+    />
+    <button *ngIf="searchKeyword" class="btn-clear" (click)="clearSearch()">✖ Clear</button>
+  </div>
+
   <div *ngIf="loading" class="loading">Loading...</div>
   <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
 
@@ -22,7 +33,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let teacher of teachers; let i = index">
-        <td>{{ (pageNumber - 1) * pageSize + i + 1 }}</td>
+        <td>{{ isSearching ? i + 1 : (pageNumber - 1) * pageSize + i + 1 }}</td>
         <td>{{ teacher.id }}</td>
         <td>{{ teacher.name }}</td>
         <td>{{ teacher.email }}</td>
@@ -39,7 +50,8 @@
 
   <div *ngIf="!loading && teachers.length === 0" class="no-data">No teachers found.</div>
 
-  <div class="pagination" *ngIf="!loading && totalPages > 1">
+  <!-- ✅ Pagination (تختفي في وضع البحث) -->
+  <div class="pagination" *ngIf="!loading && !isSearching && totalPages > 1">
     <button class="page-btn" [disabled]="!hasPrevious" (click)="previousPage()">← Previous</button>
     <button *ngFor="let page of getPages()" class="page-btn" [class.active]="page === pageNumber" (click)="goToPage(page)">{{ page }}</button>
     <button class="page-btn" [disabled]="!hasNext" (click)="nextPage()">Next →</button>

@@ -1,6 +1,17 @@
 <div class="container">
   <div class="header">
-    <h1>My Attendance (Total: {{ attendances.length }})</h1>
+    <h1>My Attendance (Total: {{ filteredAttendances.length }})</h1>
+  </div>
+
+  <!-- ✅ Date Filter -->
+  <div class="filter-bar">
+    <label>📅 Filter by Date:</label>
+    <input 
+      type="date" 
+      [(ngModel)]="filterDate" 
+      (change)="applyDateFilter()" 
+    />
+    <button *ngIf="filterDate" class="btn-clear" (click)="clearFilter()">✖ Clear Filter</button>
   </div>
 
   <div *ngIf="loading" class="loading">Loading...</div>
@@ -16,7 +27,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let attendance of attendances; let i = index">
-        <td>{{ i + 1 }}</td>
+        <td>{{ (pageNumber - 1) * pageSize + i + 1 }}</td>
         <td>{{ attendance.id }}</td>
         <td>{{ attendance.date | date:'yyyy-MM-dd' }}</td>
         <td>
@@ -28,5 +39,22 @@
     </tbody>
   </table>
 
-  <div *ngIf="!loading && attendances.length === 0" class="no-data">No attendance records found.</div>
+  <div *ngIf="!loading && attendances.length === 0" class="no-data">
+    No attendance records found {{ filterDate ? 'for this date' : '' }}.
+  </div>
+
+  <!-- ✅ Pagination -->
+  <div class="pagination" *ngIf="!loading && totalPages > 1">
+    <button class="page-btn" [disabled]="pageNumber === 1" (click)="previousPage()">← Previous</button>
+    
+    <button 
+      *ngFor="let page of getPages()" 
+      class="page-btn" 
+      [class.active]="page === pageNumber" 
+      (click)="goToPage(page)">
+      {{ page }}
+    </button>
+    
+    <button class="page-btn" [disabled]="pageNumber === totalPages" (click)="nextPage()">Next →</button>
+  </div>
 </div>

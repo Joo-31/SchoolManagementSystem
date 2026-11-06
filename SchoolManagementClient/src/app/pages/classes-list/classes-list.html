@@ -4,6 +4,17 @@
     <a routerLink="/classes/add" class="btn-add">+ Add Class</a>
   </div>
 
+  <!-- ✅ Search Bar -->
+  <div class="search-bar">
+    <input 
+      type="text" 
+      [(ngModel)]="searchKeyword" 
+      (input)="filterClasses()" 
+      placeholder="🔍 Search by class or grade name..." 
+    />
+    <button *ngIf="searchKeyword" class="btn-clear" (click)="clearSearch()">✖ Clear</button>
+  </div>
+
   <div *ngIf="loading" class="loading">Loading...</div>
   <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
 

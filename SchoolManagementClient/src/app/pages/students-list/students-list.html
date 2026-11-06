@@ -4,6 +4,17 @@
     <a routerLink="/students/add" class="btn-add">+ Add Student</a>
   </div>
 
+  <!-- ✅ Search Bar -->
+  <div class="search-bar">
+    <input 
+      type="text" 
+      [(ngModel)]="searchKeyword" 
+      (input)="onSearch()" 
+      placeholder="🔍 Search by name..." 
+    />
+    <button *ngIf="searchKeyword" class="btn-clear" (click)="clearSearch()">✖ Clear</button>
+  </div>
+
   <div *ngIf="loading" class="loading">Loading...</div>
   <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
 
@@ -21,7 +32,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let student of students; let i = index">
-        <td>{{ (pageNumber - 1) * pageSize + i + 1 }}</td>
+        <td>{{ isSearching ? i + 1 : (pageNumber - 1) * pageSize + i + 1 }}</td>
         <td>{{ student.id }}</td>
         <td>{{ student.fullName }}</td>
         <td>{{ student.age }}</td>
@@ -37,28 +48,10 @@
 
   <div *ngIf="!loading && students.length === 0" class="no-data">No students found.</div>
 
-  <!-- ✅ Pagination -->
-  <div class="pagination" *ngIf="!loading && totalPages > 1">
-    <button 
-      class="page-btn" 
-      [disabled]="!hasPrevious" 
-      (click)="previousPage()">
-      ← Previous
-    </button>
-
-    <button 
-      *ngFor="let page of getPages()" 
-      class="page-btn"
-      [class.active]="page === pageNumber"
-      (click)="goToPage(page)">
-      {{ page }}
-    </button>
-
-    <button 
-      class="page-btn" 
-      [disabled]="!hasNext" 
-      (click)="nextPage()">
-      Next →
-    </button>
+  <!-- ✅ Pagination (تختفي لو إحنا في وضع البحث) -->
+  <div class="pagination" *ngIf="!loading && !isSearching && totalPages > 1">
+    <button class="page-btn" [disabled]="!hasPrevious" (click)="previousPage()">← Previous</button>
+    <button *ngFor="let page of getPages()" class="page-btn" [class.active]="page === pageNumber" (click)="goToPage(page)">{{ page }}</button>
+    <button class="page-btn" [disabled]="!hasNext" (click)="nextPage()">Next →</button>
   </div>
 </div>

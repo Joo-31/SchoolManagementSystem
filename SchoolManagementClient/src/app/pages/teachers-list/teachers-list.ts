@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // ✅ ضيفنا دي
 import { RouterModule } from '@angular/router';
 import { TeacherService } from '../../services/teacher';
 import { ToastService } from '../../services/toast';
@@ -7,7 +8,7 @@ import { ToastService } from '../../services/toast';
 @Component({
   selector: 'app-teachers-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule], // ✅ ضيفنا FormsModule
   templateUrl: './teachers-list.html',
   styleUrl: './teachers-list.css'
 })
@@ -15,6 +16,10 @@ export class TeachersList implements OnInit {
   teachers: any[] = [];
   loading: boolean = true;
   errorMessage: string = '';
+
+  // ✅ متغير الـ Search
+  searchKeyword: string = '';
+  isSearching: boolean = false;
 
   pageNumber: number = 1;
   pageSize: number = 10;
@@ -30,6 +35,41 @@ export class TeachersList implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loadTeachers();
+  }
+
+  // ✅ دالة الـ Search
+  onSearch(): void {
+    if (!this.searchKeyword || this.searchKeyword.trim() === '') {
+      this.isSearching = false;
+      this.pageNumber = 1;
+      this.loadTeachers();
+      return;
+    }
+
+    this.isSearching = true;
+    this.loading = true;
+    this.teacherService.search(this.searchKeyword).subscribe({
+      next: (data) => {
+        this.teachers = data;
+        this.totalCount = data.length;
+        this.totalPages = 1;
+        this.hasPrevious = false;
+        this.hasNext = false;
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.toastService.error('Failed to search teachers', 'Error');
+        this.loading = false;
+      }
+    });
+  }
+
+  clearSearch(): void {
+    this.searchKeyword = '';
+    this.isSearching = false;
+    this.pageNumber = 1;
     this.loadTeachers();
   }
 

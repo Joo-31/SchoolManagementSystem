@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // ✅ ضيفنا دي
 import { RouterModule } from '@angular/router';
 import { CourseService } from '../../services/course';
 import { ToastService } from '../../services/toast';
@@ -7,7 +8,7 @@ import { ToastService } from '../../services/toast';
 @Component({
   selector: 'app-courses-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule], // ✅ ضيفنا FormsModule
   templateUrl: './courses-list.html',
   styleUrl: './courses-list.css'
 })
@@ -15,6 +16,11 @@ export class CoursesList implements OnInit {
   courses: any[] = [];
   loading: boolean = true;
   errorMessage: string = '';
+
+  // ✅ متغيرات الـ Search
+  searchKeyword: string = '';
+  isSearching: boolean = false;
+
   pageNumber: number = 1;
   pageSize: number = 10;
   totalCount: number = 0;
@@ -29,6 +35,41 @@ export class CoursesList implements OnInit {
   ) { }
 
   ngOnInit(): void { this.loadCourses(); }
+
+  // ✅ دالة الـ Search
+  onSearch(): void {
+    if (!this.searchKeyword || this.searchKeyword.trim() === '') {
+      this.isSearching = false;
+      this.pageNumber = 1;
+      this.loadCourses();
+      return;
+    }
+
+    this.isSearching = true;
+    this.loading = true;
+    this.courseService.search(this.searchKeyword).subscribe({
+      next: (data) => {
+        this.courses = data;
+        this.totalCount = data.length;
+        this.totalPages = 1;
+        this.hasPrevious = false;
+        this.hasNext = false;
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.toastService.error('Failed to search courses', 'Error');
+        this.loading = false;
+      }
+    });
+  }
+
+  clearSearch(): void {
+    this.searchKeyword = '';
+    this.isSearching = false;
+    this.pageNumber = 1;
+    this.loadCourses();
+  }
 
   loadCourses(): void {
     this.loading = true;

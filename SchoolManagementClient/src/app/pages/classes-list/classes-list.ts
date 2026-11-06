@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // ✅ ضيفنا دي
 import { RouterModule } from '@angular/router';
 import { ClassService } from '../../services/class';
 import { ToastService } from '../../services/toast';
@@ -7,14 +8,18 @@ import { ToastService } from '../../services/toast';
 @Component({
   selector: 'app-classes-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule], // ✅ ضيفنا FormsModule
   templateUrl: './classes-list.html',
   styleUrl: './classes-list.css'
 })
 export class ClassesList implements OnInit {
   classes: any[] = [];
+  allClasses: any[] = []; // ✅ عشان نحتفظ بالداتا الأصلية للفلترة
   loading: boolean = true;
   errorMessage: string = '';
+  
+  searchKeyword: string = ''; // ✅ متغير البحث
+  
   pageNumber: number = 1;
   pageSize: number = 10;
   totalCount: number = 0;
@@ -30,11 +35,30 @@ export class ClassesList implements OnInit {
 
   ngOnInit(): void { this.loadClasses(); }
 
+  // ✅ دالة البحث في الفرونت إند
+  filterClasses(): void {
+    if (!this.searchKeyword || this.searchKeyword.trim() === '') {
+      this.classes = this.allClasses;
+      return;
+    }
+    const term = this.searchKeyword.toLowerCase();
+    this.classes = this.allClasses.filter(c => 
+      c.name.toLowerCase().includes(term) || 
+      c.gradeName.toLowerCase().includes(term)
+    );
+  }
+
+  clearSearch(): void {
+    this.searchKeyword = '';
+    this.classes = this.allClasses;
+  }
+
   loadClasses(): void {
     this.loading = true;
     this.classService.getPaged(this.pageNumber, this.pageSize).subscribe({
       next: (response: any) => {
         this.classes = response.data;
+        this.allClasses = response.data; // ✅ بنحفظ نسخة للفلترة
         this.totalCount = response.totalCount;
         this.totalPages = response.totalPages;
         this.hasPrevious = response.hasPrevious;

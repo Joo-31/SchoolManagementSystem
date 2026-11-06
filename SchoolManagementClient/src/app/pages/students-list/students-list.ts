@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // ✅ ضيفنا دي عشان الـ ngModel
 import { RouterModule } from '@angular/router';
 import { StudentService } from '../../services/student';
 import { ToastService } from '../../services/toast';
@@ -7,7 +8,7 @@ import { ToastService } from '../../services/toast';
 @Component({
   selector: 'app-students-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule], // ✅ ضيفنا FormsModule
   templateUrl: './students-list.html',
   styleUrl: './students-list.css'
 })
@@ -15,6 +16,10 @@ export class StudentsList implements OnInit {
   students: any[] = [];
   loading: boolean = true;
   errorMessage: string = '';
+
+  // ✅ متغير الـ Search
+  searchKeyword: string = '';
+  isSearching: boolean = false;
 
   // ✅ Pagination
   pageNumber: number = 1;
@@ -31,6 +36,41 @@ export class StudentsList implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loadStudents();
+  }
+
+  // ✅ دالة الـ Search
+  onSearch(): void {
+    if (!this.searchKeyword || this.searchKeyword.trim() === '') {
+      this.isSearching = false;
+      this.pageNumber = 1;
+      this.loadStudents();
+      return;
+    }
+
+    this.isSearching = true;
+    this.loading = true;
+    this.studentService.search(this.searchKeyword).subscribe({
+      next: (data) => {
+        this.students = data;
+        this.totalCount = data.length; // في البحث بنعرض العدد الكلي للنتايج
+        this.totalPages = 1; // مفيش Pagination في البحث
+        this.hasPrevious = false;
+        this.hasNext = false;
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.toastService.error('Failed to search students', 'Error');
+        this.loading = false;
+      }
+    });
+  }
+
+  clearSearch(): void {
+    this.searchKeyword = '';
+    this.isSearching = false;
+    this.pageNumber = 1;
     this.loadStudents();
   }
 
@@ -76,7 +116,6 @@ export class StudentsList implements OnInit {
     }
   }
 
-  // ✅ للحصول على قائمة الصفحات
   getPages(): number[] {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }

@@ -79,6 +79,7 @@ namespace SchoolManagementAPI.Mappings
 
             CreateMap<CreateMarkDto, Mark>();
             CreateMap<UpdateMarkDto, Mark>();
+            CreateMap<User, UserDto>();
         }
     }
 }
