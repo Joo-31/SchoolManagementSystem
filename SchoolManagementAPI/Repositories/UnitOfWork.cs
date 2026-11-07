@@ -45,6 +45,14 @@ namespace SchoolManagementAPI.Repositories
 
         public IUserRepository Users =>
             _users ??= new UserRepository(_context);
+
+        private INotificationRepository? _notifications;
+        public INotificationRepository Notifications =>
+            _notifications ??= new NotificationRepository(_context);
+
+        private IHomeworkRepository? _homeworks;
+        public IHomeworkRepository Homeworks =>
+            _homeworks ??= new HomeworkRepository(_context);
         // ✅ SaveChanges
         public int SaveChanges()
         {

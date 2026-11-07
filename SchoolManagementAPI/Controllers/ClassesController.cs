@@ -68,7 +68,7 @@ namespace SchoolManagementAPI.Controllers
 
             var updated = _classService.Update(existing);
             if (!updated)
-                return NotFound("No changes were made");
+                return Ok(_mapper.Map<ClassDto>(existing));
 
             return Ok(_mapper.Map<ClassDto>(existing));
         }

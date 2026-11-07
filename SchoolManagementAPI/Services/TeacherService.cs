@@ -48,16 +48,6 @@ namespace SchoolManagementAPI.Services
             if (existing == null)
                 return false;
 
-            bool hasChanges =
-                existing.Name != teacher.Name ||
-                existing.Email != teacher.Email ||
-                existing.Phone != teacher.Phone ||
-                existing.Specialization != teacher.Specialization ||
-                existing.HireDate != teacher.HireDate;
-
-            if (!hasChanges)
-                return false;
-
             existing.Name = teacher.Name;
             existing.Email = teacher.Email;
             existing.Phone = teacher.Phone;

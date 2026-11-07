@@ -1,0 +1,79 @@
+.container {
+  padding: 30px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.form-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 40px;
+}
+
+.form-card h1 {
+  color: #2c3e50;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.form-group input, 
+.form-group textarea, 
+.form-group select {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus, 
+.form-group select:focus {
+  border-color: #667eea;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.btn-cancel, .btn-save {
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+}
+
+.btn-cancel { background: #95a5a6; color: white; }
+.btn-cancel:hover { background: #7f8c8d; }
+
+.btn-save { background: #667eea; color: white; }
+.btn-save:hover { background: #5568d3; }
+
+/* ✅ Dark Mode */
+body.dark-theme .form-card { background: #1e1e1e; color: #e0e0e0; }
+body.dark-theme .form-card h1 { color: #e0e0e0; }
+body.dark-theme .form-group label { color: #ccc; }
+body.dark-theme .form-group input, 
+body.dark-theme .form-group textarea, 
+body.dark-theme .form-group select { 
+  background: #2d2d2d; color: white; border-color: #444; 
+}

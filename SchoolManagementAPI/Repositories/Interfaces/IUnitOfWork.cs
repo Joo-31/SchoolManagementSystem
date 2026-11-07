@@ -14,6 +14,10 @@
 
         IUserRepository Users { get; }
 
+        INotificationRepository Notifications { get; }
+
+        IHomeworkRepository Homeworks { get; }
+
         // ✅ SaveChanges واحدة للكل
         int SaveChanges();
     }

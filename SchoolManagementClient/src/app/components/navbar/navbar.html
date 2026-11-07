@@ -34,6 +34,9 @@
       <li *ngIf="isAdmin()">
         <a routerLink="/users" routerLinkActive="active">Users</a>
       </li>
+            <li *ngIf="isAdmin()">
+        <a routerLink="/notifications/add" routerLinkActive="active">Send Notification</a>
+      </li>
 
       <!-- Teacher Only -->
       <li *ngIf="isTeacher()">
@@ -44,6 +47,9 @@
       </li>
       <li *ngIf="isTeacher()">
         <a routerLink="/my-marks" routerLinkActive="active">My Marks</a>
+      </li>
+      <li *ngIf="isTeacher()">
+        <a routerLink="/my-homework" routerLinkActive="active">My Homework</a>
       </li>
 
       <!-- Student Only -->
@@ -56,14 +62,44 @@
       <li *ngIf="isStudent()">
         <a routerLink="/my-marks" routerLinkActive="active">My Marks</a>
       </li>
+       <li *ngIf="isStudent()">
+        <a routerLink="/student-homework" routerLinkActive="active">Homework</a>
+      </li>
     </ul>
 
-    <div class="nav-user">
+        <div class="nav-user">
       <!-- ✅ زرار الـ Dark Mode -->
       <button class="btn-theme" (click)="toggleTheme()">
         {{ isDarkMode ? '☀️' : '🌙' }}
       </button>
       
+      <!-- ✅ زرار التنبيهات (الجرس) -->
+      <div class="notification-container">
+        <button class="btn-notification" (click)="toggleNotifications()">
+          🔔
+          <span class="badge" *ngIf="notifications.length > 0">{{ notifications.length }}</span>
+        </button>
+
+        <!-- القائمة المنسدلة -->
+        <div class="notification-dropdown" *ngIf="showNotifications">
+          <div class="dropdown-header">
+            <h4>Notifications</h4>
+          </div>
+          
+          <div class="dropdown-body">
+            <div *ngIf="notifications.length === 0" class="no-notifications">
+              No new notifications.
+            </div>
+            
+            <div *ngFor="let notif of notifications" class="notification-item">
+              <div class="notif-title">{{ notif.title }}</div>
+              <div class="notif-message">{{ notif.message }}</div>
+              <div class="notif-date">{{ notif.createdAt | date:'short' }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <span class="username">{{ username }}</span>
       <button (click)="onLogout()" class="btn-logout">Logout</button>
     </div>

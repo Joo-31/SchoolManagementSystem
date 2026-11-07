@@ -132,6 +132,44 @@ namespace SchoolManagementAPI.Migrations
                     b.ToTable("Grades");
                 });
 
+            modelBuilder.Entity("SchoolManagementAPI.Models.Homework", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("Homeworks");
+                });
+
             modelBuilder.Entity("SchoolManagementAPI.Models.Mark", b =>
                 {
                     b.Property<int>("Id")
@@ -168,6 +206,34 @@ namespace SchoolManagementAPI.Migrations
                         .IsUnique();
 
                     b.ToTable("Marks");
+                });
+
+            modelBuilder.Entity("SchoolManagementAPI.Models.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TargetRole")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("SchoolManagementAPI.Models.Student", b =>
@@ -321,6 +387,25 @@ namespace SchoolManagementAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Grade");
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("SchoolManagementAPI.Models.Homework", b =>
+                {
+                    b.HasOne("SchoolManagementAPI.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SchoolManagementAPI.Models.Teacher", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Course");
 
                     b.Navigation("Teacher");
                 });

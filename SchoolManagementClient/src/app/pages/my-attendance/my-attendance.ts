@@ -1,27 +1,30 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // ✅ ضيفنا دي عشان الفلتر
+import { FormsModule } from '@angular/forms';
 import { StudentService } from '../../services/student';
 
 @Component({
   selector: 'app-my-attendance',
   standalone: true,
-  imports: [CommonModule, FormsModule], // ✅ ضيفنا FormsModule
+  imports: [CommonModule, FormsModule],
   templateUrl: './my-attendance.html',
   styleUrl: './my-attendance.css'
 })
 export class MyAttendance implements OnInit {
-  allAttendances: any[] = [];       // كل الداتا من السيرفر
-  filteredAttendances: any[] = [];  // الداتا بعد الفلترة بالتاريخ
-  attendances: any[] = [];          // الداتا اللي بتتعرض في الصفحة الحالية
+  allAttendances: any[] = [];
+  filteredAttendances: any[] = [];
+  attendances: any[] = [];
   
   loading: boolean = true;
   errorMessage: string = '';
 
-  // ✅ متغير الفلتر
+  // ✅ متغيرات الإحصائيات
+  statsPresent: number = 0;
+  statsAbsent: number = 0;
+  statsRate: number = 0;
+
   filterDate: string = '';
 
-  // ✅ متغيرات الـ Pagination
   pageNumber: number = 1;
   pageSize: number = 10;
   totalPages: number = 1;
@@ -39,7 +42,8 @@ export class MyAttendance implements OnInit {
     this.studentService.getMyAttendances().subscribe({
       next: (data: any[]) => {
         this.allAttendances = data;
-        this.filteredAttendances = data; // في الأول مفيش فلتر
+        this.filteredAttendances = data;
+        this.calculateStats();
         this.calculatePagination();
         this.loading = false;
         this.cdr.detectChanges();
@@ -52,15 +56,23 @@ export class MyAttendance implements OnInit {
     });
   }
 
-  // ✅ دالة الفلترة بالتاريخ
+  // ✅ حساب الإحصائيات
+  calculateStats(): void {
+    // بنحسب الإحصائيات من الداتا الأصلية (كل الغياب) عشان النسبة متتأثرش بالفلترة
+    this.statsPresent = this.allAttendances.filter(a => a.isPresent).length;
+    this.statsAbsent = this.allAttendances.filter(a => !a.isPresent).length;
+    
+    const total = this.allAttendances.length;
+    this.statsRate = total > 0 ? Math.round((this.statsPresent / total) * 100) : 0;
+  }
+
   applyDateFilter(): void {
-    this.pageNumber = 1; // نرجع لأول صفحة لما نفلتر
+    this.pageNumber = 1;
     
     if (!this.filterDate) {
       this.filteredAttendances = this.allAttendances;
     } else {
       this.filteredAttendances = this.allAttendances.filter(a => {
-        // بنقارن التاريخ (سنة-شهر-يوم) بس
         const attendanceDate = new Date(a.date).toISOString().split('T')[0];
         return attendanceDate === this.filterDate;
       });
@@ -69,7 +81,6 @@ export class MyAttendance implements OnInit {
     this.calculatePagination();
   }
 
-  // ✅ مسح الفلتر
   clearFilter(): void {
     this.filterDate = '';
     this.filteredAttendances = this.allAttendances;
@@ -77,7 +88,6 @@ export class MyAttendance implements OnInit {
     this.calculatePagination();
   }
 
-  // ✅ حساب الصفحات وتقسيم الداتا
   calculatePagination(): void {
     this.totalPages = Math.ceil(this.filteredAttendances.length / this.pageSize) || 1;
     const startIndex = (this.pageNumber - 1) * this.pageSize;
@@ -85,7 +95,6 @@ export class MyAttendance implements OnInit {
     this.attendances = this.filteredAttendances.slice(startIndex, endIndex);
   }
 
-  // ✅ دوال التنقل
   nextPage(): void {
     if (this.pageNumber < this.totalPages) {
       this.pageNumber++;

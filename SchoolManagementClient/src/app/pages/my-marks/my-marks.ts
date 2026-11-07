@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // ✅ ضيفنا دي عشان البحث
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MarkService } from '../../services/mark';
 import { AuthService } from '../../services/auth';
@@ -9,18 +9,23 @@ import { ToastService } from '../../services/toast';
 @Component({
   selector: 'app-my-marks',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule], // ✅ ضيفنا FormsModule
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './my-marks.html',
   styleUrl: './my-marks.css'
 })
 export class MyMarks implements OnInit {
-  allMarks: any[] = [];        // كل الداتا من السيرفر
-  filteredMarks: any[] = [];   // الداتا بعد البحث
-  marks: any[] = [];           // الداتا اللي بتتعرض في الصفحة الحالية
+  allMarks: any[] = [];        
+  filteredMarks: any[] = [];   
+  marks: any[] = [];           
   
   loading: boolean = true;
   isTeacher: boolean = false;
   searchKeyword: string = '';
+
+  // ✅ متغيرات الـ GPA والإحصائيات
+  gpa: number = 0;
+  highestScore: number = 0;
+  lowestScore: number = 0;
 
   // ✅ متغيرات الـ Pagination
   pageNumber: number = 1;
@@ -48,6 +53,12 @@ export class MyMarks implements OnInit {
       next: (data: any[]) => {
         this.allMarks = data;
         this.filteredMarks = data;
+        
+        // ✅ بنحسب الـ GPA بس لو الطالب (مش المدرس)
+        if (!this.isTeacher) {
+          this.calculateGPA();
+        }
+        
         this.calculatePagination();
         this.loading = false;
         this.cdr.detectChanges();
@@ -60,9 +71,25 @@ export class MyMarks implements OnInit {
     });
   }
 
-  // ✅ دالة البحث
+  // ✅ دالة حساب الـ GPA
+  calculateGPA(): void {
+    if (this.allMarks.length === 0) {
+      this.gpa = 0;
+      this.highestScore = 0;
+      this.lowestScore = 0;
+      return;
+    }
+
+    const scores = this.allMarks.map(m => m.score);
+    const total = scores.reduce((sum, score) => sum + score, 0);
+    
+    this.gpa = Math.round((total / scores.length) * 100) / 100; // رقمين عشريين
+    this.highestScore = Math.max(...scores);
+    this.lowestScore = Math.min(...scores);
+  }
+
   applySearch(): void {
-    this.pageNumber = 1; // نرجع لأول صفحة
+    this.pageNumber = 1;
     
     if (!this.searchKeyword || this.searchKeyword.trim() === '') {
       this.filteredMarks = this.allMarks;
@@ -82,7 +109,6 @@ export class MyMarks implements OnInit {
     this.applySearch();
   }
 
-  // ✅ دالة تقسيم الصفحات
   calculatePagination(): void {
     this.totalPages = Math.ceil(this.filteredMarks.length / this.pageSize) || 1;
     const startIndex = (this.pageNumber - 1) * this.pageSize;
@@ -90,7 +116,6 @@ export class MyMarks implements OnInit {
     this.marks = this.filteredMarks.slice(startIndex, endIndex);
   }
 
-  // ✅ دوال التنقل
   nextPage(): void {
     if (this.pageNumber < this.totalPages) {
       this.pageNumber++;

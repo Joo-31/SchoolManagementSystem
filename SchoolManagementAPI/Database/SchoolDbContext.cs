@@ -25,6 +25,8 @@ namespace SchoolManagementAPI.DataBase
         public DbSet<User> Users { get; set; }
 
         public DbSet<Mark> Marks { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Homework> Homeworks { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -98,6 +100,21 @@ namespace SchoolManagementAPI.DataBase
             modelBuilder.Entity<Mark>()
                 .HasIndex(m => new { m.StudentId, m.CourseId })
                 .IsUnique();
+
+            // ✅ Homework → Course
+            modelBuilder.Entity<Homework>()
+                .HasOne(h => h.Course)
+                .WithMany()
+                .HasForeignKey(h => h.CourseId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // ✅ Homework → Teacher
+            modelBuilder.Entity<Homework>()
+                .HasOne(h => h.Teacher)
+                .WithMany()
+                .HasForeignKey(h => h.TeacherId)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
 
 

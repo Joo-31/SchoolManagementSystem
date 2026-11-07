@@ -50,16 +50,6 @@ namespace SchoolManagementAPI.Services
             if (existing == null)
                 return false;
 
-            bool hasChanges =
-                existing.FirstName != student.FirstName ||
-                existing.LastName != student.LastName ||
-                existing.BirthDate != student.BirthDate ||
-                existing.Gender != student.Gender ||
-                existing.ClassId != student.ClassId;
-
-            if (!hasChanges)
-                return false;
-
             existing.FirstName = student.FirstName;
             existing.LastName = student.LastName;
             existing.BirthDate = student.BirthDate;

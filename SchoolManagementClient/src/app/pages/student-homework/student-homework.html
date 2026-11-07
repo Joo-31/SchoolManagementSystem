@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="header">
+    <h1>My Homework (Total: {{ homeworks.length }})</h1>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+
+  <div class="homework-grid" *ngIf="!loading && homeworks.length > 0">
+    <div class="homework-card" *ngFor="let hw of homeworks">
+      <div class="hw-header">
+        <h3>{{ hw.title }}</h3>
+        <span class="hw-course">{{ hw.courseName }}</span>
+      </div>
+      <p class="hw-desc">{{ hw.description }}</p>
+      <div class="hw-footer">
+        <a [href]="hw.link" target="_blank" class="btn-link">🔗 Open Homework</a>
+      </div>
+      <div class="hw-date">
+        <strong>Teacher:</strong> {{ hw.teacherName }} <br>
+        <small>Added: {{ hw.createdAt | date:'medium' }}</small>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && homeworks.length === 0" class="no-data">No homework assigned to you yet.</div>
+</div>

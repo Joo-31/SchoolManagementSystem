@@ -76,7 +76,7 @@ namespace SchoolManagementAPI.Controllers
 
             var updated = _teacherService.Update(existing);
             if (!updated)
-                return NotFound("No changes were made");
+                return Ok(_mapper.Map<TeacherDto>(existing));
 
             return Ok(_mapper.Map<TeacherDto>(existing));
         }

@@ -80,6 +80,13 @@ namespace SchoolManagementAPI.Mappings
             CreateMap<CreateMarkDto, Mark>();
             CreateMap<UpdateMarkDto, Mark>();
             CreateMap<User, UserDto>();
+            CreateMap<Notification, NotificationDto>();
+            CreateMap<CreateNotificationDto, Notification>();
+            CreateMap<Homework, HomeworkDto>()
+    .ForMember(d => d.CourseName, o => o.MapFrom(s => s.Course != null ? s.Course.Name : ""))
+    .ForMember(d => d.TeacherName, o => o.MapFrom(s => s.Teacher != null ? s.Teacher.Name : ""));
+
+            CreateMap<CreateHomeworkDto, Homework>();
         }
     }
 }

@@ -4,6 +4,33 @@
     <a *ngIf="isTeacher" routerLink="/marks/add" class="btn-add">+ Add Mark</a>
   </div>
 
+  <!-- ✅ كروت الـ GPA (بتظهر للطالب بس) -->
+  <div class="stats-row" *ngIf="!loading && !isTeacher && allMarks.length > 0">
+    <div class="stat-card stat-gpa">
+      <span class="stat-icon">🎓</span>
+      <div>
+        <div class="stat-value">{{ gpa }}%</div>
+        <div class="stat-label">Overall GPA</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-high">
+      <span class="stat-icon">🏆</span>
+      <div>
+        <div class="stat-value">{{ highestScore | number:'1.0-2' }}</div>
+        <div class="stat-label">Highest Score</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-low">
+      <span class="stat-icon">📉</span>
+      <div>
+        <div class="stat-value">{{ lowestScore | number:'1.0-2' }}</div>
+        <div class="stat-label">Lowest Score</div>
+      </div>
+    </div>
+  </div>
+
   <!-- ✅ Search Bar -->
   <div class="search-bar">
     <input 
@@ -41,7 +68,7 @@
                 [class.good]="mark.score >= 75 && mark.score < 90"
                 [class.pass]="mark.score >= 50 && mark.score < 75"
                 [class.fail]="mark.score < 50">
-            {{ mark.score | number:'1.0-2' }} <!-- ✅ بنسخدم pipe عشان نعرض رقمين عشريين بس -->
+            {{ mark.score | number:'1.0-2' }}
           </span>
         </td>
         <td>{{ mark.date | date:'yyyy-MM-dd' }}</td>

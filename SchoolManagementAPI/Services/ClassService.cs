@@ -35,14 +35,7 @@ namespace SchoolManagementAPI.Services
             if (existing == null)
                 return false;
 
-            bool hasChanges =
-                existing.Name != @class.Name ||
-                existing.GradeId != @class.GradeId ||
-                existing.ClassTeacherId != @class.ClassTeacherId;
-
-            if (!hasChanges)
-                return false;
-
+            // ✅ نغير القيم ونحفظ دايماً
             existing.Name = @class.Name;
             existing.GradeId = @class.GradeId;
             existing.ClassTeacherId = @class.ClassTeacherId;

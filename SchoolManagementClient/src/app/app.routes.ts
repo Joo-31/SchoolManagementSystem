@@ -29,6 +29,10 @@ import { AddMark } from './pages/add-mark/add-mark';
 import { EditMark } from './pages/edit-mark/edit-mark';
 import { MyMarks } from './pages/my-marks/my-marks';
 import { UsersList } from './pages/users-list/users-list'; // ✅ ضيف ده
+import { AddNotification } from './pages/add-notification/add-notification';
+import { MyHomework } from './pages/my-homework/my-homework';
+import { AddHomework } from './pages/add-homework/add-homework';
+import { StudentHomework } from './pages/student-homework/student-homework';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -77,5 +81,11 @@ export const routes: Routes = [
   { path: 'marks', component: MarksList },
   { path: 'marks/add', component: AddMark },
   { path: 'marks/edit/:id', component: EditMark },
-  { path: 'my-marks', component: MyMarks }
+  { path: 'my-marks', component: MyMarks } , 
+
+  { path: 'notifications/add', component: AddNotification }, 
+
+  { path: 'my-homework', component: MyHomework },
+  { path: 'homework/add', component: AddHomework },
+  { path: 'student-homework', component: StudentHomework }
 ];

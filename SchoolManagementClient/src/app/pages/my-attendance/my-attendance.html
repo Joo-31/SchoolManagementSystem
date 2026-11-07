@@ -3,6 +3,33 @@
     <h1>My Attendance (Total: {{ filteredAttendances.length }})</h1>
   </div>
 
+  <!-- ✅ الإحصائيات -->
+  <div class="stats-row" *ngIf="!loading && allAttendances.length > 0">
+    <div class="stat-card stat-present">
+      <span class="stat-icon">✅</span>
+      <div>
+        <div class="stat-value">{{ statsPresent }}</div>
+        <div class="stat-label">Days Present</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-absent">
+      <span class="stat-icon">❌</span>
+      <div>
+        <div class="stat-value">{{ statsAbsent }}</div>
+        <div class="stat-label">Days Absent</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-rate">
+      <span class="stat-icon">📊</span>
+      <div>
+        <div class="stat-value">{{ statsRate }}%</div>
+        <div class="stat-label">Attendance Rate</div>
+      </div>
+    </div>
+  </div>
+
   <!-- ✅ Date Filter -->
   <div class="filter-bar">
     <label>📅 Filter by Date:</label>
