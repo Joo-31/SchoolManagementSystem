@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SchoolManagementAPI.DataBase;
+using SchoolManagementAPI.DTOs.Responses;
 using SchoolManagementAPI.Models;
 using SchoolManagementAPI.Repositories.Interfaces;
 
@@ -55,5 +56,39 @@ namespace SchoolManagementAPI.Repositories
                 .Where(m => m.TeacherId == teacherId)
                 .ToList();
         }
+
+
+        public PagedResult<Mark> GetPaged(int pageNumber, int pageSize, int? teacherId = null)
+        {
+            var query = _dbSet
+                .Include(m => m.Student)
+                .Include(m => m.Course)
+                .Include(m => m.Teacher)
+                .AsNoTracking()
+                .AsQueryable();
+
+            if (teacherId.HasValue)
+            {
+                query = query.Where(m => m.TeacherId == teacherId.Value);
+            }
+
+            var totalCount = query.Count();
+
+            var data = query
+                .OrderByDescending(m => m.Date)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            return new PagedResult<Mark>
+            {
+                Data = data,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalCount = totalCount,
+                TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize)
+            };
+        }
     }
 }
+    

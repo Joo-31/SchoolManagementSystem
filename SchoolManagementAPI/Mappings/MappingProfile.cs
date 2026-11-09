@@ -28,7 +28,9 @@ namespace SchoolManagementAPI.Mappings
             // ✅ Teacher
             CreateMap<Teacher, TeacherDto>()
                 .ForMember(dest => dest.YearsOfExperience,
-                    opt => opt.MapFrom(src => src.GetYearsOfExperience()));
+                    opt => opt.MapFrom(src => src.GetYearsOfExperience()))
+                .ForMember(dest => dest.HireDate,
+                    opt => opt.MapFrom(src => src.HireDate)); // ✅ ضفنا السطر ده
 
             CreateMap<CreateTeacherDto, Teacher>();
 

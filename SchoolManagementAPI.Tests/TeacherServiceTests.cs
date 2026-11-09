@@ -11,13 +11,18 @@ namespace SchoolManagementAPI.Tests
     {
         private readonly Mock<IUnitOfWork> _unitOfWorkMock;
         private readonly Mock<ITeacherRepository> _teacherRepoMock;
+        private readonly Mock<IUserRepository> _userRepoMock; // ✅ ضفنا ده
         private readonly TeacherService _teacherService;
 
         public TeacherServiceTests()
         {
             _unitOfWorkMock = new Mock<IUnitOfWork>();
             _teacherRepoMock = new Mock<ITeacherRepository>();
+            _userRepoMock = new Mock<IUserRepository>(); // ✅ ضفنا ده
+
             _unitOfWorkMock.Setup(u => u.Teachers).Returns(_teacherRepoMock.Object);
+            _unitOfWorkMock.Setup(u => u.Users).Returns(_userRepoMock.Object); // ✅ ضفنا ده
+
             _teacherService = new TeacherService(_unitOfWorkMock.Object);
         }
 
@@ -59,7 +64,7 @@ namespace SchoolManagementAPI.Tests
         }
 
         [Fact]
-        public void Add_ShouldAddTeacherAndSaveChanges()
+        public void Add_ShouldAddTeacherAndUserAndSaveChanges()
         {
             // Arrange
             var teacher = new Teacher { Id = 1, Name = "Ahmed", Email = "a@t.com", Phone = "0100", Specialization = "Math", HireDate = DateTime.Now };
@@ -71,9 +76,8 @@ namespace SchoolManagementAPI.Tests
 
             // Assert
             _teacherRepoMock.Verify(r => r.Add(teacher), Times.Once);
-
-            // ✅ بنتأكد إنه عمل SaveChanges مرتين (مرة للطالب ومرة للـ User)
-            _unitOfWorkMock.Verify(u => u.SaveChanges(), Times.Exactly(2));
+            _userRepoMock.Verify(r => r.Add(It.IsAny<User>()), Times.Once); // ✅ بنتأكد إنه ضاف يوزر
+            _unitOfWorkMock.Verify(u => u.SaveChanges(), Times.Exactly(2)); // ✅ بيتحفظ مرتين
         }
 
         [Fact]

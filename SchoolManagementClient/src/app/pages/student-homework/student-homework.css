@@ -38,3 +38,27 @@
 body.dark-theme .homework-card { background: #1e1e1e; }
 body.dark-theme .hw-header h3 { color: #e0e0e0; }
 body.dark-theme .hw-desc { color: #aaa; }
+
+/* ✅ No Data Message Style */
+.no-data {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  color: #666;
+}
+
+.no-data h2 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+/* Dark Mode */
+body.dark-theme .no-data {
+  background: #1e1e1e;
+  color: #aaa;
+}
+body.dark-theme .no-data h2 {
+  color: #e0e0e0;
+}

@@ -4,17 +4,20 @@
   margin: 0 auto;
 }
 
+/* ✅ التعديل هنا: استخدمنا متغيرات بدل اللون الثابت */
 .profile-card {
-  background: white;
+  background: var(--card-bg, white);
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease;
 }
 
 h1 {
-  color: #2c3e50;
+  color: var(--text-color, #2c3e50);
   margin-bottom: 30px;
   text-align: center;
+  transition: color 0.3s ease;
 }
 
 .profile-info {
@@ -27,7 +30,7 @@ h1 {
   display: flex;
   justify-content: space-between;
   padding: 12px 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color, #eee);
 }
 
 .info-row:last-child {
@@ -36,11 +39,11 @@ h1 {
 
 .label {
   font-weight: 600;
-  color: #666;
+  color: var(--label-color, #666);
 }
 
 .value {
-  color: #2c3e50;
+  color: var(--text-color, #2c3e50);
 }
 
 .loading, .error {
@@ -51,4 +54,12 @@ h1 {
 
 .error {
   color: #e74c3c;
+}
+
+/* ✅ هنا بنعرف الألوان بتاعة الـ Dark Mode */
+body.dark-theme {
+  --card-bg: #1e1e1e;
+  --text-color: #e0e0e0;
+  --label-color: #aaa;
+  --border-color: #333;
 }

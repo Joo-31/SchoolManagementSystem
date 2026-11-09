@@ -10,7 +10,6 @@ namespace SchoolManagementAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class GradesController : ControllerBase
     {
         private readonly IGradeService _gradeService;
@@ -23,7 +22,7 @@ namespace SchoolManagementAPI.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetAll()
         {
             var grades = _gradeService.GetAll();
@@ -31,12 +30,11 @@ namespace SchoolManagementAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetById(int id)
         {
             var grade = _gradeService.GetById(id);
-            if (grade == null)
-                return NotFound();
+            if (grade == null) return NotFound();
             return Ok(_mapper.Map<GradeDto>(grade));
         }
 
@@ -50,10 +48,7 @@ namespace SchoolManagementAPI.Controllers
                 _gradeService.Add(grade);
                 return Ok(_mapper.Map<GradeDto>(grade));
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            catch (Exception ex) { return BadRequest(ex.Message); }
         }
 
         [HttpPut("{id}")]
@@ -61,15 +56,9 @@ namespace SchoolManagementAPI.Controllers
         public IActionResult Update(int id, [FromBody] UpdateGradeDto dto)
         {
             var existing = _gradeService.GetById(id);
-            if (existing == null)
-                return NotFound("Grade not found");
-
+            if (existing == null) return NotFound("Grade not found");
             _mapper.Map(dto, existing);
-
-            var updated = _gradeService.Update(existing);
-            if (!updated)
-                return NotFound("No changes were made");
-
+            _gradeService.Update(existing);
             return Ok(_mapper.Map<GradeDto>(existing));
         }
 
@@ -78,22 +67,16 @@ namespace SchoolManagementAPI.Controllers
         public IActionResult Delete(int id)
         {
             var deleted = _gradeService.Delete(id);
-            if (!deleted)
-                return NotFound("Grade not found");
+            if (!deleted) return NotFound("Grade not found");
             return Ok();
         }
-        // GET: api/grades/paged?pageNumber=1&pageSize=10
+
         [HttpGet("paged")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetPaged([FromQuery] PaginationParams paginationParams)
         {
-            var pagedResult = _gradeService.GetPaged(
-                paginationParams.PageNumber,
-                paginationParams.PageSize
-            );
-
+            var pagedResult = _gradeService.GetPaged(paginationParams.PageNumber, paginationParams.PageSize);
             var gradesDto = _mapper.Map<List<GradeDto>>(pagedResult.Data);
-
             var result = new PagedResult<GradeDto>
             {
                 Data = gradesDto,
@@ -102,70 +85,15 @@ namespace SchoolManagementAPI.Controllers
                 TotalCount = pagedResult.TotalCount,
                 TotalPages = pagedResult.TotalPages
             };
-
             return Ok(result);
         }
 
-        // GET: api/grades/search?keyword=primary
         [HttpGet("search")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public IActionResult Search([FromQuery] string? keyword)
         {
             var grades = _gradeService.Search(keyword);
             return Ok(_mapper.Map<List<GradeDto>>(grades));
-        }
-
-        // GET: api/grades/ordered
-        [HttpGet("ordered")]
-        [AllowAnonymous]
-        public IActionResult GetOrdered()
-        {
-            var grades = _gradeService.GetGradesOrderedByLevel();
-            return Ok(_mapper.Map<List<GradeDto>>(grades));
-        }
-
-        // GET: api/grades/statistics/highest-level
-        [HttpGet("statistics/highest-level")]
-        [AllowAnonymous]
-        public IActionResult GetHighestLevel()
-        {
-            var grade = _gradeService.GetHighestLevelGrade();
-            if (grade == null) return NotFound();
-            return Ok(_mapper.Map<GradeDto>(grade));
-        }
-
-        // GET: api/grades/statistics/lowest-level
-        [HttpGet("statistics/lowest-level")]
-        [AllowAnonymous]
-        public IActionResult GetLowestLevel()
-        {
-            var grade = _gradeService.GetLowestLevelGrade();
-            if (grade == null) return NotFound();
-            return Ok(_mapper.Map<GradeDto>(grade));
-        }
-
-        // GET: api/grades/statistics/class-count
-        [HttpGet("statistics/class-count")]
-        [AllowAnonymous]
-        public IActionResult GetClassCount()
-        {
-            return Ok(_gradeService.GetClassCountByGradeName());
-        }
-
-        // GET: api/grades/statistics/course-count
-        [HttpGet("statistics/course-count")]
-        [AllowAnonymous]
-        public IActionResult GetCourseCount()
-        {
-            return Ok(_gradeService.GetCourseCountByGradeName());
-        }
-
-        // GET: api/grades/statistics/student-count
-        [HttpGet("statistics/student-count")]
-        [AllowAnonymous]
-        public IActionResult GetStudentCount()
-        {
-            return Ok(_gradeService.GetStudentCountByGradeName());
         }
 
         [HttpGet("count")]

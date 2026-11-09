@@ -1,4 +1,5 @@
-﻿using SchoolManagementAPI.Models;
+﻿using SchoolManagementAPI.DTOs.Responses;
+using SchoolManagementAPI.Models;
 using SchoolManagementAPI.Repositories.Interfaces;
 using SchoolManagementAPI.Services.Interfaces;
 
@@ -71,6 +72,11 @@ namespace SchoolManagementAPI.Services
         public List<Mark> GetByTeacherId(int teacherId)
         {
             return _unitOfWork.Marks.GetByTeacherId(teacherId).ToList();
+        }
+
+        public PagedResult<Mark> GetPaged(int pageNumber, int pageSize, int? teacherId = null)
+        {
+            return _unitOfWork.Marks.GetPaged(pageNumber, pageSize, teacherId);
         }
     }
 }

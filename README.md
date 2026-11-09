@@ -1,102 +1,102 @@
-﻿# 🏫 School Management System
+﻿<div align="center">
 
-A comprehensive **School Management System** built with **.NET 8 Web API** and **Angular 22**, 
-following **Clean Architecture** and **SOLID Principles**.
+# 🏫 School Management System
+
+**A comprehensive, enterprise-grade School Management System built with .NET 8 Web API and Angular 22.**
+
+[![.NET 8](https://img.shields.io/badge/.NET-8.0-blueviolet?style=for-the-badge&logo=.net)](https://dotnet.microsoft.com/)
+[![Angular](https://img.shields.io/badge/Angular-22-red?style=for-the-badge&logo=angular)](https://angular.io/)
+[![SQL Server](https://img.shields.io/badge/SQL_Server-2022-blue?style=for-the-badge&logo=microsoft-sql-server)](https://www.microsoft.com/en-us/sql-server/)
+[![JWT](https://img.shields.io/badge/JWT-Authentication-orange?style=for-the-badge&logo=json-web-tokens)](https://jwt.io/)
+
+</div>
 
 ---
 
-## 🚀 Features
+## 📖 About The Project
+A full-stack School Management System designed to streamline administrative tasks, enhance communication, and provide a seamless experience for Admins, Teachers, and Students. Built following **Clean Architecture** and **SOLID Principles**, with a focus on scalability, security, and modern UI/UX.
+
+---
+
+## 🚀 Key Features
 
 ### 🔐 Authentication & Authorization
-- **JWT Authentication** with roles (Admin, Teacher, Student)
-- **Role-Based Access Control** — each role sees different pages
-- **Password Hashing** with BCrypt
+- **JWT Authentication** with Role-Based Access Control (Admin, Teacher, Student).
+- **Password Hashing** using BCrypt.
+- **Auto-Logout** on token expiry via Angular Interceptors.
 
-### 👥 Entities Management
-- **Students** — CRUD + Pagination
-- **Teachers** — CRUD + Pagination
-- **Courses** — CRUD + Pagination
-- **Classes** — CRUD + Pagination
-- **Grades** — CRUD + Pagination
-- **Attendances** — CRUD + Pagination
-- **Marks** — CRUD with teacher-specific permissions
+### 👥 Entities Management (CRUD + Pagination + Search)
+- Students, Teachers, Courses, Classes, Grades, Attendances, and Marks.
+- **Smart Search** across all lists (by name, course, grade, etc.).
+- **Server-side Pagination** for high performance with massive datasets.
 
-### 🎯 Role-Based Dashboards
-- **Admin Dashboard** — Manage everything + Statistics
-- **Teacher Dashboard** — My Classes, My Students, Take Attendance, My Marks
-- **Student Dashboard** — My Profile, My Attendance, My Marks
+### 📊 Dashboards & Analytics
+- **Admin Dashboard:** Full control + Statistics (Total Students, Teachers, etc.).
+- **Teacher Dashboard:** My Classes, My Students, Take Attendance, Assign Homework.
+- **Student Dashboard:** My Profile, My Attendance (with Stats & Date Filter), My Marks (with GPA & Stats).
 
-### 📊 Statistics Dashboard
-- Total Students, Teachers, Courses, Classes, Grades
+### 🔔 Advanced Systems (New!)
+- **Notifications System:** Admin can broadcast announcements to specific roles (All, Teachers, or Students). Users get a bell icon with unread counts.
+- **Homework System:** Teachers can upload assignments (via URL/Link) for their courses. Students can view them in a dedicated page.
+- **Dark Mode:** A beautiful, persistent dark theme across the entire application.
 
-### 🔒 Business Rules
-- Teachers can only add marks for their own courses
-- One mark per student per course
-- Only admins can delete entities
-
-### ✨ Additional Features
-- **Toast Notifications** — Beautiful success/error messages
-- **401 Interceptor** — Auto logout on token expiry
-- **Pagination** — All list pages
+### 🔒 Business Rules Enforced
+- Teachers can only add/edit marks for their own assigned courses.
+- Only one mark per student per course is allowed.
+- Only Admins can delete entities (Teachers, Students, etc.).
+- Teachers can only create homework for their assigned courses.
 
 ---
 
 ## 🛠️ Tech Stack
 
 ### Backend
-- **.NET 8** (C#)
-- **ASP.NET Core Web API**
-- **Entity Framework Core 8** (SQL Server)
-- **JWT Authentication**
-- **AutoMapper** (DTOs)
-- **Serilog** (Logging)
-- **BCrypt.Net** (Password Hashing)
-- **Swagger** (API Documentation)
+- **Framework:** .NET 8 Web API (C#)
+- **ORM:** Entity Framework Core 8 (Code-First, Migrations)
+- **Database:** SQL Server
+- **Auth:** JWT (JSON Web Tokens)
+- **Mapping:** AutoMapper
+- **Logging:** Serilog
+- **Security:** BCrypt.Net
+- **Documentation:** Swagger (OpenAPI)
+- **Testing:** xUnit, Moq, FluentAssertions (Unit Tests for Services)
 
 ### Frontend
-- **Angular 22**
-- **TypeScript**
-- **RxJS**
-- **Custom Toast Notifications**
-- **Role-Based UI**
+- **Framework:** Angular 22 (Standalone Components)
+- **Language:** TypeScript
+- **State/RxJS:** RxJS Observables & Interceptors
+- **Styling:** Custom CSS (Responsive, Dark Mode support)
+- **Features:** Custom Toast Notifications, Role-Based Routing
 
-### Architecture
-- **Repository Pattern**
-- **Unit of Work Pattern**
-- **Dependency Injection**
-- **SOLID Principles**
-- **Clean Architecture**
-
-### Testing & DevOps
-- **xUnit** + **Moq** + **FluentAssertions**
-- **Docker** + **Docker Compose**
-- **GitHub Actions** (CI/CD)
+### Architecture & Patterns
+- Clean Architecture (N-Tier layered conceptually)
+- Repository Pattern & Unit of Work
+- Dependency Injection
+- SOLID Principles
 
 ---
 
 ## 🏗️ Project Structure
 
+```text
 SchoolManagementSystemSolution/
-├── SchoolManagementAPI/ → Web API (.NET 8)
-│ ├── Controllers/
-│ ├── Services/
-│ ├── Repositories/
-│ ├── Models/
-│ ├── DTOs/
-│ ├── Database/
-│ ├── Middlewares/
-│ └── Migrations/
-├── SchoolManagementAPI.Tests/ → Unit Tests (xUnit)
-└── SchoolManagementClient/ → Frontend (Angular 22)
-└── src/app/
-├── pages/
-├── services/
-├── models/
-├── interceptors/
-└── components/
-
-
----
+├── SchoolManagementAPI/           → Web API (.NET 8)
+│   ├── Controllers/
+│   ├── Services/
+│   ├── Repositories/
+│   ├── Models/
+│   ├── DTOs/
+│   ├── Database/
+│   ├── Middlewares/
+│   └── Migrations/
+├── SchoolManagementAPI.Tests/     → Unit Tests (xUnit + Moq)
+└── SchoolManagementClient/        → Frontend (Angular)
+    └── src/app/
+        ├── pages/
+        ├── services/
+        ├── models/
+        ├── interceptors/
+        └── components/
 
 ## 🚀 Getting Started
 

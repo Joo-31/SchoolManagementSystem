@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolManagementAPI.Services;
 using SchoolManagementAPI.Services.Interfaces;
 
-
 namespace SchoolManagementAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -23,7 +22,7 @@ namespace SchoolManagementAPI.Controllers
         {
             try
             {
-                var result = _authService.Register(request.Username, request.Password, request.Role, request.TeacherId , request.StudentId);
+                var result = _authService.Register(request.Username, request.Password, request.Role, request.TeacherId, request.StudentId);
                 if (!result)
                     return BadRequest("Username already exists");
 
@@ -43,14 +42,14 @@ namespace SchoolManagementAPI.Controllers
             if (token == null)
                 return Unauthorized("Invalid username or password");
 
-            var user = _authService.GetUserByUsername(request.Username); // ← محتاج Method جديدة
+            var user = _authService.GetUserByUsername(request.Username);
 
             return Ok(new
             {
                 Token = token,
                 Role = user?.Role,
-                Username = user?.Username,  
-                TeaacherId = user?.TeacherId,
+                Username = user?.Username,
+                TeacherId = user?.TeacherId, // ✅ تصحيح الـ Typo هنا
                 StudentId = user?.StudentId
             });
         }
@@ -65,8 +64,6 @@ namespace SchoolManagementAPI.Controllers
 
         public int? TeacherId { get; set; }
         public int? StudentId { get; set; }
-
-
     }
 
     public class LoginRequest

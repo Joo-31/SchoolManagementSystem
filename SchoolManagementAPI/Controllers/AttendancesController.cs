@@ -5,12 +5,12 @@ using SchoolManagementAPI.DTOs.Requests;
 using SchoolManagementAPI.DTOs.Responses;
 using SchoolManagementAPI.Models;
 using SchoolManagementAPI.Services.Interfaces;
+using System.Security.Claims;
 
 namespace SchoolManagementAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class AttendancesController : ControllerBase
     {
         private readonly IAttendanceService _attendanceService;
@@ -37,8 +37,7 @@ namespace SchoolManagementAPI.Controllers
         public IActionResult GetById(int id)
         {
             var attendance = _attendanceService.GetById(id);
-            if (attendance == null)
-                return NotFound();
+            if (attendance == null) return NotFound();
             return Ok(_mapper.Map<AttendanceDto>(attendance));
         }
 
@@ -52,10 +51,7 @@ namespace SchoolManagementAPI.Controllers
                 _attendanceService.Add(attendance);
                 return Ok(_mapper.Map<AttendanceDto>(attendance));
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            catch (Exception ex) { return BadRequest(ex.Message); }
         }
 
         [HttpPut("{id}")]
@@ -63,15 +59,9 @@ namespace SchoolManagementAPI.Controllers
         public IActionResult Update(int id, [FromBody] UpdateAttendanceDto dto)
         {
             var existing = _attendanceService.GetById(id);
-            if (existing == null)
-                return NotFound("Attendance not found");
-
+            if (existing == null) return NotFound("Attendance not found");
             _mapper.Map(dto, existing);
-
-            var updated = _attendanceService.Update(existing);
-            if (!updated)
-                return NotFound("No changes were made");
-
+            _attendanceService.Update(existing);
             return Ok(_mapper.Map<AttendanceDto>(existing));
         }
 
@@ -80,40 +70,16 @@ namespace SchoolManagementAPI.Controllers
         public IActionResult Delete(int id)
         {
             var deleted = _attendanceService.Delete(id);
-            if (!deleted)
-                return NotFound("Attendance not found");
+            if (!deleted) return NotFound("Attendance not found");
             return Ok();
         }
 
-        [HttpGet("student/{studentId}")]
-        [Authorize(Roles = "Admin,Teacher")]
-        public IActionResult GetByStudent(int studentId)
-        {
-            var attendances = _attendanceService.SearchByStudentId(studentId);
-            return Ok(_mapper.Map<List<AttendanceDto>>(attendances));
-        }
-
-        [HttpGet("class/{classId}")]
-        [Authorize(Roles = "Admin,Teacher")]
-        public IActionResult GetByClass(int classId)
-        {
-            var attendances = _attendanceService.SearchByClassId(classId);
-            return Ok(_mapper.Map<List<AttendanceDto>>(attendances));
-        }
-
-
-        // GET: api/attendances/paged?pageNumber=1&pageSize=10
         [HttpGet("paged")]
         [Authorize(Roles = "Admin,Teacher")]
         public IActionResult GetPaged([FromQuery] PaginationParams paginationParams)
         {
-            var pagedResult = _attendanceService.GetPaged(
-                paginationParams.PageNumber,
-                paginationParams.PageSize
-            );
-
+            var pagedResult = _attendanceService.GetPaged(paginationParams.PageNumber, paginationParams.PageSize);
             var attendancesDto = _mapper.Map<List<AttendanceDto>>(pagedResult.Data);
-
             var result = new PagedResult<AttendanceDto>
             {
                 Data = attendancesDto,
@@ -122,129 +88,9 @@ namespace SchoolManagementAPI.Controllers
                 TotalCount = pagedResult.TotalCount,
                 TotalPages = pagedResult.TotalPages
             };
-
             return Ok(result);
         }
-        // GET: api/attendances/date/2026-09-19
-        [HttpGet("date/{date}")]
-        [Authorize(Roles = "Admin,Teacher")]
-        public IActionResult GetByDate(DateTime date)
-        {
-            var attendances = _attendanceService.SearchByDate(date);
-            return Ok(_mapper.Map<List<AttendanceDto>>(attendances));
-        }
 
-        // GET: api/attendances/student/5/date/2026-09-19
-        [HttpGet("student/{studentId}/date/{date}")]
-        [Authorize(Roles = "Admin,Teacher")]
-        public IActionResult GetByStudentAndDate(int studentId, DateTime date)
-        {
-            var attendances = _attendanceService.GetAttendanceByStudentIdAndDate(studentId, date);
-            return Ok(_mapper.Map<List<AttendanceDto>>(attendances));
-        }
-
-        // GET: api/attendances/statistics/present/2026-09-19
-        [HttpGet("statistics/present/{date}")]
-        [Authorize(Roles = "Admin,Teacher")]
-        public IActionResult GetPresentCount(DateTime date)
-        {
-            return Ok(new { PresentCount = _attendanceService.GetPresentCountByDate(date) });
-        }
-
-        // GET: api/attendances/statistics/absent/2026-09-19
-        [HttpGet("statistics/absent/{date}")]
-        [Authorize(Roles = "Admin,Teacher")]
-        public IActionResult GetAbsentCount(DateTime date)
-        {
-            return Ok(new { AbsentCount = _attendanceService.GetAbsentCountByDate(date) });
-        }
-
-        // GET: api/attendances/statistics/percentage/2026-09-19
-        [HttpGet("statistics/percentage/{date}")]
-        [Authorize(Roles = "Admin,Teacher")]
-        public IActionResult GetPercentage(DateTime date)
-        {
-            return Ok(new { Percentage = _attendanceService.GetAttendancePercentageByDate(date) });
-        }
-
-        // GET: api/attendances/statistics/absent-count/5
-        [HttpGet("statistics/absent-count/{studentId}")]
-        [Authorize(Roles = "Admin,Teacher")]
-        public IActionResult GetAbsentCountByStudent(int studentId)
-        {
-            return Ok(new { AbsentCount = _attendanceService.GetAbsentCountByStudent(studentId) });
-        }
-
-        // GET: api/attendances/statistics/most-absent
-        [HttpGet("statistics/most-absent")]
-        [Authorize(Roles = "Admin,Teacher")]
-        public IActionResult GetMostAbsent()
-        {
-            var studentId = _attendanceService.GetStudentWithMostAbsences();
-            if (studentId == null) return NotFound();
-            return Ok(new { StudentId = studentId });
-        }
-
-        // GET: api/attendances/statistics/class-count
-        [HttpGet("statistics/class-count")]
-        [Authorize(Roles = "Admin,Teacher")]
-        public IActionResult GetCountByClass()
-        {
-            return Ok(_attendanceService.GetAttendanceCountByClass());
-        }
-
-        // POST: api/attendances/take
-        [HttpPost("take")]
-        [Authorize(Roles = "Teacher")]
-        public IActionResult TakeAttendance([FromBody] TakeAttendanceDto dto)
-        {
-            var teacherIdStr = User.FindFirst("TeacherId")?.Value;
-            if (string.IsNullOrEmpty(teacherIdStr))
-                return Unauthorized("Teacher ID not found");
-
-            var teacherId = int.Parse(teacherIdStr);
-
-            var classObj = _classService.GetById(dto.ClassId);
-            if (classObj == null)
-                return NotFound("Class not found");
-
-            if (classObj.ClassTeacherId != teacherId)
-                return Forbid("You are not the teacher of this class");
-
-            // ✅ سجل حضور كل طالب
-            foreach (var record in dto.Records)
-            {
-                // شوف لو الطالب عنده Attendance في اليوم ده
-                var existing = _attendanceService
-                    .GetAttendanceByStudentIdAndDate(record.StudentId, dto.Date.Date)
-                    .FirstOrDefault(attendance => attendance.ClassId == dto.ClassId);
-
-                if (existing != null)
-                {
-                    // ✅ Update
-                    existing.IsPresent = record.IsPresent;
-                    _attendanceService.Update(existing);
-                    Console.WriteLine($"✅ Updated: Student={record.StudentId}, Present={record.IsPresent}");
-                }
-                else
-                {
-                    // ✅ Add
-                    var attendance = new Attendance
-                    {
-                        StudentId = record.StudentId,
-                        ClassId = dto.ClassId,
-                        Date = dto.Date.Date,
-                        IsPresent = record.IsPresent
-                    };
-                    _attendanceService.Add(attendance);
-                    Console.WriteLine($"✅ Added: Student={record.StudentId}, Present={record.IsPresent}");
-                }
-            }
-
-            return Ok(new { message = "Attendance recorded successfully" });
-        }
-
-        // GET: api/attendances/filter?pageNumber=1&pageSize=10&date=2026-10-13&classId=1&status=present
         [HttpGet("filter")]
         [Authorize(Roles = "Admin,Teacher")]
         public IActionResult GetPagedWithFilters(
@@ -254,21 +100,15 @@ namespace SchoolManagementAPI.Controllers
             [FromQuery] int? classId = null,
             [FromQuery] string? status = null)
         {
-            // ✅ حوّل status string لـ bool?
             bool? isPresent = null;
             if (!string.IsNullOrWhiteSpace(status))
             {
-                if (status.Equals("present", StringComparison.OrdinalIgnoreCase))
-                    isPresent = true;
-                else if (status.Equals("absent", StringComparison.OrdinalIgnoreCase))
-                    isPresent = false;
+                if (status.Equals("present", StringComparison.OrdinalIgnoreCase)) isPresent = true;
+                else if (status.Equals("absent", StringComparison.OrdinalIgnoreCase)) isPresent = false;
             }
 
-            var pagedResult = _attendanceService.GetPagedWithFilters(
-                pageNumber, pageSize, date, classId, isPresent);
-
+            var pagedResult = _attendanceService.GetPagedWithFilters(pageNumber, pageSize, date, classId, isPresent);
             var attendancesDto = _mapper.Map<List<AttendanceDto>>(pagedResult.Data);
-
             var result = new PagedResult<AttendanceDto>
             {
                 Data = attendancesDto,
@@ -277,11 +117,44 @@ namespace SchoolManagementAPI.Controllers
                 TotalCount = pagedResult.TotalCount,
                 TotalPages = pagedResult.TotalPages
             };
-
             return Ok(result);
         }
 
-        // DTO
+        [HttpPost("take")]
+        [Authorize(Roles = "Teacher")]
+        public IActionResult TakeAttendance([FromBody] TakeAttendanceDto dto)
+        {
+            var teacherIdStr = User.FindFirst("TeacherId")?.Value;
+            if (string.IsNullOrEmpty(teacherIdStr)) return Unauthorized("Teacher ID not found");
+            var teacherId = int.Parse(teacherIdStr);
+
+            var classObj = _classService.GetById(dto.ClassId);
+            if (classObj == null) return NotFound("Class not found");
+            if (classObj.ClassTeacherId != teacherId) return StatusCode(403, new { message = "You are not the teacher of this class" });
+
+            foreach (var record in dto.Records)
+            {
+                var existing = _attendanceService.GetAttendanceByStudentIdAndDate(record.StudentId, dto.Date.Date)
+                    .FirstOrDefault(a => a.ClassId == dto.ClassId);
+                if (existing != null)
+                {
+                    existing.IsPresent = record.IsPresent;
+                    _attendanceService.Update(existing);
+                }
+                else
+                {
+                    _attendanceService.Add(new Attendance
+                    {
+                        StudentId = record.StudentId,
+                        ClassId = dto.ClassId,
+                        Date = dto.Date.Date,
+                        IsPresent = record.IsPresent
+                    });
+                }
+            }
+            return Ok(new { message = "Attendance recorded successfully" });
+        }
+
         public class TakeAttendanceDto
         {
             public int ClassId { get; set; }

@@ -11,7 +11,7 @@ namespace SchoolManagementAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize] // ✅ الـ Controller كله محمي
     public class StudentsController : ControllerBase
     {
         private readonly IStudentService _studentService;
@@ -27,7 +27,7 @@ namespace SchoolManagementAPI.Controllers
 
         // GET: api/students
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")] // ✅ Admin فقط
         public IActionResult GetAll()
         {
             var students = _studentService.GetAll();
@@ -37,7 +37,7 @@ namespace SchoolManagementAPI.Controllers
 
         // GET: api/students/5
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")] // ✅ Admin فقط
         public IActionResult GetById(int id)
         {
             var student = _studentService.GetById(id);
@@ -69,6 +69,7 @@ namespace SchoolManagementAPI.Controllers
 
         // PUT: api/students/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")] // ✅ Admin فقط
         public IActionResult Update(int id, [FromBody] UpdateStudentDto dto)
         {
             var existing = _studentService.GetById(id);
@@ -79,7 +80,7 @@ namespace SchoolManagementAPI.Controllers
 
             var updated = _studentService.Update(existing);
             if (!updated)
-                return Ok(existing);  // ← بدل NotFound
+                return Ok(existing);
 
             return Ok(_mapper.Map<StudentDto>(existing));
         }
@@ -106,7 +107,7 @@ namespace SchoolManagementAPI.Controllers
 
         // GET: api/students/paged?pageNumber=1&pageSize=10
         [HttpGet("paged")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin,Teacher")] // ✅ Admin و Teacher فقط
         public IActionResult GetPaged([FromQuery] PaginationParams paginationParams)
         {
             var pagedResult = _studentService.GetPaged(
@@ -114,7 +115,6 @@ namespace SchoolManagementAPI.Controllers
                 paginationParams.PageSize
             );
 
-            // ✅ حول الـ Students لـ StudentDto
             var studentsDto = _mapper.Map<List<StudentDto>>(pagedResult.Data);
 
             var result = new PagedResult<StudentDto>
@@ -131,7 +131,7 @@ namespace SchoolManagementAPI.Controllers
 
         // GET: api/students/search?keyword=ahmed
         [HttpGet("search")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin,Teacher")] // ✅ Admin و Teacher فقط
         public IActionResult Search([FromQuery] string? keyword)
         {
             var students = _studentService.Search(keyword);
@@ -140,7 +140,7 @@ namespace SchoolManagementAPI.Controllers
 
         // GET: api/students/class/5
         [HttpGet("class/{classId}")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin,Teacher")] // ✅ Admin و Teacher فقط
         public IActionResult GetByClass(int classId)
         {
             var students = _studentService.GetStudentsByClassId(classId);
@@ -149,7 +149,7 @@ namespace SchoolManagementAPI.Controllers
 
         // GET: api/students/ordered
         [HttpGet("ordered")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin,Teacher")]
         public IActionResult GetOrdered()
         {
             var students = _studentService.GetStudentsOrderedByName();
@@ -158,7 +158,7 @@ namespace SchoolManagementAPI.Controllers
 
         // GET: api/students/older-than/15
         [HttpGet("older-than/{age}")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin,Teacher")]
         public IActionResult GetOlderThan(int age)
         {
             var students = _studentService.GetStudentsOlderThan(age);
@@ -167,7 +167,7 @@ namespace SchoolManagementAPI.Controllers
 
         // GET: api/students/statistics/average-age
         [HttpGet("statistics/average-age")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetAverageAge()
         {
             return Ok(new { AverageAge = _studentService.GetAverageAge() });
@@ -175,7 +175,7 @@ namespace SchoolManagementAPI.Controllers
 
         // GET: api/students/statistics/oldest
         [HttpGet("statistics/oldest")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetOldest()
         {
             var student = _studentService.GetOldestStudent();
@@ -185,7 +185,7 @@ namespace SchoolManagementAPI.Controllers
 
         // GET: api/students/statistics/youngest
         [HttpGet("statistics/youngest")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetYoungest()
         {
             var student = _studentService.GetYoungestStudent();
@@ -195,7 +195,7 @@ namespace SchoolManagementAPI.Controllers
 
         // GET: api/students/statistics/count-by-class
         [HttpGet("statistics/count-by-class")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetCountByClass()
         {
             return Ok(_studentService.GetStudentCountByClass());
@@ -203,7 +203,7 @@ namespace SchoolManagementAPI.Controllers
 
         // GET: api/students/class/1/oldest
         [HttpGet("class/{classId}/oldest")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin,Teacher")]
         public IActionResult GetOldestByClass(int classId)
         {
             var student = _studentService.GetOldestStudentByClass(classId);
@@ -213,7 +213,7 @@ namespace SchoolManagementAPI.Controllers
 
         // GET: api/students/class/1/youngest
         [HttpGet("class/{classId}/youngest")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin,Teacher")]
         public IActionResult GetYoungestByClass(int classId)
         {
             var student = _studentService.GetYoungestStudentByClass(classId);
@@ -253,6 +253,5 @@ namespace SchoolManagementAPI.Controllers
 
             return Ok(_mapper.Map<List<AttendanceDto>>(attendances));
         }
-
     }
 }

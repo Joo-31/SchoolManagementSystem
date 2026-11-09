@@ -10,7 +10,6 @@ namespace SchoolManagementAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ClassesController : ControllerBase
     {
         private readonly IClassService _classService;
@@ -23,7 +22,7 @@ namespace SchoolManagementAPI.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetAll()
         {
             var classes = _classService.GetAll();
@@ -31,12 +30,11 @@ namespace SchoolManagementAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin,Teacher")]
         public IActionResult GetById(int id)
         {
             var classObj = _classService.GetById(id);
-            if (classObj == null)
-                return NotFound();
+            if (classObj == null) return NotFound();
             return Ok(_mapper.Map<ClassDto>(classObj));
         }
 
@@ -50,10 +48,7 @@ namespace SchoolManagementAPI.Controllers
                 _classService.Add(classObj);
                 return Ok(_mapper.Map<ClassDto>(classObj));
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            catch (Exception ex) { return BadRequest(ex.Message); }
         }
 
         [HttpPut("{id}")]
@@ -61,15 +56,9 @@ namespace SchoolManagementAPI.Controllers
         public IActionResult Update(int id, [FromBody] UpdateClassDto dto)
         {
             var existing = _classService.GetById(id);
-            if (existing == null)
-                return NotFound("Class not found");
-
+            if (existing == null) return NotFound("Class not found");
             _mapper.Map(dto, existing);
-
-            var updated = _classService.Update(existing);
-            if (!updated)
-                return Ok(_mapper.Map<ClassDto>(existing));
-
+            _classService.Update(existing);
             return Ok(_mapper.Map<ClassDto>(existing));
         }
 
@@ -78,24 +67,16 @@ namespace SchoolManagementAPI.Controllers
         public IActionResult Delete(int id)
         {
             var deleted = _classService.Delete(id);
-            if (!deleted)
-                return NotFound("Class not found");
+            if (!deleted) return NotFound("Class not found");
             return Ok();
         }
 
-
-        // GET: api/classes/paged?pageNumber=1&pageSize=10
         [HttpGet("paged")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetPaged([FromQuery] PaginationParams paginationParams)
         {
-            var pagedResult = _classService.GetPaged(
-                paginationParams.PageNumber,
-                paginationParams.PageSize
-            );
-
+            var pagedResult = _classService.GetPaged(paginationParams.PageNumber, paginationParams.PageSize);
             var classesDto = _mapper.Map<List<ClassDto>>(pagedResult.Data);
-
             var result = new PagedResult<ClassDto>
             {
                 Data = classesDto,
@@ -104,70 +85,15 @@ namespace SchoolManagementAPI.Controllers
                 TotalCount = pagedResult.TotalCount,
                 TotalPages = pagedResult.TotalPages
             };
-
             return Ok(result);
         }
-        // GET: api/classes/search?keyword=3A
+
         [HttpGet("search")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public IActionResult Search([FromQuery] string? keyword)
         {
             var classes = _classService.Search(keyword);
             return Ok(_mapper.Map<List<ClassDto>>(classes));
-        }
-
-        // GET: api/classes/ordered
-        [HttpGet("ordered")]
-        [AllowAnonymous]
-        public IActionResult GetOrdered()
-        {
-            var classes = _classService.GetClassesOrderedByName();
-            return Ok(_mapper.Map<List<ClassDto>>(classes));
-        }
-
-        // GET: api/classes/teacher/1
-        [HttpGet("teacher/{teacherId}")]
-        [AllowAnonymous]
-        public IActionResult GetByTeacher(int teacherId)
-        {
-            var classes = _classService.GetClassesByTeacherId(teacherId);
-            return Ok(_mapper.Map<List<ClassDto>>(classes));
-        }
-
-        // GET: api/classes/statistics/count-by-grade
-        [HttpGet("statistics/count-by-grade")]
-        [AllowAnonymous]
-        public IActionResult GetCountByGrade()
-        {
-            return Ok(_classService.GetClassCountByGrade());
-        }
-
-        // GET: api/classes/statistics/student-count
-        [HttpGet("statistics/student-count")]
-        [AllowAnonymous]
-        public IActionResult GetStudentCount()
-        {
-            return Ok(_classService.GetStudentCountByClass());
-        }
-
-        // GET: api/classes/statistics/most-students
-        [HttpGet("statistics/most-students")]
-        [AllowAnonymous]
-        public IActionResult GetMostStudents()
-        {
-            var classObj = _classService.GetClassWithMostStudents();
-            if (classObj == null) return NotFound();
-            return Ok(_mapper.Map<ClassDto>(classObj));
-        }
-
-        // GET: api/classes/statistics/least-students
-        [HttpGet("statistics/least-students")]
-        [AllowAnonymous]
-        public IActionResult GetLeastStudents()
-        {
-            var classObj = _classService.GetClassWithLeastStudents();
-            if (classObj == null) return NotFound();
-            return Ok(_mapper.Map<ClassDto>(classObj));
         }
 
         [HttpGet("count")]

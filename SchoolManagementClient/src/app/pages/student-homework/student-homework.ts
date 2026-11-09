@@ -14,17 +14,20 @@ export class StudentHomework implements OnInit {
   homeworks: any[] = [];
   loading: boolean = true;
 
-  constructor(private homeworkService: HomeworkService, private toastService: ToastService) { }
+  constructor(
+    private homeworkService: HomeworkService, 
+    private toastService: ToastService
+  ) { }
 
   ngOnInit(): void {
     this.homeworkService.getStudentHomework().subscribe({
       next: (data) => {
         this.homeworks = data;
-        this.loading = false;
+        this.loading = false; // ✅ بنقفل الـ Loading خلاص
       },
       error: () => {
         this.toastService.error('Failed to load homework', 'Error');
-        this.loading = false;
+        this.loading = false; // ✅ بنقفل الـ Loading في حالة الخطأ بردو
       }
     });
   }
