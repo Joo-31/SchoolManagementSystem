@@ -116,8 +116,24 @@ export class StudentsList implements OnInit {
     }
   }
 
-  getPages(): number[] {
-    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+    getPages(): number[] {
+    const total = this.totalPages;
+    const current = this.pageNumber;
+    const maxVisible = 5; // عرض 5 أزرار بس
+
+    if (total <= maxVisible) {
+      return Array.from({ length: total }, (_, i) => i + 1);
+    }
+
+    let start = Math.max(current - Math.floor(maxVisible / 2), 1);
+    let end = start + maxVisible - 1;
+
+    if (end > total) {
+      end = total;
+      start = Math.max(end - maxVisible + 1, 1);
+    }
+
+    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   }
 
   deleteStudent(id: number): void {

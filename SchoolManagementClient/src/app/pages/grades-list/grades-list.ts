@@ -53,8 +53,25 @@ export class GradesList implements OnInit {
   nextPage(): void { if (this.hasNext) { this.pageNumber++; this.loadGrades(); } }
   previousPage(): void { if (this.hasPrevious) { this.pageNumber--; this.loadGrades(); } }
   goToPage(page: number): void { if (page >= 1 && page <= this.totalPages) { this.pageNumber = page; this.loadGrades(); } }
-  getPages(): number[] { return Array.from({ length: this.totalPages }, (_, i) => i + 1); }
+   getPages(): number[] {
+    const total = this.totalPages;
+    const current = this.pageNumber;
+    const maxVisible = 5; // عرض 5 أزرار بس
 
+    if (total <= maxVisible) {
+      return Array.from({ length: total }, (_, i) => i + 1);
+    }
+
+    let start = Math.max(current - Math.floor(maxVisible / 2), 1);
+    let end = start + maxVisible - 1;
+
+    if (end > total) {
+      end = total;
+      start = Math.max(end - maxVisible + 1, 1);
+    }
+
+    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+  }
   deleteGrade(id: number): void {
     if (confirm('Are you sure you want to delete this grade?')) {
       this.gradeService.delete(id).subscribe({

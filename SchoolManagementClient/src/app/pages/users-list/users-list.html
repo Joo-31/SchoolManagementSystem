@@ -19,7 +19,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let user of users; let i = index">
-        <td>{{ i + 1 }}</td>
+        <td>{{ (pageNumber - 1) * pageSize + i + 1 }}</td>
         <td>{{ user.id }}</td>
         <td>{{ user.username }}</td>
         <td>
@@ -41,6 +41,21 @@
       </tr>
     </tbody>
   </table>
+
+  <!-- ✅ Pagination -->
+  <div class="pagination" *ngIf="!loading && totalPages > 1">
+    <button class="page-btn" [disabled]="pageNumber === 1" (click)="previousPage()">← Previous</button>
+    
+    <button 
+      *ngFor="let page of getPages()" 
+      class="page-btn" 
+      [class.active]="page === pageNumber" 
+      (click)="goToPage(page)">
+      {{ page }}
+    </button>
+    
+    <button class="page-btn" [disabled]="pageNumber === totalPages" (click)="nextPage()">Next →</button>
+  </div>
 
   <!-- Modal -->
   <div class="modal-overlay" *ngIf="isResetModalOpen">

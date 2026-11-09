@@ -10,7 +10,6 @@ export class MarkService {
 
   constructor(private http: HttpClient) { }
 
-  // Admin + Teacher
   getAll(): Observable<Mark[]> {
     return this.http.get<Mark[]>(this.apiUrl);
   }
@@ -31,31 +30,32 @@ export class MarkService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  // Student
   getMyMarks(): Observable<Mark[]> {
     return this.http.get<Mark[]>(`${this.apiUrl}/me`);
   }
 
-  // Teacher
   getMarksByTeacher(): Observable<Mark[]> {
     return this.http.get<Mark[]>(`${this.apiUrl}/my-marks`);
   }
 
-  // By Student (Admin/Teacher)
   getByStudent(studentId: number): Observable<Mark[]> {
     return this.http.get<Mark[]>(`${this.apiUrl}/student/${studentId}`);
   }
 
-  // By Course
   getByCourse(courseId: number): Observable<Mark[]> {
     return this.http.get<Mark[]>(`${this.apiUrl}/course/${courseId}`);
   }
 
   getMyCourses(): Observable<any[]> {
-  return this.http.get<any[]>(`${this.apiUrl}/my-courses`);
-}
+    return this.http.get<any[]>(`${this.apiUrl}/my-courses`);
+  }
 
-getMyStudents(): Observable<any[]> {
-  return this.http.get<any[]>(`${this.apiUrl}/my-students`);
-}
+  getMyStudents(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/my-students`);
+  }
+
+  // ✅ الدالة دي بس اللي محتاجينها هنا
+  getPaged(pageNumber: number, pageSize: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/paged?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+  }
 }

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="header">
-    <h1>Marks List (Total: {{ marks.length }})</h1>
+    <h1>Marks List (Total: {{ totalCount }})</h1>
     <a routerLink="/marks/add" class="btn-add">+ Add Mark</a>
   </div>
 
@@ -9,16 +9,15 @@
     <input 
       type="text" 
       [(ngModel)]="searchKeyword" 
-      (input)="filterMarks()" 
+      (input)="applySearch()" 
       placeholder="🔍 Search by student or course name..." 
     />
     <button *ngIf="searchKeyword" class="btn-clear" (click)="clearSearch()">✖ Clear</button>
   </div>
 
   <div *ngIf="loading" class="loading">Loading...</div>
-  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
 
-  <table *ngIf="!loading && !errorMessage">
+  <table *ngIf="!loading && marks.length > 0">
     <thead>
       <tr>
         <th>#</th>
@@ -33,7 +32,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let mark of marks; let i = index">
-        <td>{{ i + 1 }}</td>
+        <td>{{ (pageNumber - 1) * pageSize + i + 1 }}</td>
         <td>{{ mark.studentName }}</td>
         <td>{{ mark.courseName }}</td>
         <td>{{ mark.teacherName }}</td>
@@ -42,7 +41,7 @@
                 [class.good]="mark.score >= 75 && mark.score < 90"
                 [class.pass]="mark.score >= 50 && mark.score < 75"
                 [class.fail]="mark.score < 50">
-            {{ mark.score }}
+            {{ mark.score | number:'1.0-2' }} <!-- ✅ هنا السر: بنعرض رقمين عشريين بس -->
           </span>
         </td>
         <td>{{ mark.date | date:'yyyy-MM-dd' }}</td>
@@ -56,4 +55,21 @@
   </table>
 
   <div *ngIf="!loading && marks.length === 0" class="no-data">No marks found.</div>
+
+    <!-- ✅ Pagination -->
+  <div class="pagination" *ngIf="!loading && totalPages > 1 && !searchKeyword">
+    <button class="page-btn" [disabled]="!hasPrevious" (click)="goToPage(1)">« First</button>
+    <button class="page-btn" [disabled]="!hasPrevious" (click)="previousPage()">← Previous</button>
+    
+    <button 
+      *ngFor="let page of getPages()" 
+      class="page-btn" 
+      [class.active]="page === pageNumber" 
+      (click)="goToPage(page)">
+      {{ page }}
+    </button>
+    
+    <button class="page-btn" [disabled]="!hasNext" (click)="nextPage()">Next →</button>
+    <button class="page-btn" [disabled]="!hasNext" (click)="goToPage(totalPages)">Last »</button>
+  </div>
 </div>
