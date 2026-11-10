@@ -1,107 +1,65 @@
-<nav class="navbar">
-  <div class="nav-container">
-    <div class="nav-brand">
-      <!-- ✅ غيرنا routerLink لـ (click) عشان نوجه كل Role للصفحة بتاعته -->
-      <a style="cursor: pointer;" (click)="navigateToHome()">School Management System</a>
+<div class="sidebar" [class.open]="isSidebarOpen">
+  <div class="sidebar-header">
+    <a (click)="navigateToHome()" style="cursor: pointer;">{{ 'APP_NAME' | translate }}</a>
+    <button class="close-btn" (click)="toggleSidebar()">×</button>
+  </div>
+
+  <ul class="sidebar-menu">
+    <!-- Admin Only -->
+    <ng-container *ngIf="isAdmin()">
+      <li><a routerLink="/dashboard" routerLinkActive="active">📊 {{ 'DASHBOARD' | translate }}</a></li>
+      <li><a routerLink="/students" routerLinkActive="active">🎓 {{ 'STUDENTS' | translate }}</a></li>
+      <li><a routerLink="/teachers" routerLinkActive="active">👨‍🏫 {{ 'TEACHERS' | translate }}</a></li>
+      <li><a routerLink="/courses" routerLinkActive="active">📚 {{ 'COURSES' | translate }}</a></li>
+      <li><a routerLink="/classes" routerLinkActive="active">🏫 {{ 'CLASSES' | translate }}</a></li>
+      <li><a routerLink="/grades" routerLinkActive="active">📈 {{ 'GRADES' | translate }}</a></li>
+      <li><a routerLink="/attendances" routerLinkActive="active">📅 {{ 'ATTENDANCES' | translate }}</a></li>
+      <li><a routerLink="/marks" routerLinkActive="active">✍️ {{ 'MARKS' | translate }}</a></li>
+      <li><a routerLink="/users" routerLinkActive="active">👥 {{ 'USERS' | translate }}</a></li>
+      <li><a routerLink="/notifications/add" routerLinkActive="active">📢 {{ 'SEND_NOTIFICATION' | translate }}</a></li>
+    </ng-container>
+
+    <!-- Teacher Only -->
+    <ng-container *ngIf="isTeacher()">
+      <li><a routerLink="/my-classes" routerLinkActive="active">🏫 {{ 'MY_CLASSES' | translate }}</a></li>
+      <li><a routerLink="/my-homework" routerLinkActive="active">📝 {{ 'MY_HOMEWORK' | translate }}</a></li>
+      <li><a routerLink="/my-marks" routerLinkActive="active">✍️ {{ 'MY_MARKS' | translate }}</a></li>
+      <li><a routerLink="/my-profile" routerLinkActive="active">👤 {{ 'MY_PROFILE' | translate }}</a></li>
+    </ng-container>
+
+    <!-- Student Only -->
+    <ng-container *ngIf="isStudent()">
+      <li><a routerLink="/my-profile-student" routerLinkActive="active">👤 {{ 'MY_PROFILE' | translate }}</a></li>
+      <li><a routerLink="/my-attendance" routerLinkActive="active">📅 {{ 'MY_ATTENDANCE' | translate }}</a></li>
+      <li><a routerLink="/my-marks" routerLinkActive="active">✍️ {{ 'MY_MARKS' | translate }}</a></li>
+      <li><a routerLink="/student-homework" routerLinkActive="active">📝 {{ 'HOMEWORK' | translate }}</a></li>
+    </ng-container>
+  </ul>
+
+  <div class="sidebar-footer">
+    <div class="user-info">
+      <span>{{ username }}</span>
     </div>
-
-    <ul class="nav-links">
-      <!-- Admin Only -->
-      <li *ngIf="isAdmin()">
-        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-      </li>
-      <li *ngIf="isAdmin()">
-        <a routerLink="/students" routerLinkActive="active">Students</a>
-      </li>
-      <li *ngIf="isAdmin()">
-        <a routerLink="/teachers" routerLinkActive="active">Teachers</a>
-      </li>
-      <li *ngIf="isAdmin()">
-        <a routerLink="/courses" routerLinkActive="active">Courses</a>
-      </li>
-      <li *ngIf="isAdmin()">
-        <a routerLink="/classes" routerLinkActive="active">Classes</a>
-      </li>
-      <li *ngIf="isAdmin()">
-        <a routerLink="/grades" routerLinkActive="active">Grades</a>
-      </li>
-      <li *ngIf="isAdmin()">
-        <a routerLink="/attendances" routerLinkActive="active">Attendances</a>
-      </li>
-      <li *ngIf="isAdmin()">
-        <a routerLink="/marks" routerLinkActive="active">Marks</a>
-      </li>
-      <li *ngIf="isAdmin()">
-        <a routerLink="/users" routerLinkActive="active">Users</a>
-      </li>
-            <li *ngIf="isAdmin()">
-        <a routerLink="/notifications/add" routerLinkActive="active">Send Notification</a>
-      </li>
-
-      <!-- Teacher Only -->
-      <li *ngIf="isTeacher()">
-        <a routerLink="/my-classes" routerLinkActive="active">My Classes</a>
-      </li>
-      <li *ngIf="isTeacher()">
-        <a routerLink="/my-profile" routerLinkActive="active">My Profile</a>
-      </li>
-      <li *ngIf="isTeacher()">
-        <a routerLink="/my-marks" routerLinkActive="active">My Marks</a>
-      </li>
-      <li *ngIf="isTeacher()">
-        <a routerLink="/my-homework" routerLinkActive="active">My Homework</a>
-      </li>
-
-      <!-- Student Only -->
-      <li *ngIf="isStudent()">
-        <a routerLink="/my-profile-student" routerLinkActive="active">My Profile</a>
-      </li>
-      <li *ngIf="isStudent()">
-        <a routerLink="/my-attendance" routerLinkActive="active">My Attendance</a>
-      </li>
-      <li *ngIf="isStudent()">
-        <a routerLink="/my-marks" routerLinkActive="active">My Marks</a>
-      </li>
-       <li *ngIf="isStudent()">
-        <a routerLink="/student-homework" routerLinkActive="active">Homework</a>
-      </li>
-    </ul>
-
-        <div class="nav-user">
-      <!-- ✅ زرار الـ Dark Mode -->
-      <button class="btn-theme" (click)="toggleTheme()">
+    
+    <!-- ✅ زراير التغيير (اللغة + الوضع الليلي) -->
+    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+      <button class="btn-theme" (click)="toggleTheme()" style="flex: 1;">
         {{ isDarkMode ? '☀️' : '🌙' }}
       </button>
-      
-      <!-- ✅ زرار التنبيهات (الجرس) -->
-      <div class="notification-container">
-        <button class="btn-notification" (click)="toggleNotifications()">
-          🔔
-          <span class="badge" *ngIf="notifications.length > 0">{{ notifications.length }}</span>
-        </button>
-
-        <!-- القائمة المنسدلة -->
-        <div class="notification-dropdown" *ngIf="showNotifications">
-          <div class="dropdown-header">
-            <h4>Notifications</h4>
-          </div>
-          
-          <div class="dropdown-body">
-            <div *ngIf="notifications.length === 0" class="no-notifications">
-              No new notifications.
-            </div>
-            
-            <div *ngFor="let notif of notifications" class="notification-item">
-              <div class="notif-title">{{ notif.title }}</div>
-              <div class="notif-message">{{ notif.message }}</div>
-              <div class="notif-date">{{ notif.createdAt | date:'short' }}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <span class="username">{{ username }}</span>
-      <button (click)="onLogout()" class="btn-logout">Logout</button>
+      <button class="btn-theme" (click)="switchLanguage(translate.currentLang === 'en' ? 'ar' : 'en')" style="flex: 1;">
+        {{ translate.currentLang === 'en' ? 'AR' : 'EN' }}
+      </button>
     </div>
+    
+    <button class="btn-logout" (click)="onLogout()">{{ 'LOGOUT' | translate }}</button>
   </div>
-</nav>
+</div>
+
+<!-- Mobile Top Bar -->
+<div class="top-bar">
+  <button class="menu-btn" (click)="toggleSidebar()">☰</button>
+  <span class="top-bar-title">{{ 'APP_NAME' | translate }}</span>
+  <div class="top-bar-actions">
+    <button class="btn-theme" (click)="toggleTheme()">{{ isDarkMode ? '☀️' : '🌙' }}</button>
+  </div>
+</div>

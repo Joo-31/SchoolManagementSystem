@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { StudentService } from '../../services/student';
+import { ClassService } from '../../services/class';
 import { ToastService } from '../../services/toast';
 
 @Component({
@@ -12,7 +13,7 @@ import { ToastService } from '../../services/toast';
   templateUrl: './add-student.html',
   styleUrl: './add-student.css'
 })
-export class AddStudent {
+export class AddStudent implements OnInit { // ✅
   firstName: string = '';
   lastName: string = '';
   birthYear: number | null = null;
@@ -20,41 +21,32 @@ export class AddStudent {
   birthDay: number | null = null;
   gender: number = 0;
   classId: number | null = null;
-  
-  // ✅ الحقول الجديدة
   username: string = '';
   password: string = '';
-  
   errorMessage: string = '';
   successMessage: string = '';
+  
+  classes: any[] = []; // ✅
 
   constructor(
     private studentService: StudentService,
+    private classService: ClassService, // ✅
     private router: Router,
     private toastService: ToastService 
   ) { }
 
+  ngOnInit(): void {
+    // ✅ بنجيب الفصول
+    this.classService.getAll().subscribe(data => {
+      this.classes = data;
+    });
+  }
+
   onSubmit(): void {
-    if (!this.firstName || !this.lastName) {
-      this.errorMessage = 'First name and last name are required';
-      return;
-    }
-
-    if (!this.birthYear || !this.birthMonth || !this.birthDay) {
-      this.errorMessage = 'Birth date is required';
-      return;
-    }
-
-    if (!this.classId) {
-      this.errorMessage = 'Class ID is required';
-      return;
-    }
-
-    // ✅ Validation للـ Username والـ Password
-    if (!this.username || !this.password) {
-      this.errorMessage = 'Username and Password are required for the account';
-      return;
-    }
+    if (!this.firstName || !this.lastName) { this.errorMessage = 'First name and last name are required'; return; }
+    if (!this.birthYear || !this.birthMonth || !this.birthDay) { this.errorMessage = 'Birth date is required'; return; }
+    if (!this.classId) { this.errorMessage = 'Class is required'; return; }
+    if (!this.username || !this.password) { this.errorMessage = 'Username and Password are required'; return; }
 
     const birthDate = `${this.birthYear}-${String(this.birthMonth).padStart(2, '0')}-${String(this.birthDay).padStart(2, '0')}`;
 
@@ -70,12 +62,11 @@ export class AddStudent {
 
     this.studentService.add(newStudent).subscribe({
       next: () => {
-        this.toastService.success('Student and account created successfully!', 'Success');
+        this.toastService.success('Student added successfully!', 'Success');
         setTimeout(() => this.router.navigate(['/students']), 1000);
       },
       error: (error: any) => {
         this.toastService.error('Failed to add student', 'Error');
-        console.error(error);
       }
     });
   }

@@ -79,12 +79,7 @@ namespace SchoolManagementAPI.Services
             if (string.IsNullOrWhiteSpace(keyword))
                 return GetAll();
 
-            var lowerKeyword = keyword.ToLower();
-
-            return _unitOfWork.Students.Find(s =>
-                s.FirstName.ToLower().Contains(lowerKeyword) ||
-                s.LastName.ToLower().Contains(lowerKeyword)
-            ).ToList();
+            return _unitOfWork.Students.Search(keyword).ToList();
         }
 
         public List<Student> GetStudentsByClassId(int classId)

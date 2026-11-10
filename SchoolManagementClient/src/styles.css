@@ -7,41 +7,53 @@ html, body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  /* مسحنا height: 100% عشان منبوظش السكرول */
 }
 
-/* 2. مساحة للـ Navbar عشان ميتغطاش على المحتوى */
+/* 2. إعدادات المحتوى الأساسية (بدون إزاحة) */
 app-root {
   display: block;
-  padding-top: 60px; /* 60px هي مساحة الـ Navbar */
 }
 
-/* 3. ألوان الوضع العادي (Light) */
+/* 3. الإزاحة بتتطبق بس لما يكون فيه Sidebar */
+.has-sidebar app-root {
+  padding-left: 250px;
+  padding-top: 0;
+}
+
+@media (max-width: 768px) {
+  .has-sidebar app-root {
+    padding-left: 0;
+    padding-top: 60px;
+  }
+}
+
+/* 4. ألوان الوضع العادي (Light) */
 body {
   background-color: #f4f7f6;
   color: #333;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* 4. ألوان الوضع المظلم (Dark) */
+/* 5. ألوان الوضع المظلم (Dark) */
 body.dark-theme {
   background-color: #121212;
   color: #e0e0e0;
 }
 
-/* 5. تغيير لون الكروت والـ Tables في الوضع المظلم */
+/* 6. تغيير لون الكروت والـ Tables في الوضع المظلم */
 body.dark-theme .container,
 body.dark-theme .form-card,
 body.dark-theme .filters-card,
 body.dark-theme .stat-card,
 body.dark-theme table,
-body.dark-theme .modal-content {
+body.dark-theme .modal-content,
+body.dark-theme .profile-card {
   background-color: #1e1e1e !important;
   color: #e0e0e0 !important;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5) !important;
 }
 
-/* 6. تغيير لون النصوص */
+/* 7. تغيير لون النصوص */
 body.dark-theme h1, 
 body.dark-theme h2, 
 body.dark-theme h3, 
@@ -49,7 +61,7 @@ body.dark-theme label {
   color: #e0e0e0 !important;
 }
 
-/* 7. تغيير لون حقول الإدخال */
+/* 8. تغيير لون حقول الإدخال */
 body.dark-theme input,
 body.dark-theme select,
 body.dark-theme textarea {
@@ -58,7 +70,7 @@ body.dark-theme textarea {
   border-color: #444 !important;
 }
 
-/* 8. تغيير لون رؤوس الجداول */
+/* 9. تغيير لون رؤوس الجداول */
 body.dark-theme thead {
   background-color: #2d2d2d !important;
   color: #fff !important;
@@ -72,7 +84,7 @@ body.dark-theme tbody tr:hover {
   background-color: #2a2a2a !important;
 }
 
-/* 9. زرار الـ Theme */
+/* 10. زرار الـ Theme */
 .btn-theme {
   background: transparent;
   border: 1px solid #ccc;
@@ -88,18 +100,14 @@ body.dark-theme tbody tr:hover {
 body.dark-theme .btn-theme {
   border-color: #555;
 }
+
+/* 11. تصليحات إضافية للـ Dark Mode */
 body.dark-theme .filter-bar label {
   color: #e0e0e0 !important;
 }
 body.dark-theme .filter-bar {
   background-color: #1e1e1e !important;
   color: #e0e0e0 !important;
-}
-/* ✅ إصلاح نهائي لصفحة البروفايل في الـ Dark Mode */
-body.dark-theme .profile-card {
-  background-color: #1e1e1e !important;
-  color: #e0e0e0 !important;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5) !important;
 }
 
 body.dark-theme .profile-card .label {
@@ -113,4 +121,9 @@ body.dark-theme .profile-card h1 {
 
 body.dark-theme .profile-card .info-row {
   border-bottom-color: #333 !important;
+}
+
+/* ✅ تصليح اتجاه الـ Pagination في اللغة العربية */
+body.rtl .pagination {
+  direction: ltr; 
 }

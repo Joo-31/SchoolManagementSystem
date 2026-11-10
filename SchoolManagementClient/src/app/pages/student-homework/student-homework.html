@@ -3,10 +3,8 @@
     <h1>My Homework (Total: {{ homeworks.length }})</h1>
   </div>
 
-  <!-- Loading -->
   <div *ngIf="loading" class="loading">Loading...</div>
 
-  <!-- Homework Grid -->
   <div class="homework-grid" *ngIf="!loading && homeworks.length > 0">
     <div class="homework-card" *ngFor="let hw of homeworks">
       <div class="hw-header">

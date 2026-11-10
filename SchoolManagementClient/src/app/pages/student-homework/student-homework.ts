@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeworkService } from '../../services/homework';
 import { ToastService } from '../../services/toast';
@@ -16,18 +16,21 @@ export class StudentHomework implements OnInit {
 
   constructor(
     private homeworkService: HomeworkService, 
-    private toastService: ToastService
+    private toastService: ToastService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.homeworkService.getStudentHomework().subscribe({
       next: (data) => {
         this.homeworks = data;
-        this.loading = false; // ✅ بنقفل الـ Loading خلاص
+        this.loading = false;
+        this.cdr.detectChanges();
       },
-      error: () => {
-        this.toastService.error('Failed to load homework', 'Error');
-        this.loading = false; // ✅ بنقفل الـ Loading في حالة الخطأ بردو
+      error: (err) => {
+        // ✅ لو حصل خطأ أو مفيش داتا، بنقفل الـ Loading عشان تظهر الرسالة
+        this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }

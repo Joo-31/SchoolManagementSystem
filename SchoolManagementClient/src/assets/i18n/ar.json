@@ -1,0 +1,20 @@
+{
+  "APP_NAME": "نظام المدرسة",
+  "DASHBOARD": "لوحة التحكم",
+  "STUDENTS": "الطلاب",
+  "TEACHERS": "المدرسين",
+  "COURSES": "المواد",
+  "CLASSES": "الفصول",
+  "GRADES": "المراحل",
+  "ATTENDANCES": "الحضور والغياب",
+  "MARKS": "الدرجات",
+  "USERS": "المستخدمين",
+  "SEND_NOTIFICATION": "إرسال تنبيه",
+  "MY_CLASSES": "فصولي",
+  "MY_HOMEWORK": "واجباتي",
+  "MY_MARKS": "درجاتي",
+  "MY_PROFILE": "ملفي الشخصي",
+  "MY_ATTENDANCE": "حضوري",
+  "HOMEWORK": "الواجبات",
+  "LOGOUT": "تسجيل خروج"
+}

@@ -61,7 +61,7 @@
         </div>
       </div>
 
-      <div class="form-row">
+                  <div class="form-row">
         <div class="form-group">
           <label for="gender">Gender *</label>
           <select id="gender" [(ngModel)]="gender" name="gender">
@@ -71,18 +71,16 @@
         </div>
 
         <div class="form-group">
-          <label for="classId">Class ID *</label>
-          <input
-            type="number"
-            id="classId"
-            [(ngModel)]="classId"
-            name="classId"
-            placeholder="Enter class ID"
-            required
-          />
+          <label for="classId">Class *</label>
+          <!-- ✅ غيرنا ده لـ select -->
+          <select id="classId" [(ngModel)]="classId" name="classId" required>
+            <option [ngValue]="null">-- Select Class --</option>
+            <option *ngFor="let c of classes" [ngValue]="c.id">
+              {{ c.name }} - {{ c.gradeName }}
+            </option>
+          </select>
         </div>
       </div>
-
       <!-- ✅ الحقول الجديدة للـ User Account -->
       <div class="form-row">
         <div class="form-group">

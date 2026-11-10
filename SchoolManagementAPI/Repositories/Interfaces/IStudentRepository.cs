@@ -9,6 +9,8 @@ namespace SchoolManagementAPI.Repositories.Interfaces
         IEnumerable<Student> GetStudentsByClassId(int classId);
         IEnumerable<Student> GetStudentsOrderedByName();
         IEnumerable<Student> GetStudentsOlderThan(int age);
+        IEnumerable<Student> Search(string keyword);
+
         Dictionary<int, int> GetStudentCountByClass();
         double GetAverageAge();
         Student? GetOldestStudent();

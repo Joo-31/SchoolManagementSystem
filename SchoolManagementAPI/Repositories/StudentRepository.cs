@@ -52,6 +52,16 @@ namespace SchoolManagementAPI.Repositories
                 .ToList();
         }
 
+        public IEnumerable<Student> Search(string keyword)
+        {
+            var lowerKeyword = keyword.ToLower();
+            return _dbSet
+                .Include(s => s.Class) // ✅ السر هنا
+                .Where(s => s.FirstName.ToLower().Contains(lowerKeyword) ||
+                            s.LastName.ToLower().Contains(lowerKeyword))
+                .ToList();
+        }
+
         public Dictionary<int, int> GetStudentCountByClass()
         {
             return _dbSet

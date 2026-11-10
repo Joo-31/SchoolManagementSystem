@@ -2,29 +2,43 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../../services/auth';
-import { NotificationService } from '../../services/notification'; // ✅ ضيفنا دي
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TranslateModule], // ✅ ضيفنا TranslateModule
   templateUrl: './navbar.html',
   styleUrl: './navbar.css'
 })
 export class Navbar implements OnInit {
   username: string = '';
   isDarkMode: boolean = false;
-  
-  // ✅ متغيرات التنبيهات
-  notifications: any[] = [];
-  showNotifications: boolean = false;
+  isSidebarOpen: boolean = false;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private notificationService: NotificationService // ✅ ضيفنا دي
+    public translate: TranslateService // ✅ ضيفنا TranslateService
   ) {
     this.username = localStorage.getItem('username') || '';
+    
+    // ✅ إعداد اللغة الافتراضية
+    this.translate.setDefaultLang('en');
+    const savedLang = localStorage.getItem('lang') || 'en';
+    this.translate.use(savedLang);
+  }
+
+  // ✅ دالة تغيير اللغة
+   switchLanguage(lang: string) {
+    this.translate.use(lang);
+    localStorage.setItem('lang', lang);
+    // ✅ لو عايز نعكس اتجاه الصفحة للعربي
+    if (lang === 'ar') {
+      document.documentElement.dir = 'rtl';
+    } else {
+      document.documentElement.dir = 'ltr';
+    }
   }
 
   ngOnInit(): void {
@@ -33,28 +47,9 @@ export class Navbar implements OnInit {
       this.isDarkMode = true;
       document.body.classList.add('dark-theme');
     }
-
-    // ✅ بنجيب التنبيهات أول ما الصفحة تفتح
-    if (this.authService.isLoggedIn()) {
-      this.loadNotifications();
-    }
   }
 
-  // ✅ دالة جلب التنبيهات
-  loadNotifications(): void {
-    this.notificationService.getMyNotifications().subscribe({
-      next: (data) => {
-        this.notifications = data;
-      },
-      error: (err) => console.error('Failed to load notifications', err)
-    });
-  }
-
-  // ✅ زرار فتح وقفل قائمة التنبيهات
-  toggleNotifications(): void {
-    this.showNotifications = !this.showNotifications;
-  }
-
+  toggleSidebar(): void { this.isSidebarOpen = !this.isSidebarOpen; }
   isAdmin(): boolean { return this.authService.isAdmin(); }
   isTeacher(): boolean { return this.authService.isTeacher(); }
   isStudent(): boolean { return this.authService.isStudent(); }
@@ -76,14 +71,9 @@ export class Navbar implements OnInit {
   }
 
   navigateToHome(): void {
-    if (this.isAdmin()) {
-      this.router.navigate(['/dashboard']);
-    } else if (this.isTeacher()) {
-      this.router.navigate(['/my-classes']);
-    } else if (this.isStudent()) {
-      this.router.navigate(['/my-profile-student']);
-    } else {
-      this.router.navigate(['/login']);
-    }
+    if (this.isAdmin()) this.router.navigate(['/dashboard']);
+    else if (this.isTeacher()) this.router.navigate(['/my-classes']);
+    else if (this.isStudent()) this.router.navigate(['/my-profile-student']);
+    else this.router.navigate(['/login']);
   }
 }
