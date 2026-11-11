@@ -194,9 +194,7 @@ namespace SchoolManagementAPI.Controllers
                 .Distinct()
                 .ToList();
 
-            var students = _studentService.GetAll()
-                .Where(s => classIds.Contains(s.ClassId))
-                .ToList();
+            var students = _studentService.GetByClassIds(classIds);
 
             return Ok(_mapper.Map<List<StudentDto>>(students));
         }

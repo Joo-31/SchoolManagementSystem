@@ -34,6 +34,17 @@ namespace SchoolManagementAPI.Repositories
                 .ToList();
         }
 
+        public IEnumerable<Student> GetStudentsByClassIds(IReadOnlyCollection<int> classIds)
+        {
+            if (classIds.Count == 0) return Array.Empty<Student>();
+
+            return _dbSet
+                .AsNoTracking()
+                .Include(s => s.Class)
+                .Where(s => classIds.Contains(s.ClassId))
+                .ToList();
+        }
+
         public IEnumerable<Student> GetStudentsOrderedByName()
         {
             return _dbSet

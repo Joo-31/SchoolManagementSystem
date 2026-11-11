@@ -1,6 +1,5 @@
 import { Injectable, inject, signal } from '@angular/core';
-import { ApiService } from './api.service';
-import { ApiError, SchoolSettings } from './models';
+import { SchoolSettings } from './models';
 import { SettingsService } from './settings.service';
 
 export const DEFAULT_SCHOOL_SETTINGS: SchoolSettings = {
@@ -16,7 +15,6 @@ const KEY = 'cl.schoolSettings';
 
 @Injectable({ providedIn: 'root' })
 export class SchoolSettingsService {
-  private api = inject(ApiService);
   private connection = inject(SettingsService);
   private state = signal<SchoolSettings>(DEFAULT_SCHOOL_SETTINGS);
   readonly settings = this.state.asReadonly();
@@ -25,27 +23,18 @@ export class SchoolSettingsService {
 
   async load(): Promise<void> {
     if (this.loaded) return;
-    try {
-      const value = await this.api.get<SchoolSettings>('/settings/school');
-      if (isSchoolSettings(value)) this.apply(value);
-    } catch (error) {
-      if (this.connection.mode() === 'live' && error instanceof ApiError && error.status === 404) this.localOnly.set(true);
-      const local = safeRead();
-      if (local) this.apply(local);
-    }
+    // There is no backend settings endpoint. Do not block Angular's app initializer
+    // on a request that will 404 (or wait for a network timeout when the API is offline).
+    this.localOnly.set(true);
+    const local = safeRead();
+    if (local) this.apply(local);
     this.loaded = true;
   }
 
   async save(value: SchoolSettings): Promise<void> {
     this.apply(value);
-    try {
-      const response = await this.api.put<SchoolSettings>('/settings/school', value);
-      if (isSchoolSettings(response)) this.apply(response);
-    } catch (error) {
-      if (this.connection.mode() === 'live' && error instanceof ApiError && error.status === 404) this.localOnly.set(true);
-      if (!(this.connection.mode() === 'live' && error instanceof ApiError && error.status === 404)) throw error;
-      safeWrite(value);
-    }
+    this.localOnly.set(true);
+    safeWrite(value);
   }
 
   replace(value: SchoolSettings): void { this.apply(value); safeWrite(value); }

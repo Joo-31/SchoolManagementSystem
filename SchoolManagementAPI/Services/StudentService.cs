@@ -39,6 +39,12 @@ namespace SchoolManagementAPI.Services
             return _unitOfWork.Students.GetAll().ToList();
         }
 
+        public List<Student> GetByClassIds(IEnumerable<int> classIds)
+        {
+            var ids = classIds.Distinct().ToArray();
+            return _unitOfWork.Students.GetStudentsByClassIds(ids).ToList();
+        }
+
         public Student? GetById(int id)
         {
             return _unitOfWork.Students.GetById(id);

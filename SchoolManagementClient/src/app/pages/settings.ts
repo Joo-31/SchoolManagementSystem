@@ -54,7 +54,7 @@ export class SettingsPageComponent {
   async reset(): Promise<void> { if (await this.dialogs.confirm({ title: 'Reset settings?', text: 'This restores all school settings to their defaults.', confirm: 'Reset to defaults', danger: true })) { this.loadForm({ ...DEFAULTS }); this.form.markAsDirty(); } }
   exportSettings(): void { const blob = new Blob([JSON.stringify(this.value(), null, 2)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'school-settings.json'; a.click(); URL.revokeObjectURL(url); }
   async importSettings(e: Event): Promise<void> { const file = (e.target as HTMLInputElement).files?.[0]; if (!file) return; try { const parsed: unknown = JSON.parse(await file.text()); if (!validateSettingsImport(parsed)) throw new Error('The file is not a valid school settings export.'); this.loadForm(parsed); this.form.markAsDirty(); } catch (err) { this.toast.err((err as Error).message); } }
-  async testConnection(): Promise<void> { try { await this.api.get('/settings/school'); this.connectionResult.set('Connection successful.'); } catch (e) { this.connectionResult.set((e as Error).message); } }
+  async testConnection(): Promise<void> { try { await this.api.get('/grades/count'); this.connectionResult.set('Connection successful.'); } catch (e) { this.connectionResult.set((e as Error).message); } }
 }
 import { FormArray } from '@angular/forms';
 import { DEFAULT_SCHOOL_SETTINGS as DEFAULTS } from '../core/school-settings.service';

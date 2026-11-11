@@ -7,6 +7,7 @@ namespace SchoolManagementAPI.Repositories.Interfaces
     {
         // ✅ Methods خاصة بالـ Student بس
         IEnumerable<Student> GetStudentsByClassId(int classId);
+        IEnumerable<Student> GetStudentsByClassIds(IReadOnlyCollection<int> classIds);
         IEnumerable<Student> GetStudentsOrderedByName();
         IEnumerable<Student> GetStudentsOlderThan(int age);
         IEnumerable<Student> Search(string keyword);

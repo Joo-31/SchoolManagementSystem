@@ -8,6 +8,7 @@ namespace SchoolManagementAPI.Services.Interfaces
         // CRUD
         void Add(Student student, string username, string password);
         List<Student> GetAll();
+        List<Student> GetByClassIds(IEnumerable<int> classIds);
         Student? GetById(int id);
         bool Update(Student student);
         bool Delete(int id);
