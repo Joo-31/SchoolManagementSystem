@@ -1,59 +1,35 @@
-# SchoolManagementClient
+# schoolmanagementweb
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.8.
+Angular front end for **SchoolManagementAPI** (standalone components, signals, lazy routes, functional guards/interceptors, reactive forms). Same versions as your original client (Angular 22).
 
-## Development server
-
-To start a local development server, run:
-
+## Run
 ```bash
-ng serve
+npm install
+npm start            # ng serve → http://localhost:4200
 ```
+1. Start the API (https://localhost:7092). Open `https://localhost:7092/swagger` once and accept the dev certificate.
+2. Sign in with `admin / Admin@123`, `teacher_ahmed / Teacher@123` or `student_omar / Student@123`.
+3. No backend handy? On the sign-in screen open **Connection → Demo data**.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+The API URL lives in `src/environments/` (dev: `environment.development.ts`). It can also be changed at runtime from the sign-in screen.
 
-## Code scaffolding
+> The API's CORS policy accepts any `localhost` origin, so port 4200 works as is. For production, add your site's origin to CORS and set `apiUrl` in `environment.ts`.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+## Structure
 ```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
+src/app
+  core/      api + auth + settings services, interceptor, guards, models, demo-mode mock API
+  layout/    shell (sidebar, top bar, announcements drawer, Ctrl+K palette)
+  shared/    icon/avatar/stamp/charts, dialogs + dynamic form, generic CRUD page and its per-entity configs
+  pages/     login, admin dashboard, users, announcements, teacher pages, student pages, profile
 ```
+- **CRUD pages** (students, teachers, courses, classes, grades, attendance, marks, teacher marks) are one component, `shared/crud-page.ts`, driven by `shared/crud-configs.ts`. Add a new entity by adding a config and a route.
+- **Demo mode** is an `HttpInterceptor` (`core/api.interceptor.ts` + `core/mock-api.ts`) that answers from memory with the same routes and DTO shapes as the API.
+- **Auth**: the session (role, teacherId, studentId) is read from the JWT, so it does not depend on the login response shape.
 
-## Building
+## Tests
+`npm test` runs the small unit tests in `src/app/core/util.spec.ts`.
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Needs these API changes (already made in the fixed API project)
+- `GET /api/marks/paged?pageNumber&pageSize&search` (marks list is server-paged)
+- `TeacherDto.HireDate`

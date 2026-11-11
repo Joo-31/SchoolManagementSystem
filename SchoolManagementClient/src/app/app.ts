@@ -1,26 +1,11 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { Navbar } from './components/navbar/navbar';
-import { ToastComponent } from './components/toast/toast';
-import { TranslateService } from '@ngx-translate/core'; // ✅ ضيف ده
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { DialogHostComponent, ToastHostComponent } from './shared/overlays';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterModule, Navbar, ToastComponent],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterOutlet, ToastHostComponent, DialogHostComponent],
+  template: `<router-outlet /><app-toast-host /><app-dialog-host />`,
 })
-export class App {
-  constructor(private translate: TranslateService) {
-    // ✅ هنقرا اللغة المحفوظة أول ما البرنامج يفتح
-    this.translate.setDefaultLang('en');
-    const savedLang = localStorage.getItem('lang') || 'en';
-    this.translate.use(savedLang);
-  }
-
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
-  }
-}
+export class App {}

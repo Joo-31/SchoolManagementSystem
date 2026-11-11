@@ -1,5 +1,5 @@
 {
-  "name": "school-management-client",
+  "name": "schoolmanagementweb",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -17,9 +17,6 @@
     "@angular/forms": "^22.1.0",
     "@angular/platform-browser": "^22.1.0",
     "@angular/router": "^22.1.0",
-    "@ngx-translate/core": "^15.0.0",
-    "@ngx-translate/http-loader": "^8.0.0",
-    "ngx-toastr": "^20.0.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "^0.16.3"

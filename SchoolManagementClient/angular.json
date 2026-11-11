@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "SchoolManagementClient": {
+    "schoolmanagementweb": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -20,16 +20,11 @@
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-  {
-    "glob": "**/*",
-    "input": "public"
-  },
-  {
-    "glob": "**/*",
-    "input": "src/assets",
-    "output": "assets"
-  }
-],
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
+            ],
             "styles": ["src/styles.css"]
           },
           "configurations": {
@@ -66,10 +61,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "SchoolManagementClient:build:production"
+              "buildTarget": "schoolmanagementweb:build:production"
             },
             "development": {
-              "buildTarget": "SchoolManagementClient:build:development"
+              "buildTarget": "schoolmanagementweb:build:development"
             }
           },
           "defaultConfiguration": "development"
