@@ -25,6 +25,13 @@ namespace SchoolManagementAPI.Services
             return _unitOfWork.Courses.GetAll().ToList();
         }
 
+        public List<Course> GetByTeacherId(int teacherId)
+        {
+            return _unitOfWork.Courses.GetAll()
+                .Where(course => course.TeacherId == teacherId && course.ClassId.HasValue)
+                .ToList();
+        }
+
         public Course? GetById(int id)
         {
             return _unitOfWork.Courses.GetById(id);
@@ -36,21 +43,12 @@ namespace SchoolManagementAPI.Services
             if (existing == null)
                 return false;
 
-            bool hasChanges =
-                existing.Name != course.Name ||
-                existing.Code != course.Code ||
-                existing.Credits != course.Credits ||
-                existing.GradeId != course.GradeId ||
-                existing.TeacherId != course.TeacherId;
-
-            if (!hasChanges)
-                return false;
-
             existing.Name = course.Name;
             existing.Code = course.Code;
             existing.Credits = course.Credits;
             existing.GradeId = course.GradeId;
             existing.TeacherId = course.TeacherId;
+            existing.ClassId = course.ClassId;
 
             _unitOfWork.Courses.Update(existing);
             _unitOfWork.SaveChanges();

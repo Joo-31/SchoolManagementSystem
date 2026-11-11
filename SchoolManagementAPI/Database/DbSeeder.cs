@@ -92,7 +92,8 @@ namespace SchoolManagementAPI.DataBase
                     Code = faker.Random.AlphaNumeric(6).ToUpper(),
                     Credits = faker.Random.Number(1, 4),
                     GradeId = randomGrade.Id,
-                    TeacherId = randomTeacher.Id
+                    TeacherId = randomTeacher.Id,
+                    ClassId = faker.PickRandom(classes.Where(c => c.GradeId == randomGrade.Id)).Id
                 });
             }
             context.Courses.AddRange(courses);
@@ -123,10 +124,12 @@ namespace SchoolManagementAPI.DataBase
             var marks = new List<Mark>();
             var uniqueMarks = new HashSet<string>();
 
-            while (marks.Count < 5000)
+            while (marks.Count < 1000)
             {
                 var randomStudent = faker.PickRandom(students);
-                var randomCourse = faker.PickRandom(courses);
+                var eligibleCourses = courses.Where(c => c.ClassId == randomStudent.ClassId).ToList();
+                if (eligibleCourses.Count == 0) continue;
+                var randomCourse = faker.PickRandom(eligibleCourses);
                 string key = $"{randomStudent.Id}-{randomCourse.Id}";
 
                 if (uniqueMarks.Add(key))

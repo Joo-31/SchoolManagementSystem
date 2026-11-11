@@ -18,7 +18,8 @@ export class OptionsService {
   readonly classes = (): Promise<Option[]> => this.memo('classes', async () => (await this.api.get<any[]>('/classes')).map((c) => ({ value: c.id, label: `${c.name} — ${c.gradeName}` })));
   readonly teachers = (): Promise<Option[]> => this.memo('teachers', async () => (await this.api.get<any[]>('/teachers')).map((t) => ({ value: t.id, label: `${t.name} (${t.specialization})` })));
   readonly courses = (): Promise<Option[]> => this.memo('courses', async () => (await this.api.get<any[]>('/courses')).map((c) => ({ value: c.id, label: `${c.name} — ${c.gradeName}`, teacherId: c.teacherId })));
-  readonly myCourses = (): Promise<Option[]> => this.memo('myCourses', async () => (await this.api.get<any[]>('/marks/my-courses')).map((c) => ({ value: c.id, label: `${c.name} — ${c.gradeName}`, teacherId: c.teacherId })));
+  // Teacher assignments may be changed from another Admin session; fetch fresh data for each form open.
+  readonly myCourses = async (): Promise<Option[]> => (await this.api.get<any[]>('/marks/my-courses')).map((c) => ({ value: c.id, label: `${c.name} — ${c.className || c.gradeName}`, teacherId: c.teacherId }));
 
   readonly studentSearch = async (q: string): Promise<Option[]> => {
     const rows: Student[] = q && q.length >= 2
@@ -28,7 +29,7 @@ export class OptionsService {
   };
 
   readonly myStudentSearch = async (q: string): Promise<Option[]> => {
-    const all = await this.memo<Student[]>('myStudents', () => this.api.get<Student[]>('/marks/my-students'));
+    const all = await this.api.get<Student[]>('/marks/my-students');
     const k = (q || '').toLowerCase();
     return all.filter((s) => s.fullName.toLowerCase().includes(k)).map((s) => ({ value: s.id, label: s.fullName, sub: s.className }));
   };

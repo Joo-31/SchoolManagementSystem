@@ -13,11 +13,13 @@ namespace SchoolManagementAPI.Controllers
     public class CoursesController : ControllerBase
     {
         private readonly ICourseService _courseService;
+        private readonly IClassService _classService;
         private readonly IMapper _mapper;
 
-        public CoursesController(ICourseService courseService, IMapper mapper)
+        public CoursesController(ICourseService courseService, IClassService classService, IMapper mapper)
         {
             _courseService = courseService;
+            _classService = classService;
             _mapper = mapper;
         }
 
@@ -44,6 +46,10 @@ namespace SchoolManagementAPI.Controllers
         {
             try
             {
+                if (dto.ClassId <= 0) return BadRequest("ClassId is required");
+                var assignedClass = _classService.GetById(dto.ClassId);
+                if (assignedClass == null) return BadRequest("Class not found");
+                if (assignedClass.GradeId != dto.GradeId) return BadRequest("Course grade must match the assigned class grade");
                 var course = _mapper.Map<Course>(dto);
                 _courseService.Add(course);
                 return Ok(_mapper.Map<CourseDto>(course));
@@ -57,6 +63,10 @@ namespace SchoolManagementAPI.Controllers
         {
             var existing = _courseService.GetById(id);
             if (existing == null) return NotFound("Course not found");
+            if (dto.ClassId <= 0) return BadRequest("ClassId is required");
+            var assignedClass = _classService.GetById(dto.ClassId);
+            if (assignedClass == null) return BadRequest("Class not found");
+            if (assignedClass.GradeId != dto.GradeId) return BadRequest("Course grade must match the assigned class grade");
             _mapper.Map(dto, existing);
             _courseService.Update(existing);
             return Ok(_mapper.Map<CourseDto>(existing));

@@ -61,6 +61,13 @@ namespace SchoolManagementAPI.DataBase
                 .HasForeignKey(c => c.GradeId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // Course row represents a subject offering assigned to a specific class.
+            modelBuilder.Entity<Course>()
+                .HasOne(c => c.Class)
+                .WithMany()
+                .HasForeignKey(c => c.ClassId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             // ✅ Attendances → Students
             modelBuilder.Entity<Attendance>()
                 .HasOne(a => a.Student)

@@ -8,6 +8,7 @@ namespace SchoolManagementAPI.Services.Interfaces
         // CRUD
         void Add(Course course);
         List<Course> GetAll();
+        List<Course> GetByTeacherId(int teacherId);
         Course? GetById(int id);
         bool Update(Course course);
         bool Delete(int id);

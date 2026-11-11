@@ -68,6 +68,10 @@ namespace SchoolManagementAPI.Controllers
                 var course = _courseService.GetById(dto.CourseId);
                 if (course == null) return NotFound("Course not found");
                 if (course.TeacherId != teacherId) return StatusCode(403, new { message = "You are not the teacher of this course" });
+                var student = _studentService.GetById(dto.StudentId);
+                if (student == null) return NotFound("Student not found");
+                if (!course.ClassId.HasValue) return BadRequest("Course must be assigned to a class before marks can be added");
+                if (student.ClassId != course.ClassId.Value) return BadRequest("Student does not belong to this course's class");
 
                 var existingMarks = _markService.GetByStudentId(dto.StudentId);
                 if (existingMarks.Any(m => m.CourseId == dto.CourseId)) return BadRequest("Student already has a mark for this course.");
@@ -143,7 +147,7 @@ namespace SchoolManagementAPI.Controllers
         {
             var teacherIdStr = User.FindFirst("TeacherId")?.Value;
             if (string.IsNullOrEmpty(teacherIdStr)) return Unauthorized();
-            var courses = _courseService.GetAll().Where(c => c.TeacherId == int.Parse(teacherIdStr)).ToList();
+            var courses = _courseService.GetByTeacherId(int.Parse(teacherIdStr));
             return Ok(_mapper.Map<List<CourseDto>>(courses));
         }
 
@@ -183,8 +187,12 @@ namespace SchoolManagementAPI.Controllers
             if (string.IsNullOrEmpty(teacherIdStr)) return Unauthorized();
             var teacherId = int.Parse(teacherIdStr);
 
-            // ✅ نجيب كل الطلاب اللي في فصول المدرس مرة واحدة
-            var classIds = _classService.GetClassesByTeacherId(teacherId).Select(c => c.Id).ToList();
+            // Subject teachers can teach classes where they are not the class teacher.
+            var classIds = _courseService.GetAll()
+                .Where(c => c.TeacherId == teacherId && c.ClassId.HasValue)
+                .Select(c => c.ClassId!.Value)
+                .Distinct()
+                .ToList();
 
             var students = _studentService.GetAll()
                 .Where(s => classIds.Contains(s.ClassId))

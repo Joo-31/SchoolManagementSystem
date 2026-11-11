@@ -16,6 +16,7 @@ namespace SchoolManagementAPI.Repositories
             return _dbSet
                 .Include(c => c.Grade)
                 .Include(c => c.Teacher)   // ← الجديد
+                .Include(c => c.Class)
                 .FirstOrDefault(c => c.Id == id);
         }
 
@@ -25,12 +26,13 @@ namespace SchoolManagementAPI.Repositories
             return _dbSet
                 .Include(c => c.Grade)
                 .Include(c => c.Teacher)   // ← الجديد
+                .Include(c => c.Class)
                 .ToList();
         }
         public IEnumerable<Course> GetCoursesByGradeId(int gradeId)
         {
             return _dbSet
-                .Include(c => c.Grade).Include(c => c.Teacher)
+                .Include(c => c.Grade).Include(c => c.Teacher).Include(c => c.Class)
                 .Where(c => c.GradeId == gradeId)
                 .ToList();
         }
@@ -38,7 +40,7 @@ namespace SchoolManagementAPI.Repositories
         public IEnumerable<Course> GetCoursesOrderedByCredits()
         {
             return _dbSet
-                .Include(c => c.Grade).Include(c => c.Teacher)
+                .Include(c => c.Grade).Include(c => c.Teacher).Include(c => c.Class)
                 .OrderByDescending(c => c.Credits)
                 .ToList();
         }
@@ -46,7 +48,7 @@ namespace SchoolManagementAPI.Repositories
         public IEnumerable<Course> GetCoursesWithCreditsMoreThan(int credits)
         {
             return _dbSet
-                .Include(c => c.Grade).Include(c => c.Teacher)
+                .Include(c => c.Grade).Include(c => c.Teacher).Include(c => c.Class)
                 .Where(c => c.Credits > credits)
                 .ToList();
         }
@@ -71,6 +73,7 @@ namespace SchoolManagementAPI.Repositories
             return _dbSet
                 .Include(c => c.Grade)
                 .Include(c => c.Teacher)
+                .Include(c => c.Class)
                 .OrderByDescending(c => c.Credits)
                 .FirstOrDefault();
         }
@@ -80,6 +83,7 @@ namespace SchoolManagementAPI.Repositories
             return _dbSet
                 .Include(c => c.Grade)
                 .Include(c => c.Teacher)
+                .Include(c => c.Class)
                 .OrderBy(c => c.Credits)
                 .FirstOrDefault();
         }
@@ -89,6 +93,7 @@ namespace SchoolManagementAPI.Repositories
             var query = _dbSet
                 .Include(c => c.Grade)
                 .Include(c => c.Teacher)
+                .Include(c => c.Class)
                 .AsNoTracking()
                 .AsQueryable();
 

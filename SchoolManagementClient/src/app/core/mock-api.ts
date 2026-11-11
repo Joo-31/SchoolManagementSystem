@@ -23,14 +23,14 @@ export function createMock() {
     return { id: i + 1, name: `${f} ${l}`, email: `${f}.${l}@school.test`.toLowerCase(), phone: '010' + int(10000000, 99999999), specialization: SPECS[i % 5], hireDate: new Date(now.getFullYear() - int(1, 14), int(0, 11), int(1, 28)).toISOString() };
   });
   const classes = []; grades.forEach(g => ['A', 'B'].forEach((s, i) => classes.push({ id: classes.length + 1, name: `${g.level}${s}`, gradeId: g.id, classTeacherId: teachers[(classes.length) % teachers.length].id })));
-  const courses = []; grades.forEach((g, gi) => SPECS.forEach((sp, si) => { const names = COURSE_NAMES[sp]; if ((gi + si) % 2 === 0 || si < 3) courses.push({ id: courses.length + 1, name: names[gi % names.length], code: (sp.slice(0, 3) + (g.level * 10 + si)).toUpperCase(), credits: int(1, 4), gradeId: g.id, teacherId: teachers.filter(t => t.specialization === sp)[gi % 2 % teachers.filter(t => t.specialization === sp).length].id }); }));
+  const courses = []; grades.forEach((g, gi) => SPECS.forEach((sp, si) => { const names = COURSE_NAMES[sp]; if ((gi + si) % 2 === 0 || si < 3) classes.filter(c => c.gradeId === g.id).forEach((cls, ci) => courses.push({ id: courses.length + 1, name: names[gi % names.length], code: (sp.slice(0, 3) + (g.level * 10 + si)).toUpperCase(), credits: int(1, 4), gradeId: g.id, classId: cls.id, teacherId: teachers.filter(t => t.specialization === sp)[(gi + ci) % teachers.filter(t => t.specialization === sp).length].id })); }));
   const students = [];
   classes.forEach(c => { for (let i = 0; i < 11; i++) { const male = R() > .5; const g = grades.find(x => x.id === c.gradeId); students.push({ id: students.length + 1, firstName: pick(male ? FIRST_M : FIRST_F), lastName: pick(LAST), birthDate: new Date(now.getFullYear() - (g.level + 5), int(0, 11), int(1, 28)).toISOString(), gender: male ? 'Male' : 'Female', classId: c.id }); } });
   students[0].firstName = 'Omar'; students[0].lastName = 'Hassan'; students[0].gender = 'Male';
   const attendances = [];
   for (let d = 1; d <= 24; d++) { const dt = day(now); dt.setDate(dt.getDate() - d); if ([5, 6].includes(dt.getDay())) continue; students.forEach(s => attendances.push({ id: nid(), studentId: s.id, classId: s.classId, date: dt.toISOString(), isPresent: R() > (0.1 + (s.id % 7 === 0 ? .25 : 0)) })); }
   const marks = [];
-  students.forEach(s => { const cls = classes.find(c => c.id === s.classId); courses.filter(c => c.gradeId === cls.gradeId).forEach(c => { if (R() > .15) marks.push({ id: nid(), studentId: s.id, courseId: c.id, teacherId: c.teacherId, score: Math.round((35 + R() * 65) * 10) / 10, date: new Date(now - int(1, 40) * 864e5).toISOString(), notes: pick(['Good effort', 'Needs improvement', 'Excellent work', '', 'Participates well', '']) }); }); });
+  students.forEach(s => { courses.filter(c => c.classId === s.classId).forEach(c => { if (R() > .15) marks.push({ id: nid(), studentId: s.id, courseId: c.id, teacherId: c.teacherId, score: Math.round((35 + R() * 65) * 10) / 10, date: new Date(now - int(1, 40) * 864e5).toISOString(), notes: pick(['Good effort', 'Needs improvement', 'Excellent work', '', 'Participates well', '']) }); }); });
   const homework = courses.slice(0, 18).map((c, i) => ({ id: i + 1, title: ['Chapter review quiz', 'Practice problems set', 'Reading + summary', 'Lab report', 'Revision video'][i % 5], description: 'Complete before the next lesson and bring your questions.', link: 'https://example.com/hw/' + (i + 1), courseId: c.id, teacherId: c.teacherId, createdAt: new Date(now - i * 864e5 * 1.5).toISOString() }));
   const notifications = [
     { id: 1, title: 'Welcome back', message: 'The new term starts Sunday. Check your timetable.', targetRole: 'All', createdAt: new Date(now - 864e5).toISOString() },
@@ -42,7 +42,7 @@ export function createMock() {
   { id: 3, username: 'student_omar', role: 'Student', studentId: 1, password: 'Student@123', createdAt: new Date(now - 70 * 864e5).toISOString() }];
   teachers[0].name = 'Ahmed Hassan'; teachers[0].specialization = 'Math';
   // make the demo teacher own a class and a Math course
-  classes[0].classTeacherId = 1; classes[1].classTeacherId = 1; courses.filter(c => c.name === 'Algebra' || c.name === 'Geometry').forEach(c => c.teacherId = 1);
+  classes[0].classTeacherId = 1; classes[1].classTeacherId = 1; courses.filter(c => c.name === 'Algebra' && c.classId === classes[0].id || c.name === 'Geometry' && c.classId === classes[1].id).forEach(c => c.teacherId = 1);
   marks.forEach(m => { m.teacherId = courses.find(c => c.id === m.courseId).teacherId; });
 
   // ---- projections ----
@@ -53,7 +53,7 @@ export function createMock() {
     teacher: t => ({ id: t.id, name: t.name, email: t.email, phone: t.phone, specialization: t.specialization, yearsOfExperience: age(t.hireDate) }),
     grade: g => ({ ...g }),
     cls: c => ({ id: c.id, name: c.name, gradeId: c.gradeId, classTeacherId: c.classTeacherId, gradeName: by(grades, c.gradeId)?.name || '', classTeacherName: by(teachers, c.classTeacherId)?.name || '' }),
-    course: c => ({ ...c, gradeName: by(grades, c.gradeId)?.name || '', teacherName: by(teachers, c.teacherId)?.name || '' }),
+    course: c => ({ ...c, gradeName: by(grades, c.gradeId)?.name || '', className: by(classes, c.classId)?.name || '', teacherName: by(teachers, c.teacherId)?.name || '' }),
     att: a => ({ ...a, studentName: dto.student(by(students, a.studentId) || { firstName: '?', lastName: '', birthDate: now }).fullName, className: by(classes, a.classId)?.name || '' }),
     mark: m => ({ ...m, studentName: dto.student(by(students, m.studentId)).fullName, courseName: by(courses, m.courseId)?.name || '', teacherName: by(teachers, m.teacherId)?.name || '' }),
     hw: x => ({ id: x.id, title: x.title, description: x.description, link: x.link, courseName: by(courses, x.courseId)?.name || '', teacherName: by(teachers, x.teacherId)?.name || '', createdAt: x.createdAt }),
@@ -74,7 +74,7 @@ export function createMock() {
   const T = {
     students: crud('students', students, dto.student, { search: (s, k) => has(`${s.firstName} ${s.lastName} ${by(classes, s.classId)?.name}`, k), onCreate: b => ({ firstName: b.firstName, lastName: b.lastName, birthDate: b.birthDate, gender: b.gender === 1 || b.gender === 'Female' ? 'Female' : 'Male', classId: +b.classId }), onUpdate: b => ({ firstName: b.firstName, lastName: b.lastName, birthDate: b.birthDate, gender: b.gender === 1 || b.gender === 'Female' ? 'Female' : 'Male', classId: +b.classId }) }),
     teachers: crud('teachers', teachers, dto.teacher, { search: (t, k) => has(`${t.name} ${t.email} ${t.specialization}`, k), onCreate: b => ({ name: b.name, email: b.email, phone: b.phone, specialization: b.specialization, hireDate: b.hireDate }), onUpdate: b => ({ name: b.name, email: b.email, phone: b.phone, specialization: b.specialization, hireDate: b.hireDate }) }),
-    courses: crud('courses', courses, dto.course, { search: (c, k) => has(`${c.name} ${c.code}`, k), onCreate: b => ({ name: b.name, code: b.code, credits: +b.credits, gradeId: +b.gradeId, teacherId: +b.teacherId }), onUpdate: b => ({ name: b.name, code: b.code, credits: +b.credits, gradeId: +b.gradeId, teacherId: +b.teacherId }) }),
+    courses: crud('courses', courses, dto.course, { search: (c, k) => has(`${c.name} ${c.code} ${by(classes, c.classId)?.name}`, k), onCreate: b => ({ name: b.name, code: b.code, credits: +b.credits, gradeId: +b.gradeId, classId: +b.classId, teacherId: +b.teacherId }), onUpdate: b => ({ name: b.name, code: b.code, credits: +b.credits, gradeId: +b.gradeId, classId: +b.classId, teacherId: +b.teacherId }) }),
     classes: crud('classes', classes, dto.cls, { search: (c, k) => has(c.name, k), onCreate: b => ({ name: b.name, gradeId: +b.gradeId, classTeacherId: +b.classTeacherId }), onUpdate: b => ({ name: b.name, gradeId: +b.gradeId, classTeacherId: +b.classTeacherId }) }),
     grades: crud('grades', grades, dto.grade, { search: (g, k) => has(g.name, k), onCreate: b => ({ name: b.name, level: +b.level }), onUpdate: b => ({ name: b.name, level: +b.level }) }),
   };
@@ -175,12 +175,12 @@ export function createMock() {
       }
       if (a === 'me') { need(u, 'Student'); return marks.filter(m => m.studentId === u.studentId).map(dto.mark); }
       if (a === 'my-marks') { need(u, 'Teacher'); return mine().map(dto.mark); }
-      if (a === 'my-courses') { need(u, 'Teacher'); return courses.filter(c => c.teacherId === u.teacherId).map(dto.course); }
-      if (a === 'my-students') { need(u, 'Teacher'); const cl = classes.filter(c => c.classTeacherId === u.teacherId).map(c => c.id); return students.filter(s => cl.includes(s.classId)).map(dto.student); }
+      if (a === 'my-courses') { need(u, 'Teacher'); return courses.filter(c => c.teacherId === u.teacherId && c.classId).map(dto.course); }
+      if (a === 'my-students') { need(u, 'Teacher'); const cl = [...new Set(courses.filter(c => c.teacherId === u.teacherId && c.classId).map(c => c.classId))]; return students.filter(s => cl.includes(s.classId)).map(dto.student); }
       if (!a && method === 'GET') { need(u, 'Admin', 'Teacher'); return marks.map(dto.mark); }
       if (!a && method === 'POST') {
         need(u, 'Admin', 'Teacher'); const tid = u.role === 'Teacher' ? u.teacherId : +body.teacherId; const c = by(courses, +body.courseId);
-        if (!c) throw err(404, 'Course not found'); if (c.teacherId !== tid) throw err(403, 'You are not the teacher of this course');
+        if (!c) throw err(404, 'Course not found'); if (c.teacherId !== tid) throw err(403, 'You are not the teacher of this course'); if (by(students, +body.studentId)?.classId !== c.classId) throw err(400, "Student does not belong to this course's class");
         if (marks.some(m => m.studentId === +body.studentId && m.courseId === c.id)) throw err(400, 'Student already has a mark for this course. Please update it instead.');
         const row = { id: nid(), studentId: +body.studentId, courseId: c.id, teacherId: tid, score: +body.score, date: body.date, notes: body.notes || '' }; marks.push(row); return dto.mark(row);
       }

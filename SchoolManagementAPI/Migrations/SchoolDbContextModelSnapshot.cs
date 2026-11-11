@@ -86,6 +86,9 @@ namespace SchoolManagementAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("ClassId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Code")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -104,6 +107,8 @@ namespace SchoolManagementAPI.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClassId");
 
                     b.HasIndex("GradeId");
 
@@ -374,6 +379,11 @@ namespace SchoolManagementAPI.Migrations
 
             modelBuilder.Entity("SchoolManagementAPI.Models.Course", b =>
                 {
+                    b.HasOne("SchoolManagementAPI.Models.Class", "Class")
+                        .WithMany()
+                        .HasForeignKey("ClassId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("SchoolManagementAPI.Models.Grade", "Grade")
                         .WithMany()
                         .HasForeignKey("GradeId")
@@ -385,6 +395,8 @@ namespace SchoolManagementAPI.Migrations
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Class");
 
                     b.Navigation("Grade");
 

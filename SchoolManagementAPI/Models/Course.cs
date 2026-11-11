@@ -15,7 +15,9 @@ namespace SchoolManagementAPI.Models
         public int TeacherId { get; set; }
         public int Id { get; set; }
         public int GradeId { get; set; }
+        public int? ClassId { get; set; }
         public Grade? Grade { get; set; }   // ← Navigation Property
+        public Class? Class { get; set; }
         public Teacher? Teacher { get; set; }
 
         public string Name

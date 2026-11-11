@@ -113,6 +113,7 @@ export const CRUD_CONFIGS: Record<string, (d: CrudDeps) => CrudConfig> = {
     columns: [
       { label: 'Course', type: 'person', value: (r) => r.name, sub: (r) => r.code },
       { label: 'Grade', type: 'badge', value: (r) => r.gradeName },
+      { label: 'Class', value: (r) => r.className || 'Unassigned' },
       { label: 'Teacher', hide: true, value: (r) => r.teacherName },
       { label: 'Credits', hide: true, value: (r) => r.credits },
     ],
@@ -121,10 +122,11 @@ export const CRUD_CONFIGS: Record<string, (d: CrudDeps) => CrudConfig> = {
       { key: 'code', label: 'Code', required: true },
       { key: 'credits', label: 'Credits', type: 'number', min: 1, max: 10, required: true },
       { key: 'gradeId', label: 'Grade', type: 'select', optionsLoader: opts.grades, required: true },
-      { key: 'teacherId', label: 'Teacher', type: 'select', optionsLoader: opts.teachers, required: true, full: true },
+      { key: 'classId', label: 'Class', type: 'select', optionsLoader: opts.classes, required: true },
+      { key: 'teacherId', label: 'Subject teacher', type: 'select', optionsLoader: opts.teachers, required: true, full: true },
     ],
-    toForm: (r) => ({ name: r.name, code: r.code, credits: r.credits, gradeId: r.gradeId, teacherId: r.teacherId }),
-    toPayload: (v) => ({ name: v.name, code: v.code, credits: v.credits, gradeId: v.gradeId, teacherId: v.teacherId }),
+    toForm: (r) => ({ name: r.name, code: r.code, credits: r.credits, gradeId: r.gradeId, classId: r.classId, teacherId: r.teacherId }),
+    toPayload: (v) => ({ name: v.name, code: v.code, credits: v.credits, gradeId: v.gradeId, classId: v.classId, teacherId: v.teacherId }),
   }),
 
   classes: ({ api, opts }) => ({

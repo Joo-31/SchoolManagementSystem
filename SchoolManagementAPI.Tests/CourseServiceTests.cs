@@ -37,6 +37,22 @@ namespace SchoolManagementAPI.Tests
         }
 
         [Fact]
+        public void GetByTeacherId_ShouldReturnOnlyAssignedClassCourses()
+        {
+            var courses = new List<Course>
+            {
+                new Course { Id = 1, Name = "Math A", Code = "MATHA", Credits = 3, GradeId = 1, TeacherId = 1, ClassId = 10 },
+                new Course { Id = 2, Name = "Math B", Code = "MATHB", Credits = 3, GradeId = 1, TeacherId = 2, ClassId = 11 },
+                new Course { Id = 3, Name = "Legacy", Code = "LEGACY", Credits = 2, GradeId = 1, TeacherId = 1 }
+            };
+            _courseRepoMock.Setup(r => r.GetAll()).Returns(courses);
+
+            var result = _courseService.GetByTeacherId(1);
+
+            result.Should().ContainSingle().Which.ClassId.Should().Be(10);
+        }
+
+        [Fact]
         public void GetById_ShouldReturnCourse_WhenExists()
         {
             var course = new Course { Id = 1, Name = "Math", Code = "MATH101", Credits = 3 };
