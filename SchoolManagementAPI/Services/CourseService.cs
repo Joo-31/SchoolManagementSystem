@@ -40,7 +40,8 @@ namespace SchoolManagementAPI.Services
                 existing.Name != course.Name ||
                 existing.Code != course.Code ||
                 existing.Credits != course.Credits ||
-                existing.GradeId != course.GradeId;
+                existing.GradeId != course.GradeId ||
+                existing.TeacherId != course.TeacherId;
 
             if (!hasChanges)
                 return false;
@@ -49,6 +50,7 @@ namespace SchoolManagementAPI.Services
             existing.Code = course.Code;
             existing.Credits = course.Credits;
             existing.GradeId = course.GradeId;
+            existing.TeacherId = course.TeacherId;
 
             _unitOfWork.Courses.Update(existing);
             _unitOfWork.SaveChanges();

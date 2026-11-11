@@ -104,6 +104,22 @@ namespace SchoolManagementAPI.Tests
             result.Should().BeTrue();
             existing.Name.Should().Be("New Math");
             existing.Credits.Should().Be(4);
+            existing.TeacherId.Should().Be(2);
+        }
+
+        [Fact]
+        public void Update_ShouldPersistTeacherAssignment_WhenItIsTheOnlyChange()
+        {
+            var existing = new Course { Id = 1, Name = "Math", Code = "MATH101", Credits = 3, GradeId = 1, TeacherId = 1 };
+            var updated = new Course { Id = 1, Name = "Math", Code = "MATH101", Credits = 3, GradeId = 1, TeacherId = 2 };
+            _courseRepoMock.Setup(r => r.GetById(1)).Returns(existing);
+
+            var result = _courseService.Update(updated);
+
+            result.Should().BeTrue();
+            existing.TeacherId.Should().Be(2);
+            _courseRepoMock.Verify(r => r.Update(existing), Times.Once);
+            _unitOfWorkMock.Verify(u => u.SaveChanges(), Times.Once);
         }
 
         [Fact]
