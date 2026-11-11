@@ -52,15 +52,15 @@ export class AdminDashboardComponent {
     const count = (k: string) => this.api.get<{ count?: number }>(`/${k}/count`).then((r) => r.count ?? 0).catch(() => 0);
     const [counts, byGrade, bySpec, trend, notes] = await Promise.all([
       Promise.all(['students', 'teachers', 'courses', 'classes', 'grades'].map(count)),
-      this.api.get<Record<string, number>>('/grades/statistics/student-count').catch(() => this.none),
+      this.api.get<Record<string, number>>('/grades/statistics/count-by-grade').catch(() => this.none),
       this.api.get<Record<string, number>>('/teachers/statistics/count-by-specialization').catch(() => this.none),
       Promise.all(days.map((dt) =>
         this.api.get<{ percentage?: number }>(`/attendances/statistics/percentage/${isoDay(dt)}`)
           .then((r): ChartItem => ({ label: dt.toLocaleDateString('en-GB', { weekday: 'short' }), value: round1(pctNorm(r.percentage ?? 0)) }))
-          .catch((): ChartItem => ({ label: '', value: 0 })))),
+          .catch((): ChartItem => ({ label: dt.toLocaleDateString('en-GB', { weekday: 'short' }), value: 0 })))),
       this.api.get<AppNotification[]>('/notifications').catch(() => [] as AppNotification[]),
     ]);
-    const t = trend.filter((p) => p.value > 0); // weekends have no records
+    const t = trend;
     return {
       kpis: [
         { icon: 'cap', value: counts[0], label: 'Students', link: '/students' },

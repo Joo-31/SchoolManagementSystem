@@ -74,13 +74,27 @@ namespace SchoolManagementAPI.Repositories
             return _dbSet.Count(a => a.Date.Date == date.Date && !a.IsPresent);
         }
 
+        // ✅ بنجيب النسبة بطريقة سريعة جداً
         public double GetAttendancePercentageByDate(DateTime date)
         {
-            var total = _dbSet.Count(a => a.Date.Date == date.Date);
-            if (total == 0) return 0;
+            var start = date.Date;
+            var end = start.AddDays(1);
 
-            var present = _dbSet.Count(a => a.Date.Date == date.Date && a.IsPresent);
-            return (double)present / total * 100;
+            // Aggregate in SQL and use a half-open range so an index on Date can be used.
+            var counts = _dbSet
+                .AsNoTracking()
+                .Where(a => a.Date >= start && a.Date < end)
+                .GroupBy(_ => 1)
+                .Select(g => new
+                {
+                    Total = g.Count(),
+                    Present = g.Count(a => a.IsPresent)
+                })
+                .FirstOrDefault();
+
+            return counts is null || counts.Total == 0
+                ? 0
+                : (double)counts.Present / counts.Total * 100;
         }
 
         public int GetAbsentCountByStudent(int studentId)
@@ -135,7 +149,7 @@ namespace SchoolManagementAPI.Repositories
             };
         }
 
-        // ✅ GetPagedWithFilters (جديد)
+        // ✅ GetPagedWithFilters
         public PagedResult<Attendance> GetPagedWithFilters(
             int pageNumber,
             int pageSize,
@@ -149,7 +163,6 @@ namespace SchoolManagementAPI.Repositories
                 .AsNoTracking()
                 .AsQueryable();
 
-            // ✅ Apply filters
             if (date.HasValue)
             {
                 var targetDate = date.Value.Date;

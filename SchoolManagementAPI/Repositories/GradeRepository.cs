@@ -1,6 +1,7 @@
 ﻿using SchoolManagementAPI.DataBase;
 using SchoolManagementAPI.Models;
 using SchoolManagementAPI.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolManagementAPI.Repositories
 {
@@ -50,12 +51,14 @@ namespace SchoolManagementAPI.Repositories
         public Dictionary<string, int> GetStudentCountByGradeName()
         {
             return _dbSet
-                .ToDictionary(
-                    g => g.Name,
-                    g => _context.Classes
-                        .Where(c => c.GradeId == g.Id)
-                        .Sum(c => _context.Students.Count(s => s.ClassId == c.Id))
-                );
+                .AsNoTracking()
+                .Select(g => new
+                {
+                    g.Name,
+                    Count = _context.Students.Count(s =>
+                        _context.Classes.Any(c => c.Id == s.ClassId && c.GradeId == g.Id))
+                })
+                .ToDictionary(x => x.Name, x => x.Count);
         }
     }
 }

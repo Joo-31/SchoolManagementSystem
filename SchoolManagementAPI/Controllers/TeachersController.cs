@@ -133,10 +133,17 @@ namespace SchoolManagementAPI.Controllers
             var teacherIdStr = User.FindFirst("TeacherId")?.Value;
             if (string.IsNullOrEmpty(teacherIdStr)) return Unauthorized("Teacher ID not found");
             var teacherId = int.Parse(teacherIdStr);
+
             var classObj = _classService.GetById(classId);
             if (classObj == null) return NotFound("Class not found");
+
+            // ✅ بنتأكد إنه رائد الفصل، أو بيدرس كورس في المرحلة بتاعت الفصل ده
+            var isClassTeacher = classObj.ClassTeacherId == teacherId;
             var teachesInClass = _courseService.GetAll().Any(c => c.TeacherId == teacherId && c.GradeId == classObj.GradeId);
-            if (!teachesInClass) return StatusCode(403, new { message = "You do not teach any course in this class" });
+
+            if (!isClassTeacher && !teachesInClass)
+                return StatusCode(403, new { message = "You are not assigned to this class or its courses." });
+
             var students = _studentService.GetStudentsByClassId(classId);
             return Ok(_mapper.Map<List<StudentDto>>(students));
         }
@@ -146,6 +153,16 @@ namespace SchoolManagementAPI.Controllers
         public IActionResult GetCount()
         {
             return Ok(new { Count = _teacherService.GetAll().Count });
+        }
+
+        [HttpGet("statistics/count-by-specialization")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult GetCountBySpecialization()
+        {
+            var result = _teacherService.GetAll()
+                .GroupBy(t => t.Specialization)
+                .ToDictionary(g => g.Key, g => g.Count());
+            return Ok(result);
         }
     }
 }

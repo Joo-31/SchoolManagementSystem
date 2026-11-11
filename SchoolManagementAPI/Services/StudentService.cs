@@ -66,6 +66,14 @@ namespace SchoolManagementAPI.Services
             var student = GetById(id);
             if (student != null)
             {
+                // ✅ الأول بنمسح الـ User المرتبط بالطالب ده
+                var user = _unitOfWork.Users.Find(u => u.StudentId == id).FirstOrDefault();
+                if (user != null)
+                {
+                    _unitOfWork.Users.Delete(user);
+                }
+
+                // ✅ بعدين بنمسح الطالب نفسه
                 _unitOfWork.Students.Delete(student);
                 _unitOfWork.SaveChanges();
                 return true;

@@ -64,6 +64,13 @@ namespace SchoolManagementAPI.Services
             var teacher = GetById(id);
             if (teacher != null)
             {
+                // ✅ نمسح الـ User الأول
+                var user = _unitOfWork.Users.Find(u => u.TeacherId == id).FirstOrDefault();
+                if (user != null)
+                {
+                    _unitOfWork.Users.Delete(user);
+                }
+
                 _unitOfWork.Teachers.Delete(teacher);
                 _unitOfWork.SaveChanges();
                 return true;

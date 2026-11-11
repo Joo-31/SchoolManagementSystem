@@ -102,5 +102,14 @@ namespace SchoolManagementAPI.Controllers
         {
             return Ok(new { Count = _gradeService.GetAll().Count });
         }
+
+
+        [HttpGet("statistics/student-count")]
+        [HttpGet("statistics/count-by-grade")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult GetStudentCountByGrade()
+        {
+            return Ok(_gradeService.GetStudentCountByGradeName());
+        }
     }
 }

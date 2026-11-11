@@ -53,5 +53,19 @@ namespace SchoolManagementAPI.Controllers
 
             return Ok(new { message = "Password reset successfully!" });
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var user = _unitOfWork.Users.GetById(id);
+            if (user == null) return NotFound("User not found");
+
+            // ✅ ممنوع مسح الأدمن
+            if (user.Role == "Admin") return BadRequest("Cannot delete an admin account.");
+
+            _unitOfWork.Users.Delete(user);
+            _unitOfWork.SaveChanges();
+            return Ok(new { message = "User deleted successfully" });
+        }
     }
 }

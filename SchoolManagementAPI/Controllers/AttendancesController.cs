@@ -167,5 +167,14 @@ namespace SchoolManagementAPI.Controllers
             public int StudentId { get; set; }
             public bool IsPresent { get; set; }
         }
+
+        [HttpGet("statistics/percentage/{date}")]
+        [Authorize(Roles = "Admin,Teacher")]
+        public IActionResult GetPercentage(DateTime date)
+        {
+            var percentage = _attendanceService.GetAttendancePercentageByDate(date);
+
+            return Ok(new { percentage = Math.Round(percentage, 1) });
+        }
     }
 }
