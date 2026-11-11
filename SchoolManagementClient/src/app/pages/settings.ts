@@ -7,6 +7,7 @@ import { SchoolSettings } from '../core/models';
 import { SchoolSettingsService } from '../core/school-settings.service';
 import { gradeBandsError, termsOverlap, validateLogoFile, validateSettingsImport } from '../core/school-settings.validation';
 import { ToastService } from '../core/toast.service';
+import { SettingsService } from '../core/settings.service';
 
 @Component({ selector: 'app-settings', changeDetection: ChangeDetectionStrategy.OnPush, imports: [ReactiveFormsModule], template: `
   <div class="settings-page"><div class="settings-heading"><div><p class="eyebrow">SCHOOL ADMINISTRATION</p><h2>School settings</h2><p class="muted">Manage school identity, academic rules, and connections.</p></div></div>
@@ -31,11 +32,20 @@ import { ToastService } from '../core/toast.service';
     <section class="panel settings-section"><header><h3>Attendance</h3></header><div class="settings-grid"><div class="field"><label for="lateThresholdMinutes">Late threshold (minutes)</label><input id="lateThresholdMinutes" type="number" min="0" formControlName="lateThresholdMinutes"></div><label class="check-field"><input type="checkbox" formControlName="countExcusedAbsences"> Count excused absences</label></div></section>
     <section class="panel settings-section"><header><h3>Localization &amp; Appearance</h3></header><div class="settings-grid"><div class="field"><label for="language">Language / direction</label><select id="language" formControlName="language"><option>English</option><option>Arabic</option></select></div><div class="field"><label for="dateFormat">Date format</label><input id="dateFormat" formControlName="dateFormat"></div><div class="field"><label for="timezone">Timezone</label><input id="timezone" formControlName="timezone"></div><div class="field"><label for="defaultTheme">Default theme</label><select id="defaultTheme" formControlName="defaultTheme"><option>system</option><option>light</option><option>dark</option></select></div><div class="field"><label for="accentColor">Accent color</label><input id="accentColor" type="color" formControlName="accentColor"></div></div></section>
     <section class="panel settings-section"><header><h3>Connection</h3></header><div class="settings-grid"><div class="field"><label for="apiMode">API mode</label><select id="apiMode" formControlName="apiMode"><option value="live">Live API</option><option value="demo">Demo data</option></select></div><div class="field"><label for="apiUrl">API base URL</label><input id="apiUrl" type="url" formControlName="apiUrl"></div></div><button class="btn" type="button" (click)="testConnection()">Test connection</button>@if (connectionResult()) {<small role="status">{{ connectionResult() }}</small>}</section>
+    <section class="panel settings-section"><header><h3>Data Management</h3><span class="tiny">Manage the school's operational records</span></header>
+      <p class="muted">Reset removes students, teachers, courses, classes, grades, attendance, marks, homework, notifications, and non-admin accounts. Admin accounts are kept.</p>
+      @if (settings.mode() === 'demo') { <div class="callout" role="status">Switch to Live API mode to manage server data.</div> }
+      <div class="settings-actions">
+        <button class="btn danger" type="button" [disabled]="dataBusy() || settings.mode() === 'demo'" (click)="resetAllData()">@if (dataBusy()) { Working… } @else { Reset All Data }</button>
+        <button class="btn primary" type="button" [disabled]="dataBusy() || settings.mode() === 'demo'" (click)="seedRandomData()">@if (dataBusy()) { Working… } @else { Seed Random Data }</button>
+      </div>
+    </section>
     <section class="panel settings-section"><header><h3>Data</h3></header><div class="settings-actions"><button class="btn" type="button" (click)="exportSettings()">Export settings JSON</button><label class="btn">Import settings JSON<input type="file" accept="application/json,.json" hidden (change)="importSettings($event)"></label><button class="btn danger" type="button" (click)="reset()">Reset to defaults</button></div></section>
     @if (form.dirty) {<div class="save-bar"><span>Unsaved changes</span><button class="btn" type="button" (click)="discard()">Discard</button><button class="btn primary" type="submit" [disabled]="form.invalid || !!bandError() || termsOverlapError()">Save changes</button></div>}
   </form></div>` })
 export class SettingsPageComponent {
-  readonly school = inject(SchoolSettingsService); private api = inject(ApiService); private toast = inject(ToastService); private dialogs = inject(DialogService); private router = inject(Router);
+  readonly school = inject(SchoolSettingsService); readonly settings = inject(SettingsService); private api = inject(ApiService); private toast = inject(ToastService); private dialogs = inject(DialogService); private router = inject(Router);
+  readonly dataBusy = signal(false);
   logoError = signal(''); bandText = signal(''); connectionResult = signal(''); baseline!: SchoolSettings;
   form = new FormGroup({ schoolName: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(2), Validators.maxLength(80)] }), shortName: new FormControl('', { nonNullable: true, validators: [Validators.maxLength(20)] }), logo: new FormControl<string | null>(null), tagline: new FormControl('', { nonNullable: true }), address: new FormControl('', { nonNullable: true }), phone: new FormControl('', { nonNullable: true }), email: new FormControl('', { nonNullable: true }), website: new FormControl('', { nonNullable: true }), academicYear: new FormControl('', { nonNullable: true }), weekStartsOn: new FormControl(0, { nonNullable: true }), terms: new FormArray<FormGroup>([]), passMark: new FormControl(50, { nonNullable: true, validators: [Validators.min(0), Validators.max(100)] }), lateThresholdMinutes: new FormControl(10, { nonNullable: true, validators: [Validators.min(0)] }), countExcusedAbsences: new FormControl(false, { nonNullable: true }), language: new FormControl<'English' | 'Arabic'>('English', { nonNullable: true }), dateFormat: new FormControl('d MMM y', { nonNullable: true }), timezone: new FormControl('Africa/Cairo', { nonNullable: true }), defaultTheme: new FormControl<'light' | 'dark' | 'system'>('system', { nonNullable: true }), accentColor: new FormControl('#3D4DF5', { nonNullable: true }), apiMode: new FormControl<'demo' | 'live'>('live', { nonNullable: true }), apiUrl: new FormControl('', { nonNullable: true }) });
   constructor() { this.loadForm(this.school.settings()); }
@@ -55,6 +65,25 @@ export class SettingsPageComponent {
   exportSettings(): void { const blob = new Blob([JSON.stringify(this.value(), null, 2)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'school-settings.json'; a.click(); URL.revokeObjectURL(url); }
   async importSettings(e: Event): Promise<void> { const file = (e.target as HTMLInputElement).files?.[0]; if (!file) return; try { const parsed: unknown = JSON.parse(await file.text()); if (!validateSettingsImport(parsed)) throw new Error('The file is not a valid school settings export.'); this.loadForm(parsed); this.form.markAsDirty(); } catch (err) { this.toast.err((err as Error).message); } }
   async testConnection(): Promise<void> { try { await this.api.get('/grades/count'); this.connectionResult.set('Connection successful.'); } catch (e) { this.connectionResult.set((e as Error).message); } }
+  async resetAllData(): Promise<void> {
+    if (this.dataBusy() || this.settings.mode() === 'demo') return;
+    const confirmed = await this.dialogs.confirm({ title: 'Reset all school data?', text: 'Are you sure? This will delete all school data, including student, teacher, and non-admin user accounts. Admin accounts will remain.', confirm: 'Reset all data', danger: true });
+    if (!confirmed) return;
+    this.dataBusy.set(true);
+    try { await this.api.post('/admin/data/reset'); this.toast.ok('All school data was deleted. Admin accounts were preserved.'); }
+    catch (e) { this.toast.err((e as Error).message || 'Could not reset school data.'); }
+    finally { this.dataBusy.set(false); }
+  }
+  async seedRandomData(): Promise<void> {
+    if (this.dataBusy() || this.settings.mode() === 'demo') return;
+    this.dataBusy.set(true);
+    try {
+      const result = await this.api.post<{ seeded: boolean; message: string }>('/admin/data/seed');
+      if (result.seeded) this.toast.ok('Random test data was created successfully.');
+      else this.toast.ok('Data already exists; nothing was added.');
+    } catch (e) { this.toast.err((e as Error).message || 'Could not seed random data.'); }
+    finally { this.dataBusy.set(false); }
+  }
 }
 import { FormArray } from '@angular/forms';
 import { DEFAULT_SCHOOL_SETTINGS as DEFAULTS } from '../core/school-settings.service';

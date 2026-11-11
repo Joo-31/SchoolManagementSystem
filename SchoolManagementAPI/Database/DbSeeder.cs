@@ -10,8 +10,8 @@ namespace SchoolManagementAPI.DataBase
     {
         public static void Seed(SchoolDbContext context)
         {
-            // شوف لو فيه داتا، متعملش حاجة
-            if (context.Grades.Any()) return;
+            // Seed only a brand-new database. A preserved Admin account means an intentional reset.
+            if (context.Grades.Any() || context.Users.Any(user => user.Role == "Admin")) return;
 
             Console.WriteLine("⏳ Starting Seeding huge data... Please wait.");
 
@@ -175,7 +175,18 @@ namespace SchoolManagementAPI.DataBase
                 CreatedAt = DateTime.Now
             };
 
-            context.Users.AddRange(adminUser, teacherUser, studentUser);
+            if (!context.Users.Any(user => user.Role == "Admin"))
+            {
+                context.Users.Add(adminUser);
+            }
+            if (!context.Users.Any(user => user.Username == teacherUser.Username))
+            {
+                context.Users.Add(teacherUser);
+            }
+            if (!context.Users.Any(user => user.Username == studentUser.Username))
+            {
+                context.Users.Add(studentUser);
+            }
             context.SaveChanges();
 
             Console.WriteLine("✅ Huge Seed Data loaded successfully! 🎉");
