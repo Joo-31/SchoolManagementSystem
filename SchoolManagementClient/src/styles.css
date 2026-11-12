@@ -105,10 +105,6 @@ input::placeholder { color: var(--ink-3); }
 .login-card { width: min(400px, 100%); display: grid; gap: 22px; }
 .login-card h2 { font-size: 32px; }
 .login-card form { display: grid; gap: 16px; }
-.demo-chips { display: grid; gap: 8px; }
-.chip { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border: 1px dashed var(--line-2); border-radius: var(--r-m); background: transparent; cursor: pointer; text-align: left; }
-.chip:hover { border-color: var(--brand); background: var(--brand-wash); }
-.chip b { font-weight: 600; } .chip span { color: var(--ink-3); font-size: 13px; margin-left: auto; }
 .callout { padding: 12px 14px; border-radius: var(--r-m); background: var(--bad-wash); color: var(--bad); display: grid; gap: 8px; font-size: 14px; }
 .callout .btn { justify-self: start; background: var(--surface); color: var(--ink); }
 details.conn { border-top: 1px solid var(--line); padding-top: 16px; }

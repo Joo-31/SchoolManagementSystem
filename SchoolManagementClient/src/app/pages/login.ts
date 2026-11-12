@@ -4,13 +4,13 @@ import { AuthService } from '../core/auth.service';
 import { ApiError } from '../core/models';
 import { SettingsService } from '../core/settings.service';
 import { SchoolSettingsService } from '../core/school-settings.service';
-import { AutofocusDirective, AvatarComponent } from '../shared/primitives';
+import { AutofocusDirective } from '../shared/primitives';
 import { LanguageService } from '../core/language.service';
 
 @Component({
   selector: 'app-login',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AvatarComponent, AutofocusDirective],
+  imports: [AutofocusDirective],
   template: `
     <div class="login">
       <section class="login-art">
@@ -35,7 +35,7 @@ import { LanguageService } from '../core/language.service';
         <div class="login-card">
           <div><h2>Welcome back</h2><p class="muted" style="margin-top:6px">Sign in with your school account.</p></div>
           <form (submit)="submit($event)">
-            <div class="field"><label for="u">Username</label><input id="u" appAutofocus autocomplete="username" required placeholder="admin" [value]="username()" (input)="username.set($any($event.target).value)" /></div>
+            <div class="field"><label for="u">Username</label><input id="u" appAutofocus autocomplete="username" required placeholder="username" [value]="username()" (input)="username.set($any($event.target).value)" /></div>
             <div class="field"><label for="p">Password</label><input id="p" type="password" autocomplete="current-password" required placeholder="••••••••" [value]="password()" (input)="password.set($any($event.target).value)" /></div>
             @if (error(); as e) {
               <div class="callout" role="alert">
@@ -45,12 +45,6 @@ import { LanguageService } from '../core/language.service';
             }
             <button class="btn primary" style="height:46px;justify-content:center" type="submit" [disabled]="busy()">{{ busy() ? 'Signing in…' : 'Sign in' }}</button>
           </form>
-          <div class="demo-chips">
-            <span class="tiny">Seeded accounts — tap to fill</span>
-            @for (c of chips; track c.u) {
-              <button type="button" class="chip" (click)="fill(c.u, c.p)"><app-avatar [name]="c.u" [size]="26" /><b>{{ c.u }}</b><span>{{ c.role }}</span></button>
-            }
-          </div>
           <details class="conn" [open]="settings.mode() === 'demo'">
             <summary>Connection</summary>
             <div class="inner">
@@ -80,13 +74,6 @@ export class LoginComponent {
   password = signal('');
   busy = signal(false);
   error = signal<ApiError | null>(null);
-  chips = [
-    { u: 'admin', p: 'Admin@123', role: 'Admin' },
-    { u: 'teacher_ahmed', p: 'Teacher@123', role: 'Teacher' },
-    { u: 'student_omar', p: 'Student@123', role: 'Student' },
-  ];
-
-  fill(u: string, p: string): void { this.username.set(u); this.password.set(p); }
   useDemo(): void { this.settings.setMode('demo'); this.error.set(null); }
 
   async submit(e: Event): Promise<void> {
