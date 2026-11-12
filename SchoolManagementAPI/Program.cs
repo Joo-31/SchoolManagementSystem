@@ -160,6 +160,7 @@ namespace SchoolManagementAPI
                 using (var scope = app.Services.CreateScope())
                 {
                     var context = scope.ServiceProvider.GetRequiredService<SchoolDbContext>();
+                    context.Database.Migrate();
                     DbSeeder.Seed(context); // 👈 التعديل هنا
                 }
 

@@ -2,7 +2,7 @@
 
 # 🏫 School Management System
 
-**A comprehensive, enterprise-grade School Management System built with .NET 8 Web API and Angular 22.**
+**A comprehensive, modern School Management System built with .NET 8 and Angular 22, featuring full Arabic/English localization, role-based dashboards, and advanced data management.**
 
 [![.NET 8](https://img.shields.io/badge/.NET-8.0-blueviolet?style=for-the-badge&logo=.net)](https://dotnet.microsoft.com/)
 [![Angular](https://img.shields.io/badge/Angular-22-red?style=for-the-badge&logo=angular)](https://angular.io/)
@@ -14,6 +14,7 @@
 ---
 
 ## 📖 About The Project
+
 A full-stack School Management System designed to streamline administrative tasks, enhance communication, and provide a seamless experience for Admins, Teachers, and Students. Built following **Clean Architecture** and **SOLID Principles**, with a focus on scalability, security, and modern UI/UX.
 
 ---
@@ -22,29 +23,34 @@ A full-stack School Management System designed to streamline administrative task
 
 ### 🔐 Authentication & Authorization
 - **JWT Authentication** with Role-Based Access Control (Admin, Teacher, Student).
-- **Password Hashing** using BCrypt.
-- **Auto-Logout** on token expiry via Angular Interceptors.
+- **BCrypt** password hashing.
+- **Secure API endpoints** (no anonymous access to sensitive data).
 
 ### 👥 Entities Management (CRUD + Pagination + Search)
-- Students, Teachers, Courses, Classes, Grades, Attendances, and Marks.
-- **Smart Search** across all lists (by name, course, grade, etc.).
-- **Server-side Pagination** for high performance with massive datasets.
+- Students, Teachers, Courses, Classes, Grades, Attendances, Marks, Homeworks, and Notifications.
+- **Server-side Pagination** and **Search** for all lists.
 
-### 📊 Dashboards & Analytics
-- **Admin Dashboard:** Full control + Statistics (Total Students, Teachers, etc.).
-- **Teacher Dashboard:** My Classes, My Students, Take Attendance, Assign Homework.
-- **Student Dashboard:** My Profile, My Attendance (with Stats & Date Filter), My Marks (with GPA & Stats).
+### 📊 Advanced Dashboards
+- **Admin Dashboard:** KPI cards, Attendance chart, Students per grade, Teachers by subject, Announcements.
+- **Teacher Dashboard:** My Classes, Take Attendance, Add Marks, Add Homework.
+- **Student Dashboard:** My Marks, My Attendance, Homework.
 
-### 🔔 Advanced Systems (New!)
-- **Notifications System:** Admin can broadcast announcements to specific roles (All, Teachers, or Students). Users get a bell icon with unread counts.
-- **Homework System:** Teachers can upload assignments (via URL/Link) for their courses. Students can view them in a dedicated page.
-- **Dark Mode:** A beautiful, persistent dark theme across the entire application.
+### 🌍 Full Localization (Arabic/English)
+- **Language toggle** (AR/EN) in the sidebar and login page.
+- **Full RTL/LTR support**: When Arabic is selected, the layout mirrors, sidebar moves to the right, and all text is translated.
+- **Persistence**: Language preference is saved in `localStorage`.
 
-### 🔒 Business Rules Enforced
-- Teachers can only add/edit marks for their own assigned courses.
-- Only one mark per student per course is allowed.
-- Only Admins can delete entities (Teachers, Students, etc.).
-- Teachers can only create homework for their assigned courses.
+### 📂 File Upload for Homework
+- Teachers can upload **PDF files** as homework.
+- Files are stored in `wwwroot/uploads/homework` and accessible to students.
+
+### 🛠️ Data Management (Admin Only)
+- **Reset All Data**: Deletes all school data (keeps Admin accounts).
+- **Seed Random Data**: Generates random data (Teachers, Students, Courses, etc.) for testing.
+
+### 📢 Notifications & Announcements
+- Admin can send announcements to specific roles (All, Teachers, Students).
+- Notification bell with unread count.
 
 ---
 
@@ -52,24 +58,23 @@ A full-stack School Management System designed to streamline administrative task
 
 ### Backend
 - **Framework:** .NET 8 Web API (C#)
-- **ORM:** Entity Framework Core 8 (Code-First, Migrations)
+- **ORM:** Entity Framework Core 8
 - **Database:** SQL Server
 - **Auth:** JWT (JSON Web Tokens)
 - **Mapping:** AutoMapper
 - **Logging:** Serilog
 - **Security:** BCrypt.Net
-- **Documentation:** Swagger (OpenAPI)
-- **Testing:** xUnit, Moq, FluentAssertions (Unit Tests for Services)
+- **Testing:** xUnit, Moq, FluentAssertions (70+ Tests)
 
 ### Frontend
-- **Framework:** Angular 22 (Standalone Components)
+- **Framework:** Angular 22
 - **Language:** TypeScript
-- **State/RxJS:** RxJS Observables & Interceptors
-- **Styling:** Custom CSS (Responsive, Dark Mode support)
-- **Features:** Custom Toast Notifications, Role-Based Routing
+- **State/RxJS:** RxJS Observables
+- **Styling:** Custom CSS (Responsive, RTL Support, Dark Mode)
+- **i18n:** Custom Language Service (en/ar JSON files)
 
-### Architecture & Patterns
-- Clean Architecture (N-Tier layered conceptually)
+### Architecture
+- Clean Architecture (N-Tier)
 - Repository Pattern & Unit of Work
 - Dependency Injection
 - SOLID Principles
@@ -89,128 +94,66 @@ SchoolManagementSystemSolution/
 │   ├── Database/
 │   ├── Middlewares/
 │   └── Migrations/
-├── SchoolManagementAPI.Tests/     → Unit Tests (xUnit + Moq)
+├── SchoolManagementAPI.Tests/     → Unit Tests (xUnit)
 └── SchoolManagementClient/        → Frontend (Angular)
     └── src/app/
-        ├── pages/
-        ├── services/
-        ├── models/
-        ├── interceptors/
-        └── components/
+        ├── core/                  → Services, Guards, Interceptors
+        ├── pages/                 → Components
+        ├── shared/                → Reusable Components
+        └── layout/                → Shell & Sidebar
 
-## 🚀 Getting Started
 
-### Prerequisites
-- **.NET 8 SDK**
-- **Node.js 20+**
-- **SQL Server** (or LocalDB)
-- **Docker** (optional)
+🚀 Getting Started
+Prerequisites
+.NET 8 SDK
 
-### Backend Setup
+Node.js 20+ & Angular CLI
 
-```bash
+SQL Server (LocalDB or Full)
+
+1. Backend Setup
+
 cd SchoolManagementAPI
-
-# Update database
 dotnet ef database update
-
-# Run
 dotnet run
+
 API: https://localhost:7092/swagger
 
-Frontend Setup
+2. Frontend Setup
 
 cd SchoolManagementClient
-
-# Install dependencies
 npm install
-
-# Run
-ng serve
+npm start
 
 Frontend: http://localhost:4200
 
-Run with Docker
+🔑 Default Users (Seeded)
 
-docker-compose up -d
 
-🔑 Default Users
-Role	  Username	          Password
-Admin	  admin	             Admin@123
-Teacher   teacher_ahmed	     Teacher@123
-Student	  student_omar	     Student@123
+Role	Username	Password
+Admin	admin	Admin@123
+
+Note: Users are created by the Admin (via Data Management or Seed). There is no public registration.
 
 📸 Screenshots
-Coming soon...
-
-📌 API Endpoints
 
 
-Authentication
+<table> <tr> <td><img src="screenshots/login.png" alt="Login" width="400"/></td> <td><img src="screenshots/add-mark.png" alt="Add Mark" width="400"/></td> </tr> <tr> <td><img src="screenshots/dashboard-en.png" alt="Dashboard (English)" width="400"/></td> <td><img src="screenshots/dashboard-ar.png" alt="Dashboard (Arabic)" width="400"/></td> </tr> </table>
 
-POST /api/auth/register — Register new user
-
-POST /api/auth/login — Login and get JWT token
-
-Students
-
-GET /api/students — Get all students
-
-GET /api/students/paged — Paginated students
-
-GET /api/students/me — Get current student profile
-
-GET /api/students/me/attendances — Get current student's attendance
-
-POST/PUT/DELETE — CRUD operations
-
-Teachers
-
-GET /api/teachers/me — Get current teacher profile
-
-GET /api/teachers/me/classes — Get current teacher's classes
-
-GET /api/teachers/me/classes/{id}/students — Get students in a class
-
-POST/PUT/DELETE — CRUD operations
-
-Marks
-
-GET /api/marks — All marks (Admin/Teacher)
-
-GET /api/marks/me — Current student's marks
-
-GET /api/marks/my-marks — Current teacher's marks
-
-GET /api/marks/my-courses — Teacher's own courses
-
-GET /api/marks/my-students — Students in teacher's classes
-
-POST /api/marks — Add mark (with business rules)
-
-PUT/DELETE — Update/Delete (with permissions)
-
-... (other entities: similar pattern)
 
 🧪 Testing
 
 cd SchoolManagementAPI.Tests
 dotnet test
-
-
 👤 Author
 Youssef Adel
 
 GitHub: @Joo-31
 
 📝 License
-This project is for educational purposes.
+This project is for educational and portfolio purposes.
 
-.
-
-🌟 Star this repo if you find it useful!
-
-
+⭐ Star this repo if you find it useful! ⭐
 
 
 

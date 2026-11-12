@@ -26,7 +26,7 @@ namespace SchoolManagementAPI.Controllers
         [HttpPost("upload")]
         [Authorize(Roles = "Teacher")]
         [RequestSizeLimit(25 * 1024 * 1024)]
-        public async Task<IActionResult> Upload([FromForm] IFormFile file, CancellationToken cancellationToken)
+        public async Task<IActionResult> Upload(IFormFile file, CancellationToken cancellationToken)
         {
             if (file == null || file.Length == 0) return BadRequest("A file is required.");
             if (file.Length > 25 * 1024 * 1024) return BadRequest("File size must be 25 MB or less.");
