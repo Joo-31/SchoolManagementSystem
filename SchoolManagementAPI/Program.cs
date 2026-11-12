@@ -137,6 +137,7 @@ namespace SchoolManagementAPI
                     });
                 });
 
+                Directory.CreateDirectory(builder.Environment.WebRootPath ?? Path.Combine(builder.Environment.ContentRootPath, "wwwroot"));
                 var app = builder.Build();
 
                 // Configure the HTTP request pipeline.
@@ -148,6 +149,7 @@ namespace SchoolManagementAPI
                 app.UseMiddleware<ExceptionMiddleware>();
                 app.UseCors("AllowAngular");
                 app.UseHttpsRedirection();
+                app.UseStaticFiles();
 
                 app.UseAuthentication();
                 app.UseAuthorization();

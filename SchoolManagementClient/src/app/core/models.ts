@@ -43,7 +43,7 @@ export interface Option { value: any; label: string; sub?: string; teacherId?: n
 export interface FormField {
   key: string;
   label: string;
-  type?: 'text' | 'email' | 'password' | 'number' | 'date' | 'url' | 'select' | 'textarea' | 'switch' | 'lookup';
+  type?: 'text' | 'email' | 'password' | 'number' | 'date' | 'url' | 'file' | 'select' | 'textarea' | 'switch' | 'lookup';
   required?: boolean;
   options?: Option[];
   optionsLoader?: () => Promise<Option[]>;

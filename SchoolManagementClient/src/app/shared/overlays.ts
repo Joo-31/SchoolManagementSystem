@@ -78,6 +78,7 @@ export class DialogHostComponent {
                     @case ('number') {
                       <input [id]="'f_' + f.key" type="number" [formControlName]="f.key" [attr.min]="f.min" [attr.max]="f.max" [attr.step]="f.step" [attr.placeholder]="f.placeholder" autocomplete="off" />
                     }
+                    @case ('file') { <input [id]="'f_' + f.key" type="file" [attr.accept]="f.placeholder" (change)="form!.controls[f.key].setValue($any($event.target).files?.[0] ?? null)" /> }
                     @case ('textarea') { <textarea [id]="'f_' + f.key" rows="3" [formControlName]="f.key"></textarea> }
                     @case ('switch') {
                       <label class="switch"><input [id]="'f_' + f.key" type="checkbox" [formControlName]="f.key" /><span></span></label>
@@ -137,7 +138,7 @@ export class FormDialogComponent implements OnInit {
     const controls: Record<string, FormControl> = {};
     for (const f of this.fields) {
       const v = r.values[f.key];
-      const initial = f.type === 'switch' ? (v ?? true) : (v ?? '');
+      const initial = f.type === 'switch' ? (v ?? true) : (f.type === 'file' ? null : (v ?? ''));
       controls[f.key] = new FormControl(initial, this.validators(f));
       if (f.type === 'lookup') this.lookupText.update((m) => ({ ...m, [f.key]: r.values[f.key + 'Label'] ?? '' }));
     }

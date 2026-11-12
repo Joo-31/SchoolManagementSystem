@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ApiService } from '../core/api.service';
 import { DialogService } from '../core/dialog.service';
@@ -6,6 +8,8 @@ import { useLoad } from '../core/load';
 import { AppNotification, Attendance, Homework, Mark, SchoolClass, Student, Teacher } from '../core/models';
 import { OptionsService } from '../core/options.service';
 import { ToastService } from '../core/toast.service';
+import { SettingsService } from '../core/settings.service';
+import { readSession } from '../core/session';
 import { day10, dt, isoDay, safeUrl } from '../core/util';
 import { HwCardComponent, NoteFeedComponent } from '../shared/blocks';
 import { AvatarComponent, EmptyComponent, IconComponent, StampComponent, StateComponent } from '../shared/primitives';
@@ -219,6 +223,8 @@ export class ClassRosterComponent {
 })
 export class TeacherHomeworkComponent {
   private api = inject(ApiService);
+  private http = inject(HttpClient);
+  private settings = inject(SettingsService);
   private opts = inject(OptionsService);
   private dialogs = inject(DialogService);
   private toast = inject(ToastService);
@@ -230,12 +236,23 @@ export class TeacherHomeworkComponent {
       fields: [
         { key: 'title', label: 'Title', required: true, full: true },
         { key: 'courseId', label: 'Course', type: 'select', optionsLoader: this.opts.myCourses, required: true },
-        { key: 'link', label: 'Link', type: 'url', required: true, placeholder: 'https://…', hint: 'A video, file or quiz URL.' },
+        { key: 'link', label: 'Link (optional if uploading)', type: 'url', placeholder: 'https://…', hint: 'Enter a video/file URL, or upload a document below.' },
+        { key: 'file', label: 'Document (optional if providing a link)', type: 'file', placeholder: '.pdf,.doc,.docx,.ppt,.pptx,.txt', hint: 'Maximum size: 25 MB.' },
         { key: 'description', label: 'Description', type: 'textarea', full: true },
       ],
       submit: async (v) => {
-        if (!safeUrl(v.link)) throw new Error('The link must start with http:// or https://');
-        await this.api.post('/homework', v);
+        let link = v.link;
+        if (v.file) {
+          const body = new FormData();
+          body.append('file', v.file);
+          const apiUrl = this.settings.apiUrl();
+          const apiRoot = apiUrl.replace(/\/api\/?$/, '');
+          const result = await firstValueFrom(this.http.post<{ url: string }>(apiUrl + '/homework/upload', body, { headers: { Authorization: 'Bearer ' + readSession()?.token } }));
+          link = apiRoot + result.url;
+        }
+        if (!safeUrl(link)) throw new Error('Provide a valid http:// or https:// link or select a document.');
+        const { file: _file, ...homework } = v;
+        await this.api.post('/homework', { ...homework, link });
       },
     });
     if (saved) { this.toast.ok('Homework posted'); void this.d.reload(); }

@@ -4,6 +4,8 @@ using SchoolManagementAPI.DTOs.Requests;
 using SchoolManagementAPI.Services.Interfaces;
 using System;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace SchoolManagementAPI.Controllers
 {
@@ -13,10 +15,28 @@ namespace SchoolManagementAPI.Controllers
     public class HomeworkController : ControllerBase
     {
         private readonly IHomeworkService _homeworkService;
+        private readonly IWebHostEnvironment _environment;
 
-        public HomeworkController(IHomeworkService homeworkService)
+        public HomeworkController(IHomeworkService homeworkService, IWebHostEnvironment environment)
         {
             _homeworkService = homeworkService;
+            _environment = environment;
+        }
+
+        [HttpPost("upload")]
+        [Authorize(Roles = "Teacher")]
+        [RequestSizeLimit(25 * 1024 * 1024)]
+        public async Task<IActionResult> Upload([FromForm] IFormFile file, CancellationToken cancellationToken)
+        {
+            if (file == null || file.Length == 0) return BadRequest("A file is required.");
+            if (file.Length > 25 * 1024 * 1024) return BadRequest("File size must be 25 MB or less.");
+            var extension = Path.GetExtension(Path.GetFileName(file.FileName));
+            var fileName = $"{Guid.NewGuid():N}{extension}";
+            var directory = Path.Combine(_environment.WebRootPath ?? Path.Combine(_environment.ContentRootPath, "wwwroot"), "uploads", "homework");
+            Directory.CreateDirectory(directory);
+            await using (var stream = System.IO.File.Create(Path.Combine(directory, fileName)))
+                await file.CopyToAsync(stream, cancellationToken);
+            return Ok(new { url = $"/uploads/homework/{fileName}" });
         }
 
         // POST: api/homework (Teacher only)
