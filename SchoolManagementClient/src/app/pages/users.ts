@@ -1,16 +1,15 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { ApiService } from '../core/api.service';
 import { DialogService } from '../core/dialog.service';
 import { useLoad } from '../core/load';
 import { AppUser } from '../core/models';
 import { ToastService } from '../core/toast.service';
-import { AvatarComponent, EmptyComponent, IconComponent, StateComponent } from '../shared/primitives';
+import { AvatarComponent, EmptyComponent, IconComponent, StateComponent, LocalizedDatePipe } from '../shared/primitives';
 
 @Component({
   selector: 'app-users-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [DatePipe, StateComponent, EmptyComponent, IconComponent, AvatarComponent],
+  imports: [LocalizedDatePipe, StateComponent, EmptyComponent, IconComponent, AvatarComponent],
   template: `
     <div class="page-head"><div class="grow"><p>Accounts for students, teachers and admins. Admin passwords can’t be reset here.</p></div></div>
     <div class="toolbar">
@@ -28,7 +27,7 @@ import { AvatarComponent, EmptyComponent, IconComponent, StateComponent } from '
                     <td><div class="cell-person"><app-avatar [name]="u.username" /><div><b>{{ u.username }}</b></div></div></td>
                     <td><span class="badge" [class]="u.role === 'Admin' ? 'warn' : u.role === 'Teacher' ? 'brand' : 'ok'">{{ u.role }}</span></td>
                     <td>{{ u.teacherId ? 'Teacher #' + u.teacherId : u.studentId ? 'Student #' + u.studentId : '—' }}</td>
-                    <td class="muted">{{ u.createdAt | date: 'd MMM y' }}</td>
+                    <td class="muted">{{ u.createdAt | localizedDate: 'd MMM y' }}</td>
                     <td class="actions">@if (u.role !== 'Admin') { <button class="btn sm" (click)="reset(u)"><app-icon name="key" [size]="14" />Reset password</button> }</td>
                   </tr>
                 }

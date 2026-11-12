@@ -1,6 +1,11 @@
 import { ChangeDetectionStrategy, Component, Directive, ElementRef, OnInit, computed, inject, input, output, Pipe, PipeTransform } from '@angular/core';
+import { DatePipe, registerLocaleData } from '@angular/common';
+import localeAr from '@angular/common/locales/ar';
 import { ICON_PATHS } from './icon-paths';
 import { bandVar, gradeBand, initials, letter } from '../core/util';
+import { LanguageService } from '../core/language.service';
+
+registerLocaleData(localeAr, 'ar');
 
 @Component({
   selector: 'app-icon',
@@ -100,16 +105,26 @@ export class KpiComponent {
   tone = input('');
 }
 
-@Pipe({ name: 'timeAgo' })
+@Pipe({ name: 'timeAgo', standalone: true, pure: false })
 export class TimeAgoPipe implements PipeTransform {
+  private readonly language = inject(LanguageService);
   transform(d: string | Date | null | undefined): string {
     if (!d) return '';
     const s = (Date.now() - new Date(d).getTime()) / 1000;
-    if (s < 60) return 'just now';
-    if (s < 3600) return Math.floor(s / 60) + ' min ago';
-    if (s < 86400) return Math.floor(s / 3600) + ' h ago';
-    if (s < 604800) return Math.floor(s / 86400) + ' d ago';
-    return new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    const isArabic = this.language.language() === 'ar';
+    if (s < 60) return isArabic ? 'الآن' : 'just now';
+    if (s < 3600) return isArabic ? `منذ ${Math.floor(s / 60)} دقيقة` : Math.floor(s / 60) + ' min ago';
+    if (s < 86400) return isArabic ? `منذ ${Math.floor(s / 3600)} ساعة` : Math.floor(s / 3600) + ' h ago';
+    if (s < 604800) return isArabic ? `منذ ${Math.floor(s / 86400)} يوم` : Math.floor(s / 86400) + ' d ago';
+    return new Date(d).toLocaleDateString(isArabic ? 'ar' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+}
+
+@Pipe({ name: 'localizedDate', standalone: true, pure: false })
+export class LocalizedDatePipe implements PipeTransform {
+  private readonly language = inject(LanguageService);
+  transform(value: string | number | Date | null | undefined, format = 'mediumDate'): string | null {
+    return new DatePipe(this.language.language() === 'ar' ? 'ar' : 'en-GB').transform(value, format);
   }
 }
 

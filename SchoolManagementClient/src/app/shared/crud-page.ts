@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../core/api.service';
 import { DialogService } from '../core/dialog.service';
@@ -8,13 +7,13 @@ import { OptionsService } from '../core/options.service';
 import { ToastService } from '../core/toast.service';
 import { cap } from '../core/util';
 import { CRUD_CONFIGS } from './crud-configs';
-import { AvatarComponent, EmptyComponent, IconComponent, StampComponent } from './primitives';
+import { AvatarComponent, EmptyComponent, IconComponent, StampComponent, LocalizedDatePipe } from './primitives';
 
 /** One list + add/edit/delete page, driven entirely by a CrudConfig chosen via route data { entity }. */
 @Component({
   selector: 'app-crud-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [DatePipe, IconComponent, AvatarComponent, StampComponent, EmptyComponent],
+  imports: [LocalizedDatePipe, IconComponent, AvatarComponent, StampComponent, EmptyComponent],
   template: `
     <div class="page-head">
       <div class="grow"><p>{{ cfg.sub }}</p></div>
@@ -70,7 +69,7 @@ import { AvatarComponent, EmptyComponent, IconComponent, StampComponent } from '
                         }
                         @case ('badge') { <span class="badge" [class]="c.tone ?? ''">{{ c.value(r) }}</span> }
                         @case ('stamp') { <app-stamp [score]="c.value(r)" /> }
-                        @case ('date') { <span>{{ (c.value(r) | date: 'd MMM y') ?? '—' }}</span> }
+                        @case ('date') { <span>{{ (c.value(r) | localizedDate: 'd MMM y') ?? '—' }}</span> }
                         @case ('status') { <span class="badge" [class]="c.value(r) ? 'ok' : 'bad'">{{ c.value(r) ? 'Present' : 'Absent' }}</span> }
                         @case ('muted') { <span class="muted">{{ c.value(r) }}</span> }
                         @default { <span>{{ c.value(r) }}</span> }

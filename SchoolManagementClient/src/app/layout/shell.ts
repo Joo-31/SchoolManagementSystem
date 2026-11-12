@@ -11,6 +11,7 @@ import { OptionsService } from '../core/options.service';
 import { store } from '../core/session';
 import { SettingsService } from '../core/settings.service';
 import { SchoolSettingsService } from '../core/school-settings.service';
+import { LanguageService } from '../core/language.service';
 import { AutofocusDirective, AvatarComponent, IconComponent, TimeAgoPipe } from '../shared/primitives';
 
 @Component({
@@ -49,6 +50,7 @@ import { AutofocusDirective, AvatarComponent, IconComponent, TimeAgoPipe } from 
           <span class="grow"></span>
           <button class="kbd-btn" aria-label="Jump to page" (click)="openPalette()"><app-icon name="search" [size]="16" /><span>Jump to…</span><kbd>Ctrl K</kbd></button>
           <button class="icon-btn" aria-label="Toggle dark mode" (click)="settings.toggleTheme()"><app-icon [name]="settings.theme() === 'dark' ? 'sun' : 'moon'" [size]="19" /></button>
+          <button class="language-btn" type="button" [attr.aria-label]="language.text(language.language() === 'en' ? 'Switch to Arabic' : 'Switch to English')" (click)="language.toggle()">{{ language.language() === 'en' ? 'AR' : 'EN' }}</button>
           <button class="icon-btn" aria-label="Notifications" (click)="openNotes()">
             <app-icon name="bell" [size]="19" />
             @if (unread() > 0) { <span class="badge-dot">{{ unread() > 9 ? '9+' : unread() }}</span> }
@@ -88,6 +90,7 @@ export class ShellComponent {
   readonly auth = inject(AuthService);
   readonly settings = inject(SettingsService);
   readonly school = inject(SchoolSettingsService);
+  readonly language = inject(LanguageService);
   private router = inject(Router);
   private api = inject(ApiService);
   private dialogs = inject(DialogService);

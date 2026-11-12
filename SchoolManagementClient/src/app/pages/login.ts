@@ -5,6 +5,7 @@ import { ApiError } from '../core/models';
 import { SettingsService } from '../core/settings.service';
 import { SchoolSettingsService } from '../core/school-settings.service';
 import { AutofocusDirective, AvatarComponent } from '../shared/primitives';
+import { LanguageService } from '../core/language.service';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +31,7 @@ import { AutofocusDirective, AvatarComponent } from '../shared/primitives';
       </section>
 
       <section class="login-form">
+        <button class="language-btn login-language" type="button" [attr.aria-label]="language.text(language.language() === 'en' ? 'Switch to Arabic' : 'Switch to English')" (click)="language.toggle()">{{ language.language() === 'en' ? 'AR' : 'EN' }}</button>
         <div class="login-card">
           <div><h2>Welcome back</h2><p class="muted" style="margin-top:6px">Sign in with your school account.</p></div>
           <form (submit)="submit($event)">
@@ -72,6 +74,7 @@ export class LoginComponent {
   private router = inject(Router);
   readonly settings = inject(SettingsService);
   readonly school = inject(SchoolSettingsService);
+  readonly language = inject(LanguageService);
 
   username = signal('');
   password = signal('');

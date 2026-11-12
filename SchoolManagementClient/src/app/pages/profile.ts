@@ -1,15 +1,14 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { ApiService } from '../core/api.service';
 import { AuthService } from '../core/auth.service';
 import { useLoad } from '../core/load';
 import { Student, Teacher } from '../core/models';
-import { AvatarComponent, StateComponent } from '../shared/primitives';
+import { AvatarComponent, StateComponent, LocalizedDatePipe } from '../shared/primitives';
 
 @Component({
   selector: 'app-profile',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [StateComponent, AvatarComponent],
+  imports: [StateComponent, AvatarComponent, LocalizedDatePipe],
   template: `
     <app-state [loading]="d.loading()" [error]="d.error()" (retry)="d.reload()">
       @if (d.data(); as x) {
@@ -21,7 +20,7 @@ import { AvatarComponent, StateComponent } from '../shared/primitives';
           <header><h3>Details</h3></header>
           <div class="feed">
             @for (r of x.rows; track r.label) {
-              <div class="item" style="grid-template-columns:140px 1fr;display:grid"><span class="muted">{{ r.label }}</span><b>{{ r.value || '—' }}</b></div>
+              <div class="item" style="grid-template-columns:140px 1fr;display:grid"><span class="muted">{{ r.label }}</span><b>{{ r.date ? (r.value | localizedDate: 'd MMM y') : (r.value || '—') }}</b></div>
             }
           </div>
         </div>
@@ -31,7 +30,6 @@ import { AvatarComponent, StateComponent } from '../shared/primitives';
 export class ProfileComponent {
   private api = inject(ApiService);
   readonly session = inject(AuthService).session();
-  private datePipe = new DatePipe('en-US');
 
   d = useLoad(async () => {
     if (this.session?.role === 'Teacher') {
@@ -43,7 +41,7 @@ export class ProfileComponent {
     }
     const me = await this.api.get<Student>('/students/me');
     return { name: me.fullName, rows: [
-      { label: 'Class', value: me.className }, { label: 'Date of birth', value: this.datePipe.transform(me.birthDate, 'd MMM y') },
+        { label: 'Class', value: me.className }, { label: 'Date of birth', value: me.birthDate, date: true },
       { label: 'Age', value: String(me.age) }, { label: 'Gender', value: me.gender },
     ] };
   });

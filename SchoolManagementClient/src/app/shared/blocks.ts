@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { AppNotification, Homework, Mark } from '../core/models';
 import { bandVar, safeUrl } from '../core/util';
-import { EmptyComponent, IconComponent, StampComponent, TimeAgoPipe } from './primitives';
+import { EmptyComponent, IconComponent, StampComponent, TimeAgoPipe, LocalizedDatePipe } from './primitives';
 
 @Component({
   selector: 'app-note-feed',
@@ -50,13 +49,13 @@ export class HwCardComponent {
 @Component({
   selector: 'app-mark-row',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [StampComponent, DatePipe],
+  imports: [StampComponent, LocalizedDatePipe],
   template: `
     <div class="mark-row" [style.--c]="'var(--' + band() + ')'">
       <app-stamp [score]="mark().score" />
       <div class="grow">
         <b>{{ mark().courseName }}</b>
-        <span class="tiny">{{ mark().teacherName }} · {{ mark().date | date: 'd MMM y' }}</span>
+        <span class="tiny">{{ mark().teacherName }} · {{ mark().date | localizedDate: 'd MMM y' }}</span>
         <div class="meter"><i [style.width.%]="min100(mark().score)"></i></div>
         @if (mark().notes) { <div class="tiny" style="margin-top:6px">{{ mark().notes }}</div> }
       </div>

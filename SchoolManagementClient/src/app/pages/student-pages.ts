@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ApiService } from '../core/api.service';
 import { useLoad } from '../core/load';
 import { AppNotification, Attendance, Homework, Mark, Student } from '../core/models';
 import { avg, round1 } from '../core/util';
 import { HwCardComponent, MarkRowComponent, NoteFeedComponent } from '../shared/blocks';
-import { AvatarComponent, EmptyComponent, IconComponent, KpiComponent, StampComponent, StateComponent } from '../shared/primitives';
+import { AvatarComponent, EmptyComponent, IconComponent, KpiComponent, StampComponent, StateComponent, LocalizedDatePipe } from '../shared/primitives';
 
 const byDateDesc = (a: { date: string }, b: { date: string }) => new Date(b.date).getTime() - new Date(a.date).getTime();
 
@@ -96,7 +95,7 @@ export class StudentMarksComponent {
 @Component({
   selector: 'app-student-attendance',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [DatePipe, StateComponent, EmptyComponent, KpiComponent],
+  imports: [LocalizedDatePipe, StateComponent, EmptyComponent, KpiComponent],
   template: `
     <app-state [loading]="d.loading()" [error]="d.error()" (retry)="d.reload()">
       @if (d.data(); as x) {
@@ -111,7 +110,7 @@ export class StudentMarksComponent {
             <header><h3>Last {{ x.recent.length }} school days</h3></header>
             <div class="punch">
               @for (a of x.recent; track $index) {
-                <div class="cell" [class.p]="a.isPresent" [class.a]="!a.isPresent" [attr.title]="(a.date | date: 'd MMM y') + ' — ' + (a.isPresent ? 'Present' : 'Absent')">{{ a.date | date: 'd' }}</div>
+                <div class="cell" [class.p]="a.isPresent" [class.a]="!a.isPresent" [attr.title]="(a.date | localizedDate: 'd MMM y') + ' — ' + (a.isPresent ? 'Present' : 'Absent')">{{ a.date | localizedDate: 'd' }}</div>
               }
             </div>
             <div class="legend">
@@ -122,7 +121,7 @@ export class StudentMarksComponent {
           @if (x.missed.length) {
             <div class="panel" style="margin-top:18px">
               <header><h3>Days you missed</h3></header>
-              <div style="display:flex;gap:8px;flex-wrap:wrap">@for (a of x.missed; track $index) { <span class="badge bad">{{ a.date | date: 'd MMM y' }}</span> }</div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">@for (a of x.missed; track $index) { <span class="badge bad">{{ a.date | localizedDate: 'd MMM y' }}</span> }</div>
             </div>
           }
         } @else { <app-empty title="No attendance yet" text="Your attendance appears after teachers record it." /> }

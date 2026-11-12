@@ -34,6 +34,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
 :focus-visible { outline: 3px solid var(--brand); outline-offset: 2px; border-radius: 4px; }
 .school-logo { width: 36px; height: 36px; object-fit: contain; border-radius: 8px; background: white; }
 .top-school-logo { width: 22px; height: 22px; object-fit: contain; vertical-align: middle; margin-right: 7px; }
+.language-btn { height: 36px; min-width: 42px; padding: 0 8px; border: 1px solid var(--line-2); border-radius: 10px; background: var(--surface); color: var(--ink); font-size: 12px; font-weight: 700; cursor: pointer; }
+.language-btn:hover { background: var(--sunk); }
+.login-form { position: relative; }
+.login-language { position: absolute; top: 18px; right: 22px; z-index: 2; }
 .settings-page { max-width: 1040px; margin: 0 auto; padding-bottom: 90px; display: grid; gap: 18px; }
 .settings-heading { padding: 8px 0; } .settings-heading h2 { font-size: 30px; margin: 4px 0 8px; }
 .eyebrow { color: var(--brand); font-weight: 700; font-size: 11px; letter-spacing: .12em; }
@@ -141,6 +145,18 @@ details.conn .inner { display: grid; gap: 12px; margin-top: 14px; }
 .kbd-btn kbd { margin-left: auto; font: 600 11.5px var(--f-body); border: 1px solid var(--line-2); border-radius: 5px; padding: 1px 6px; }
 .badge-dot { position: absolute; top: 3px; right: 3px; min-width: 17px; height: 17px; padding: 0 4px; border-radius: 9px; background: var(--bad); color: #fff; font: 700 10.5px/17px var(--f-body); text-align: center; }
 .content { padding: 8px 32px 56px; width: 100%; max-width: 1320px; }
+html[dir='rtl'] { font-family: 'Segoe UI', Tahoma, Arial, sans-serif; }
+html[dir='rtl'] body { text-align: right; }
+html[dir='rtl'] .shell { direction: rtl; }
+html[dir='rtl'] .nav a[aria-current='page']::before { left: auto; right: -14px; border-radius: 4px 0 0 4px; }
+html[dir='rtl'] .top-school-logo { margin-right: 0; margin-left: 7px; }
+html[dir='rtl'] .drawer { right: auto; left: 0; }
+html[dir='rtl'] .login-language { right: auto; left: 22px; }
+html[dir='rtl'] :is(input:not([type='date']):not([type='time']):not([type='number']):not([type='checkbox']):not([type='radio']), select, textarea) { text-align: right; }
+html[dir='rtl'] :is(.num, kbd, code, [dir='ltr']) { direction: ltr; unicode-bidi: isolate; }
+html[dir='rtl'] .search { direction: rtl; }
+html[dir='rtl'] table { direction: rtl; }
+html[dir='rtl'] .actions, html[dir='rtl'] .pager { direction: rtl; }
 .page-head { display: flex; align-items: flex-end; gap: 16px; margin: 6px 0 22px; flex-wrap: wrap; }
 .page-head .grow { flex: 1; }
 .page-head p { color: var(--ink-2); margin-top: 4px; }
@@ -273,6 +289,8 @@ td.actions .icon-btn { opacity: .55; } tr:hover td.actions .icon-btn, td.actions
   .login { grid-template-columns: 1fr; } .login-art { padding: 28px 24px 36px; min-height: 280px; gap: 28px; } .login-art .big-stamp { width: 110px; height: 110px; bottom: 10%; } .login-art .foot { display: none; }
   .shell { grid-template-columns: 1fr; }
   .side { position: fixed; z-index: 60; left: 0; width: 276px; transform: translateX(-100%); transition: transform .22s; }
+  html[dir='rtl'] .side { left: auto; right: 0; transform: translateX(100%); }
+  html[dir='rtl'] .nav-open .side { transform: none; }
   .nav-open .side { transform: none; } .nav-open .scrim { display: block; position: fixed; inset: 0; z-index: 50; background: rgba(9, 11, 30, .5); }
   .top { padding: 14px 18px; } .top .menu { display: inline-grid; } .top h1 { font-size: 22px; } .kbd-btn { min-width: 0; } .kbd-btn span, .kbd-btn kbd { display: none; } .kbd-btn { width: 38px; padding: 0; justify-content: center; }
   .content { padding: 4px 18px 48px; }
