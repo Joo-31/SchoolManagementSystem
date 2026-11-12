@@ -16,12 +16,16 @@ namespace SchoolManagementAPI.Controllers
         private readonly IAttendanceService _attendanceService;
         private readonly IMapper _mapper;
         private readonly IClassService _classService;
+        private readonly ICourseService _courseService;
+        private readonly IStudentService _studentService;
 
-        public AttendancesController(IAttendanceService attendanceService, IMapper mapper, IClassService classService)
+        public AttendancesController(IAttendanceService attendanceService, IMapper mapper, IClassService classService, ICourseService courseService, IStudentService studentService)
         {
             _attendanceService = attendanceService;
             _mapper = mapper;
             _classService = classService;
+            _courseService = courseService;
+            _studentService = studentService;
         }
 
         [HttpGet]
@@ -29,6 +33,8 @@ namespace SchoolManagementAPI.Controllers
         public IActionResult GetAll()
         {
             var attendances = _attendanceService.GetAll();
+            if (User.IsInRole("Teacher"))
+                attendances = attendances.Where(a => CanAccessAttendance(a, GetTeacherId())).ToList();
             return Ok(_mapper.Map<List<AttendanceDto>>(attendances));
         }
 
@@ -38,13 +44,36 @@ namespace SchoolManagementAPI.Controllers
         {
             var attendance = _attendanceService.GetById(id);
             if (attendance == null) return NotFound();
+            if (User.IsInRole("Teacher") && !CanAccessAttendance(attendance, GetTeacherId())) return Forbid();
             return Ok(_mapper.Map<AttendanceDto>(attendance));
+        }
+
+        [HttpGet("class/{classId}")]
+        [Authorize(Roles = "Admin,Teacher")]
+        public IActionResult GetByClassId(int classId)
+        {
+            var classObj = _classService.GetById(classId);
+            if (classObj == null) return NotFound("Class not found");
+
+            if (User.IsInRole("Teacher") && !IsTeacherAssignedToClass(classObj, GetTeacherId()))
+                return Forbid();
+
+            var attendances = _attendanceService.SearchByClassId(classId);
+            return Ok(_mapper.Map<List<AttendanceDto>>(attendances));
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin,Teacher")]
         public IActionResult Add([FromBody] CreateAttendanceDto dto)
         {
+            if (User.IsInRole("Teacher"))
+            {
+                var classObj = _classService.GetById(dto.ClassId);
+                if (classObj == null) return NotFound("Class not found");
+                if (!IsTeacherAssignedToClass(classObj, GetTeacherId())) return Forbid();
+                if (!_studentService.GetStudentsByClassId(dto.ClassId).Any(s => s.Id == dto.StudentId))
+                    return BadRequest("Student does not belong to this class");
+            }
             try
             {
                 var attendance = _mapper.Map<Attendance>(dto);
@@ -60,6 +89,14 @@ namespace SchoolManagementAPI.Controllers
         {
             var existing = _attendanceService.GetById(id);
             if (existing == null) return NotFound("Attendance not found");
+            if (User.IsInRole("Teacher"))
+            {
+                if (!CanAccessAttendance(existing, GetTeacherId())) return Forbid();
+                var targetClass = _classService.GetById(dto.ClassId);
+                if (targetClass == null) return NotFound("Class not found");
+                if (!IsTeacherAssignedToClass(targetClass, GetTeacherId()) ||
+                    !_studentService.GetStudentsByClassId(dto.ClassId).Any(s => s.Id == dto.StudentId)) return Forbid();
+            }
             _mapper.Map(dto, existing);
             _attendanceService.Update(existing);
             return Ok(_mapper.Map<AttendanceDto>(existing));
@@ -79,14 +116,15 @@ namespace SchoolManagementAPI.Controllers
         public IActionResult GetPaged([FromQuery] PaginationParams paginationParams)
         {
             var pagedResult = _attendanceService.GetPaged(paginationParams.PageNumber, paginationParams.PageSize);
-            var attendancesDto = _mapper.Map<List<AttendanceDto>>(pagedResult.Data);
+            var data = User.IsInRole("Teacher") ? pagedResult.Data.Where(a => CanAccessAttendance(a, GetTeacherId())).ToList() : pagedResult.Data;
+            var attendancesDto = _mapper.Map<List<AttendanceDto>>(data);
             var result = new PagedResult<AttendanceDto>
             {
                 Data = attendancesDto,
                 PageNumber = pagedResult.PageNumber,
                 PageSize = pagedResult.PageSize,
-                TotalCount = pagedResult.TotalCount,
-                TotalPages = pagedResult.TotalPages
+                TotalCount = data.Count,
+                TotalPages = (int)Math.Ceiling(data.Count / (double)pagedResult.PageSize)
             };
             return Ok(result);
         }
@@ -108,14 +146,21 @@ namespace SchoolManagementAPI.Controllers
             }
 
             var pagedResult = _attendanceService.GetPagedWithFilters(pageNumber, pageSize, date, classId, isPresent);
-            var attendancesDto = _mapper.Map<List<AttendanceDto>>(pagedResult.Data);
+            if (User.IsInRole("Teacher") && classId.HasValue)
+            {
+                var classObj = _classService.GetById(classId.Value);
+                if (classObj == null) return NotFound("Class not found");
+                if (!IsTeacherAssignedToClass(classObj, GetTeacherId())) return Forbid();
+            }
+            var data = User.IsInRole("Teacher") ? pagedResult.Data.Where(a => CanAccessAttendance(a, GetTeacherId())).ToList() : pagedResult.Data;
+            var attendancesDto = _mapper.Map<List<AttendanceDto>>(data);
             var result = new PagedResult<AttendanceDto>
             {
                 Data = attendancesDto,
                 PageNumber = pagedResult.PageNumber,
                 PageSize = pagedResult.PageSize,
-                TotalCount = pagedResult.TotalCount,
-                TotalPages = pagedResult.TotalPages
+                TotalCount = data.Count,
+                TotalPages = (int)Math.Ceiling(data.Count / (double)pageSize)
             };
             return Ok(result);
         }
@@ -126,14 +171,16 @@ namespace SchoolManagementAPI.Controllers
         {
             var teacherIdStr = User.FindFirst("TeacherId")?.Value;
             if (string.IsNullOrEmpty(teacherIdStr)) return Unauthorized("Teacher ID not found");
-            var teacherId = int.Parse(teacherIdStr);
+            if (!int.TryParse(teacherIdStr, out var teacherId)) return Unauthorized("Invalid Teacher ID");
 
             var classObj = _classService.GetById(dto.ClassId);
             if (classObj == null) return NotFound("Class not found");
-            if (classObj.ClassTeacherId != teacherId) return StatusCode(403, new { message = "You are not the teacher of this class" });
+            if (!IsTeacherAssignedToClass(classObj, teacherId)) return Forbid();
 
             foreach (var record in dto.Records)
             {
+                if (!_studentService.GetStudentsByClassId(dto.ClassId).Any(s => s.Id == record.StudentId))
+                    return BadRequest("Student does not belong to this class");
                 var existing = _attendanceService.GetAttendanceByStudentIdAndDate(record.StudentId, dto.Date.Date)
                     .FirstOrDefault(a => a.ClassId == dto.ClassId);
                 if (existing != null)
@@ -154,6 +201,18 @@ namespace SchoolManagementAPI.Controllers
             }
             return Ok(new { message = "Attendance recorded successfully" });
         }
+
+        private int GetTeacherId() => int.TryParse(User.FindFirst("TeacherId")?.Value, out var teacherId) ? teacherId : 0;
+
+        private bool CanAccessAttendance(Attendance attendance, int teacherId)
+        {
+            var classObj = _classService.GetById(attendance.ClassId);
+            return classObj != null && IsTeacherAssignedToClass(classObj, teacherId);
+        }
+
+        private bool IsTeacherAssignedToClass(Class classObj, int teacherId) =>
+            teacherId > 0 && (classObj.ClassTeacherId == teacherId ||
+                _courseService.GetAll().Any(c => c.TeacherId == teacherId && c.ClassId == classObj.Id));
 
         public class TakeAttendanceDto
         {

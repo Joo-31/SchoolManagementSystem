@@ -137,9 +137,9 @@ namespace SchoolManagementAPI.Controllers
             var classObj = _classService.GetById(classId);
             if (classObj == null) return NotFound("Class not found");
 
-            // ✅ بنتأكد إنه رائد الفصل، أو بيدرس كورس في المرحلة بتاعت الفصل ده
+            // Access is granted only for this exact class, never every class in its grade.
             var isClassTeacher = classObj.ClassTeacherId == teacherId;
-            var teachesInClass = _courseService.GetAll().Any(c => c.TeacherId == teacherId && c.GradeId == classObj.GradeId);
+            var teachesInClass = _courseService.GetAll().Any(c => c.TeacherId == teacherId && c.ClassId == classId);
 
             if (!isClassTeacher && !teachesInClass)
                 return StatusCode(403, new { message = "You are not assigned to this class or its courses." });

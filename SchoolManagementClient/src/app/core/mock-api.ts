@@ -120,8 +120,8 @@ export function createMock() {
       if (res === 'teachers' && a === 'me') {
         need(u, 'Teacher');
         if (!b2) return dto.teacher(by(teachers, u.teacherId));
-        if (b2 === 'classes' && !c3) return classes.filter(c => c.classTeacherId === u.teacherId).map(dto.cls);
-        if (b2 === 'classes' && seg[4] === 'students') return students.filter(s => s.classId === +c3).map(dto.student);
+        if (b2 === 'classes' && !c3) return classes.filter(c => c.classTeacherId === u.teacherId || courses.some(course => course.teacherId === u.teacherId && course.classId === c.id)).map(dto.cls);
+        if (b2 === 'classes' && seg[4] === 'students') { const cls = by(classes, +c3); if (!cls) throw err(404, 'Class not found'); if (cls.classTeacherId !== u.teacherId && !courses.some(course => course.teacherId === u.teacherId && course.classId === cls.id)) throw err(403, 'You are not assigned to this class'); return students.filter(s => s.classId === +c3).map(dto.student); }
       }
       if (res === 'students' && a === 'me' && b2 === 'attendances') return attendances.filter(x => x.studentId === u.studentId).map(dto.att);
       if (a && /^\d+$/.test(a)) {
@@ -143,12 +143,12 @@ export function createMock() {
         const r = paged(rows.map(dto.att), q); return r;
       }
       if (a === 'take') {
-        need(u, 'Teacher'); const c = by(classes, body.classId); if (!c) throw err(404, 'Class not found'); if (c.classTeacherId !== u.teacherId) throw err(403, 'You are not the teacher of this class');
+        need(u, 'Teacher'); const c = by(classes, body.classId); if (!c) throw err(404, 'Class not found'); if (c.classTeacherId !== u.teacherId && !courses.some(course => course.teacherId === u.teacherId && course.classId === c.id)) throw err(403, 'You are not assigned to this class');
         const d = iso(body.date);
         body.records.forEach(r => { const ex = attendances.find(x => x.studentId === r.studentId && x.classId === c.id && iso(x.date) === d); if (ex) ex.isPresent = r.isPresent; else attendances.push({ id: nid(), studentId: r.studentId, classId: c.id, date: day(body.date).toISOString(), isPresent: r.isPresent }); });
         return { message: 'Attendance recorded successfully' };
       }
-      if (a === 'class') return attendances.filter(x => x.classId === +b2).map(dto.att);
+      if (a === 'class') { need(u, 'Admin', 'Teacher'); const cls = by(classes, +b2); if (!cls) throw err(404, 'Class not found'); if (u.role === 'Teacher' && cls.classTeacherId !== u.teacherId && !courses.some(course => course.teacherId === u.teacherId && course.classId === cls.id)) throw err(403, 'You are not assigned to this class'); return attendances.filter(x => x.classId === +b2).map(dto.att); }
       if (a === 'student') return attendances.filter(x => x.studentId === +b2).map(dto.att);
       if (a === 'statistics' && b2 === 'percentage') { const rows = attendances.filter(x => iso(x.date) === c3.slice(0, 10)); return { percentage: rows.length ? Math.round(rows.filter(x => x.isPresent).length / rows.length * 1000) / 10 : 0 }; }
       if (a === 'statistics' && b2 === 'present') return { presentCount: attendances.filter(x => iso(x.date) === c3 && x.isPresent).length };

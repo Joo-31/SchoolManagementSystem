@@ -39,18 +39,11 @@ namespace SchoolManagementAPI.Repositories
 
         public IEnumerable<Class> GetClassesByTeacherId(int teacherId)
         {
-            // ✅ بنجيب الـ GradeIds بتاعت الكورسات اللي المدرس بيدرسها
-            var gradeIdsFromCourses = _context.Courses
-                .Where(c => c.TeacherId == teacherId)
-                .Select(c => c.GradeId)
-                .Distinct()
-                .ToList();
-
-            // ✅ بنجيب الفصول اللي هو رائدها أو اللي ليها كورسات بيدرسها
             return _dbSet
                 .Include(c => c.Grade)
                 .Include(c => c.ClassTeacher)
-                .Where(c => c.ClassTeacherId == teacherId || gradeIdsFromCourses.Contains(c.GradeId))
+                .Where(c => c.ClassTeacherId == teacherId ||
+                            _context.Courses.Any(course => course.TeacherId == teacherId && course.ClassId == c.Id))
                 .ToList();
         }
         public Dictionary<int, int> GetClassCountByGrade()
