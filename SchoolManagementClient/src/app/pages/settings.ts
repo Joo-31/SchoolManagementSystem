@@ -41,11 +41,13 @@ import { SettingsService } from '../core/settings.service';
       </div>
     </section>
     <section class="panel settings-section"><header><h3>Data</h3></header><div class="settings-actions"><button class="btn" type="button" (click)="exportSettings()">Export settings JSON</button><label class="btn">Import settings JSON<input type="file" accept="application/json,.json" hidden (change)="importSettings($event)"></label><button class="btn danger" type="button" (click)="reset()">Reset to defaults</button></div></section>
+    <section class="panel settings-section"><header><h3>Data Backup</h3><span class="tiny">Download a database backup and uploaded homework files</span></header><div class="settings-actions"><button class="btn primary" type="button" [disabled]="backupBusy() || settings.mode() === 'demo'" (click)="downloadBackup()">@if (backupBusy()) { Generating backup… } @else { Download Full Backup }</button>@if (backupBusy()) { <span role="status" aria-live="polite">Generating backup. This may take a few minutes.</span> }@if (settings.mode() === 'demo') { <span class="tiny">Switch to Live API mode to create a server backup.</span> }</div></section>
     @if (form.dirty) {<div class="save-bar"><span>Unsaved changes</span><button class="btn" type="button" (click)="discard()">Discard</button><button class="btn primary" type="submit" [disabled]="form.invalid || !!bandError() || termsOverlapError()">Save changes</button></div>}
   </form></div>` })
 export class SettingsPageComponent {
   readonly school = inject(SchoolSettingsService); readonly settings = inject(SettingsService); private api = inject(ApiService); private toast = inject(ToastService); private dialogs = inject(DialogService); private router = inject(Router);
   readonly dataBusy = signal(false);
+  readonly backupBusy = signal(false);
   logoError = signal(''); bandText = signal(''); connectionResult = signal(''); baseline!: SchoolSettings;
   form = new FormGroup({ schoolName: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(2), Validators.maxLength(80)] }), shortName: new FormControl('', { nonNullable: true, validators: [Validators.maxLength(20)] }), logo: new FormControl<string | null>(null), tagline: new FormControl('', { nonNullable: true }), address: new FormControl('', { nonNullable: true }), phone: new FormControl('', { nonNullable: true }), email: new FormControl('', { nonNullable: true }), website: new FormControl('', { nonNullable: true }), academicYear: new FormControl('', { nonNullable: true }), weekStartsOn: new FormControl(0, { nonNullable: true }), terms: new FormArray<FormGroup>([]), passMark: new FormControl(50, { nonNullable: true, validators: [Validators.min(0), Validators.max(100)] }), lateThresholdMinutes: new FormControl(10, { nonNullable: true, validators: [Validators.min(0)] }), countExcusedAbsences: new FormControl(false, { nonNullable: true }), language: new FormControl<'English' | 'Arabic'>('English', { nonNullable: true }), dateFormat: new FormControl('d MMM y', { nonNullable: true }), timezone: new FormControl('Africa/Cairo', { nonNullable: true }), defaultTheme: new FormControl<'light' | 'dark' | 'system'>('system', { nonNullable: true }), accentColor: new FormControl('#3D4DF5', { nonNullable: true }), apiMode: new FormControl<'demo' | 'live'>('live', { nonNullable: true }), apiUrl: new FormControl('', { nonNullable: true }) });
   constructor() { this.loadForm(this.school.settings()); }
@@ -65,6 +67,21 @@ export class SettingsPageComponent {
   exportSettings(): void { const blob = new Blob([JSON.stringify(this.value(), null, 2)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'school-settings.json'; a.click(); URL.revokeObjectURL(url); }
   async importSettings(e: Event): Promise<void> { const file = (e.target as HTMLInputElement).files?.[0]; if (!file) return; try { const parsed: unknown = JSON.parse(await file.text()); if (!validateSettingsImport(parsed)) throw new Error('The file is not a valid school settings export.'); this.loadForm(parsed); this.form.markAsDirty(); } catch (err) { this.toast.err((err as Error).message); } }
   async testConnection(): Promise<void> { try { await this.api.get('/grades/count'); this.connectionResult.set('Connection successful.'); } catch (e) { this.connectionResult.set((e as Error).message); } }
+  async downloadBackup(): Promise<void> {
+    if (this.backupBusy() || this.settings.mode() === 'demo') return;
+    this.backupBusy.set(true);
+    try {
+      const blob = await this.api.getBlob('/admin/backup');
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `school-backup-${new Date().toISOString().replace(/[:.]/g, '-')}.zip`;
+      link.click();
+      URL.revokeObjectURL(url);
+      this.toast.ok('Full backup downloaded.');
+    } catch (e) { this.toast.err((e as Error).message || 'Could not generate the backup.'); }
+    finally { this.backupBusy.set(false); }
+  }
   async resetAllData(): Promise<void> {
     if (this.dataBusy() || this.settings.mode() === 'demo') return;
     const confirmed = await this.dialogs.confirm({ title: 'Reset all school data?', text: 'Are you sure? This will delete all school data, including student, teacher, and non-admin user accounts. Admin accounts will remain.', confirm: 'Reset all data', danger: true });

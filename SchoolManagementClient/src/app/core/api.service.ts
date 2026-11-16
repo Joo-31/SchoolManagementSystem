@@ -9,6 +9,7 @@ export class ApiService {
   private http = inject(HttpClient);
 
   get<T = any>(path: string): Promise<T> { return firstValueFrom(this.http.get<T>(path)); }
+  getBlob(path: string): Promise<Blob> { return firstValueFrom(this.http.get(path, { responseType: 'blob' })); }
   post<T = any>(path: string, body: unknown = {}): Promise<T> { return firstValueFrom(this.http.post<T>(path, body)); }
   put<T = any>(path: string, body: unknown = {}): Promise<T> { return firstValueFrom(this.http.put<T>(path, body)); }
   delete<T = any>(path: string): Promise<T> { return firstValueFrom(this.http.delete<T>(path)); }

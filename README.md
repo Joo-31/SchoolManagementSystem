@@ -127,6 +127,11 @@ npm start
 
 Frontend: http://localhost:4200
 
+
+Run with Docker
+
+docker compose up -d --build
+
 🔑 Default Users (Seeded)
 
 
